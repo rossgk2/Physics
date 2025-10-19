@@ -1,0 +1,3 @@
+- TexStudio wasn't configured to use latexmk compiler. So it didn't use latexmkrc, like Overleaf does, to load RNotation.
+- latexmkrc used Unix path syntax and wasn't immediately compatible with my Windows OS. 
+- `mdframed` wasn't loading because latexmkrc didn't use `::` (Unix) or `;;` to specify recursive search through the filesystem.
