@@ -1,0 +1,155 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{RNotation::packages}
+
+\RequirePackage[T2A, T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{lmodern}
+\RequirePackage{hyperref}
+\RequirePackage{graphicx}
+\RequirePackage{float} %for fixing position of tables with [H]
+\RequirePackage[english]{babel}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb} %for bold Greek letters
+\RequirePackage{amsfonts}
+\RequirePackage{tikz-cd}
+\usetikzlibrary{cd}
+\RequirePackage{indentfirst} %indent the first line of each paragraph
+\RequirePackage{comment} %enables the commenting-out of large blocks of text with \begin{comment} and \end{comment}
+\RequirePackage{forloop}
+\RequirePackage{hyperref} %clickable hyperlinks with \url{} 
+\RequirePackage{empheq} %for boxed multi-line equations
+\RequirePackage{aligned-overset} %so that using \overset{\text{helpful hint}}{=} doesn't mess up align environments
+\RequirePackage{cancel} %for striking-through symbols
+%https://trucastuces.wordpress.com/2012/10/10/boxed-equations-in-latex/
+\RequirePackage{ulem} %for strikethrough in the todo list
+\RequirePackage{scrextend} % so that \addmargin{} works
+
+% If you want to use the below, you have to download the kbordermatrix package from this link: http://www.hss.caltech.edu/~kcb/TeX/kbordermatrix.sty.
+%
+%\RequirePackage{kbordermatrix} %for labeling rows/columns of matrices
+%\renewcommand{\kbldelim}{(}% Left delimiter
+%\renewcommand{\kbrdelim}{)}% Right delimiter
+
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+\RequirePackage{amsthm}
+\RequirePackage[framemethod=tikz]{mdframed}
+
+% Define colors
+% xcolor package required for this
+\definecolor{defnbackground}{RGB}{240,240,240}  % light grey
+\definecolor{theorembackground}{RGB}{230,240,255} % light blue
+\definecolor{axiombackground}{RGB}{160,180,220}     % dark blue
+\definecolor{derivbackground}{RGB}{255,236,158}  % beige color
+\definecolor{quotebackground}{RGB}{255,255,204}
+
+%Definitions
+\newtheoremstyle{defn_}{}{}{}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{defn_}
+\newtheorem{defn_inner}{Definition}
+
+\newenvironment{defn}
+  {\begin{mdframed}[
+    backgroundcolor=defnbackground,
+    roundcorner=5pt,
+    linewidth=0pt,
+    innertopmargin=8pt,
+    innerbottommargin=8pt,
+    innerleftmargin=8pt,
+    innerrightmargin=8pt
+  ]\begin{defn_inner}}
+  {\end{defn_inner}\end{mdframed}}
+
+%Axioms
+\newtheoremstyle{axiom_}{}{}{}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{axiom_}
+\newtheorem{axiom_inner}{Axiom}
+
+\newenvironment{axiom}
+  {\begin{mdframed}[
+    backgroundcolor=axiombackground,
+    roundcorner=5pt,
+    linewidth=0pt,
+    innertopmargin=8pt,
+    innerbottommargin=8pt,
+    innerleftmargin=8pt,
+    innerrightmargin=8pt
+  ]\begin{axiom_inner}}
+  {\end{axiom_inner}\end{mdframed}}
+
+%Derivations
+\newtheoremstyle{deriv_}{}{}{}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{deriv_}
+\newtheorem{deriv_inner}{Derivation}
+
+\newenvironment{deriv}
+  {\begin{mdframed}[
+    backgroundcolor=derivbackground,
+    roundcorner=5pt,
+    linewidth=0pt,
+    innertopmargin=8pt,
+    innerbottommargin=8pt,
+    innerleftmargin=8pt,
+    innerrightmargin=8pt
+  ]\begin{deriv_inner}}
+  {\end{deriv_inner}\end{mdframed}}
+
+%Theorems
+\newtheoremstyle{theorem_}{}{}{}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{theorem_}
+\newtheorem{theoremInner}{Theorem}
+
+\newenvironment{theorem}
+  {\begin{mdframed}[
+    backgroundcolor=theorembackground,
+    roundcorner=5pt,
+    linewidth=0pt,
+    innertopmargin=8pt,
+    innerbottommargin=8pt,
+    innerleftmargin=8pt,
+    innerrightmargin=8pt
+  ]\begin{theoremInner}}
+  {\end{theoremInner}\end{mdframed}}
+  
+%Lemmas
+\newtheoremstyle{lemma_}{}{}{}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{lemma_}
+\newtheorem{lemma}{Lemma}
+
+%Corollaries
+\newtheoremstyle{cor_}{}{}{}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{cor_}
+\newtheorem{cor}{Corollary.}
+
+%Remarks
+\newtheoremstyle{remark_}{}{}{}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{remark_}
+\newtheorem{remark}{Remark}
+
+%Examples
+\newtheoremstyle{example_}{}{}{}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{example_}
+\newtheorem{example}{Example}
+
+% Quotes
+\let\oldquote\quote
+\renewenvironment{quote}
+  {\begin{mdframed}[
+    backgroundcolor=quotebackground,
+    roundcorner=5pt,
+    linewidth=0pt,
+    innertopmargin=8pt,
+    innerbottommargin=8pt,
+    innerleftmargin=8pt,
+    innerrightmargin=8pt
+  ]\begin{oldquote}}
+  {\end{oldquote}\end{mdframed}}
+
+\RequirePackage{geometry}
+\geometry
+{
+    a4paper,
+    total={170mm,257mm},
+    left=20mm,
+    top=20mm,
+}

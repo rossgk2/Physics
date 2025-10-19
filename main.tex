@@ -1,0 +1,1418 @@
+\documentclass{article}
+\usepackage{RNotation}
+
+\title{Physics}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Kinematics}
+
+\begin{itemize}
+    \item (Definition). \textit{Position} $\xx$
+    \item (Definition). \textit{Velocity} $\vv := \frac{d\xx}{dt}$, and \textit{acceleration} $\aa := \frac{d\vv}{dt} = \frac{d^2\xx(t)}{dt^2}$.
+\end{itemize}
+
+\newpage
+
+\section*{Translational dynamics}
+
+\subsection*{Preface}
+
+I’ve written this section on translational dynamics (mostly Newton's second law) as a response to the misleading and unsatisfactory explanations I see out there. If you have no prior experience with Newton's laws, this preface won't make a lot of sense to you, and you can safely skip it. All of the relevant material is covered from the ground up after the preface. But in the case you've also been frustrated by typical explanations, I hope this preface can help illuminate precisely what is handled badly, and show the better way.
+
+In the past, my main question on the topic was:
+
+\begin{quote}
+    Why is force $m\aa$ and not $m\vv$? We say forces are ``pushes''. But it seems to me just as intuitive to associate the notion of a ``push'' with $m\vv$, which is mass times the rate of change in position, as it is to associate the notion of a ``push'' with $m\aa$, which is mass times the rate of change in velocity.
+\end{quote}
+
+The answer I’d always find is this disappointing (and lazy) one:
+
+\begin{quote}
+    It’s just a definition! We can define anything we want. The real test is if that definition is useful, and produces a theory that agrees with experiment.
+\end{quote}
+
+To this awful excuse of an answer, I have two things to say.
+
+\begin{enumerate}
+    \item Yes, we \textit{can} technically define anything we want, but ``useful'' definitions have a reason for why they are useful. There is \textit{motivation} for every single one of them.
+    \item And yes, a connection must be made to reality. But the precise nature of that connection can be much better understood than what's suggested by phrase ``it agrees with experiment''. Empirical testing is a way to rule out incorrect theories, not a way to explain fundamental ones.
+\end{enumerate}
+
+\subsubsection*{What seems to be a common view}
+
+I worked out what I thought was the correct understanding, an antidote to this infuriating mindset. My view used to be: 
+
+\begin{quote}
+   We define ``force'' to be $m \aa$, somewhat arbitrarily, and then give another similarly-themed name, ``momentum'', to the quantity $m \vv$. Our choice to refer to $m\aa$ as ``force'' and to refer to $m\vv$ as ``momentum'' is similar to the situation in probability with the words ``probability'', ``likelihood'', and ``odds''. That is, we use similar sounding words that concepts that are of course algebraically related, but not fundamentally conceptually related.
+\end{quote}
+
+This led me to think that the conservation of momentum in an isolated system is a just a matter of parsing definitions, like this:
+
+\begin{quote}
+    \begin{itemize}
+        \item (Definition). We define \textit{force} $\FF := m \aa$ and \textit{momentum} $\pp := m \vv$.
+        \item (Theorem). When mass is constant, the time derivative of momentum coeincidentally happens to be force: $\frac{d\pp}{dt} = \frac{d}{dt}\left(m\vv\right) = m\aa = \FF$.
+        \item (Definition). An isolated system is one experiencing no external net force.
+        \item (Theorem). If there's no net force, there's no change in total momentum. Therefore total momentum is conserved in an isolated system.
+    \end{itemize}
+\end{quote}
+
+And I thought that really, the important thing is that the definition of force leads to a differential equation that determines the position of a particle:
+
+\begin{quote}
+    It doesn't really matter whether we define ``force'' to be $m\aa = m\frac{d^2\xx}{dt^2}$ or $m\vv = m \frac{d\xx}{dt}$, since either definitions can be used to state the same differential equation. For example, the equation of motion
+
+    \begin{align*}
+        -k_1 \frac{d\xx}{dt} = m\frac{d^2\xx}{dt^2},
+    \end{align*}
+
+    which makes use of force, $m \frac{d^2\xx}{dt^2}$, is equivalent\footnotemark to the equation of motion
+
+    \begin{align*}
+        k_2 e^{-k_1 t/m} = m\frac{d\xx}{dt},
+    \end{align*}
+
+    which makes use of momentum, $m \frac{d\xx}{dt}$.
+
+    Of course, in this example- and pretty much any other you can come up with- it seems much more practical to intuit the equation that's written in terms of $m \aa = m \frac{d^2\xx}{dt^2}$. But that's only a heuristic justification for ``force'' being $m\aa$, not a theoretical one.
+\end{quote}
+
+\footnotetext{Assuming the necessary initial conditions are known.}
+
+It seems to me that this interpretation- that the connection between ``force'' and $m\aa$ is somewhat arbitrary, that the important thing is that equations of motion formulated using $m\aa$ determine unique position functions- is pretty popular. The prevalent approach I see\footnote{Vladimir Arnold's \textit{Mathematical Methods of Classical Mechanics} and David Tong's lecture notes (\url{https://www.damtp.cam.ac.uk/user/tong/relativity/one.pdf}) both follow versions of this approach.} is to define the force  $\FF$ on a particle to be the function that determines $m\aa$ for the particle, while assuming that this function can only depend on $\xx$ and $\vv$ (since that is what's observed in practice):
+
+\begin{align*}
+    \text{The \textit{net force} $\FF_{\text{net}}$ is the function such that } \FF_{\text{net}}(\xx(t), \vv(t)) = m \frac{d^2\xx}{dt^2}\Big|_t \text{ for all $t$}.
+\end{align*}
+
+\subsubsection*{The subtle problem with the common view}
+
+Thankfully, I have recently discovered that this approach in which the connection between ``force'' and $m\aa$ is seen as somewhat arbitrary is \textit{not at all the best way to understand things}! There was a key mistake in my approach. From what I can tell, the same mistake is very commonly made by theoreticians who are trying to avoid assuming unnecessary axioms by cleverly restructuring the axioms into definitions.
+
+The mistake, quite subtle, was this definition:
+
+\begin{quote}
+    (Definition). An isolated system is one experiencing no external net force.
+\end{quote}
+
+This definition comes right after the definition $\FF := m\aa$, so it is really
+
+\begin{quote}
+    (Definition). An isolated system is one experiencing no external net $m\aa$.
+\end{quote}
+
+If one doesn't have a good reason for why ``force'' is $m\aa$, then this definition is just as arbitrary as the definition of ``force''! So, when we use the above definition, we unjustly \textit{assume} that the systems we look at in the real world and deem to be isolated are the same systems that experience no net $m\aa$. 
+
+The only way to be assured of this is to assume it. And we could do this. But we have no good reason to, because we have no good reason to define ``force'' as $m\aa$! No wonder everything seems like definition-parsing and coincidence in this approach!
+
+\subsubsection*{The heart of the matter: conservation of momentum}
+
+To properly handle the notion of ``isolated system'', we actually need to use a much more vague definition, like this:
+
+\begin{itemize}
+    \item (Definition). An isolated system is a system that is not subject to any influences outside of its boundaries.
+\end{itemize}
+
+We use this sort of vague definition to remind ourselves that the idea of an isolated system is very tangible. And this tangibility allows us to look at old facts with new eyes: the conservation of momentum for isolated systems, previously uninteresting, is now \textit{fundamental}, because, if we imagine we forgot the definition of ``force'' and ``momentum'', we would still empirically know this axiom to be true!
+
+\begin{itemize}
+    \item (Axiom). The sum $\sum_i m_i \vv_i$ is conserved in an isolated system.
+\end{itemize}
+
+In fact, the \textit{only} way we can be sure of it is by experiment. It must be an observation, an axiom, not a theorem that can be derived!
+
+We can now see that this observation- which identifies precisely what property of objects is fundamental to motion- is starkly true, a pure property of the universe, not merely true in the definition-parsing sense I thought it was. The ``quantity of motion'', which is $\sum_i m_i \vv_i$, not force, is what should be investigated first. Of course, in modern terminology says \textit{momentum} instead of ``the quantity of motion''.
+
+Only after knowing what the quantity of motion is should we define the \textit{force} on a particle to be the impetus that changes its quantity of motion; he defined the net force $\FF_{\text{net}}$ on a system to be $\FF_{\text{net}} := \frac{d}{dt} \sum_i m_i \vv_i$. Thus, since the mass of a particle is constant, the force $\FF_{\text{net}}$ on a particle is the time derivative of the quantity of motion,
+
+\begin{align*}
+    \FF_{\text{net}} := \frac{d\pp}{dt} = \frac{d}{dt}(m\vv) = m\aa.
+\end{align*}
+
+Having discovered why force is fundamentally tied to acceleration, we can now meaningfully prove what was once wrongfully used as a definition:
+
+\begin{itemize}
+    \item (Theorem). An isolated system is one experiencing no net force.
+    
+    \indent \textit{(Proof).} When a system is isolated, $\sum_i \pp_i$ is constant, and thus the net force $\FF_{\text{net}}$ on the system is $\FF_{\text{net}} := \frac{d}{dt}\sum_i \pp_i = \frac{d}{dt}(\textbf{const}) = \mathbf{0}$.
+\end{itemize}
+
+So, the terms ``momentum'' and ``force'' are much more intentionally chosen than I thought. \textit{Momentum} is shorthand for ``quantity of motion''. \textit{Force} is that which changes the quantity of motion. It’s not at all like the situation with ``probability'', ``likelihood'', and ``odds''!
+
+\subsubsection*{Some last words}
+
+The above gives the gist of things, but it's actually not complete. A truly complete definition of isolated system acknowledges the reference frame that the isolated system is viewed from. This detail is less difficult to pin down, so I won't go into it here. I have sorted it out, along with many others, below, in what I find to be a very satisfying derivation of the fundamentals of classical mechanics. I hope it can prove helpful to someone.
+
+\newpage
+
+\subsection*{Newton's first and second laws}
+
+There are many frames of reference from which we can observe physical phenomena. One we're all familiar with is that of the ground on Earth. From our familiar ``ground frame'', we can observe things like the trajectories of balls thrown in sports, paths of cars motoring down the road, and the flight of airplanes through the sky. 
+
+Of course, our perspective is not absolute! It is taken \textit{relative} to our frame of reference! (We say our perspective is \textit{relative}, for short.) For every trajectory we observe from our ground frame, there is a frame following that trajectory from which we could view the world; for every ship the ground frame perceives to traveling down a river, there is someone on the ship watching the world move around them. 
+
+From our experience, we know that the laws of physics are the same in pretty much all of these frames. In 1632, Galileo remarked\footnote{In his book \textit{Dialogue Concerning the Two Chief World Systems}.} how the laws of physics on board a ship seem identical to the laws of physics on the ground frame:
+
+\begin{quote}
+    Shut yourself up with some friend in the main cabin below decks on some large ship....
+    
+    ....in throwing something to your friend, you need throw it no more strongly in one direction than another, the distances being equal; jumping with your feet together, you pass equal spaces in every direction. When you have observed all these things carefully (though doubtless when the ship is standing still everything must happen in this way), have the ship proceed with any speed you like, so long as the motion is uniform and not fluctuating this way and that. You will discover not the least change in all the effects named, nor could you tell from any of them whether the ship was moving or standing still.
+\end{quote}
+
+Notice how Galileo accounted for another fact we experience, which is that when a frame of reference is ``fluctuating this way and that'' relative to an impartial one like the ground frame, the erratic motion of the moving frame of reference influences the laws of physics so that they are no longer quite the same as in the ground frame.
+
+Recognizing the possibility of such erratic motion, the first order of business in dynamics is to formalize the assumption that there does in fact exist a set of universal physical laws that can be deviated from in the first place. This is called the \textit{principle of relativity}. Frames of reference, or \textit{reference frames}, that perceive that set of laws to occur without alteration are then called \textit{inertial}.
+
+\begin{axiom}
+    (The principle of relativity).
+
+    There exists a set of physical laws and a set of reference frames, called the \textit{inertial reference frames}, that all perceive the physical laws to be obeyed. Traditionally, it is said that ``the laws of physics are independent of inertial reference frame''.
+\end{axiom}
+
+Even though we technically already defined inertial frames in the above axiom, we give the following definition of inertial frames, as it can aid intuition.
+
+\begin{defn}
+    (Intuitive definition of an inertial reference frame).
+    
+    Intuitively, an inertial reference frame is a reference frame that does not observe the universal physical laws to be altered by influences that result from the motion of the frame through space.
+\end{defn}
+
+Since we can imagine any frame to be taking any trajectory through space (by imagining space to be taking the reverse trajectory around the frame), you might wonder how there can be only a single motion, and thus a single motion-induced influence (or lack thereof), contributing to the physical laws obeyed by any frame. Wouldn't it be the case that a frame is inertial from some perspectives but not others?
+
+This is prevented by the principle of relativity.
+
+\begin{theorem}
+    The inertialness of a frame does not depend on other frames.
+\end{theorem}
+
+\begin{proof}
+    If a frame $F$ could be inertial from one perspective but not from others, then the laws of physics that $F$ experiences would vary as the frame $F$ is taken relative to varies. The principle of relativity says that the laws of physics that $F$ experiences must be independent of frame, so this cannot happen.
+\end{proof}
+
+The practical implication of this is that- no matter all of the dizzying ways we can imagine a frame to be traveling through space- at the end of the day, the ground frame is either inertial, or it is not. Since in reality we do perceive the ground frame to be approximately inertial, a good way to proceed is to assume that it is. In fact, this assumption is \textit{Newton's first law}.
+
+\begin{axiom}
+    (Newton's first law).
+    
+    The ground frame is inertial.
+\end{axiom}
+
+Of course, Galileo observed that a ship traveling with constant velocity relative to the ground frame also seems to be inertial. This suggests to us that how we might obtain other inertial frames from a frame already determined to be inertial: perhaps frames (like the ship) traveling with constant velocity relative to an inertial frame (like the ground frame) are also inertial. This is true, but we’re not ready to prove it yet\footnote{See Theorem \ref{thm_family_inertial_frames_constant_velocity}.}.
+
+Anyhow, we can now safely consider physics without having to worry that the frame we use for our analysis will introduce influences that mess with our observation. To set up our study of physics, we quickly give formal definitions of the objects we will consider.
+
+\begin{defn}
+    (Particle).
+
+    A \textit{particle} is an object so small that it cannot be divided into smaller objects, and that therefore has mass that is constant with respect to time. We say that the mass of a particle is simply \textit{constant}, for short.
+\end{defn}
+
+\begin{defn}
+    (Physical system).
+
+    A \textit{physical system}, or \textit{system}, is a collection of particles.
+\end{defn}
+
+There are still some extraneous influences to separate ourselves away from, however; hence the next definition. 
+
+\begin{defn}
+    (Isolated system, isolated particle).
+
+    A physical system is said to be \textit{isolated}, if and only if, from the perspective of an inertial frame, it is not subject to any influences outside of its boundaries.
+
+    A particle is said to be \textit{isolated} if and only if the single-particle system consisting of only the particle is an isolated system. 
+\end{defn}
+
+Now that we're done removing obfuscating influences from our analysis, we can get to the heart of the matter, which is: when an inertial frame observes an isolated system, what is the Law of Nature governing systems and the particles within them? 
+
+Before we state it, I should say: the Law is indeed marvelous. And we're lucky that it involves relatively simple concepts- one could imagine a universe in which it can't be formulated in such a simple way. Indeed, there is an analog to the Law for rotational motion  that can be derived from the Law, which involves a slightly more complicated concept\footnote{The analog is the law of conservation of angular momentum, and the more complicated concept it involves is the cross product.} than the Law. As a result of it being more complicated, was only first understood about 200 years after Newton's statement of the Law.
+
+Without further ado, we present the Law, which Newton determined through experiment, building on top of the work of theorists like Descartes. The Law simply states that, when viewed from an unbiased perspective, a certain ``quantity of motion'' is conserved.
+
+\begin{axiom}
+\label{N2_part1_axiom}
+    (Axiomatic part of Newton's second law for a system).
+    
+    From the perspective of an inertial frame, the sum $\sum_i m_i \vv_i$ is conserved in every isolated system.
+\end{axiom}
+
+Newton referred to the sum $\sum_i m_i \vv_i$ as \textit{the quantity of motion}. It deserves to be called ``\textit{the} quantity'' because it's conserved; it deserves to be called ``of motion'' because it depends on things which seem fundamental to motion like mass and velocity.
+
+Working backwards, we can see that if $\sum_i m_i \vv_i$ is the quantity of motion for a system, then $m_i \vv_i$ should be the quantity of motion for a particle. In modern terminology, we say \textit{momentum} instead of ``quantity of motion''. Thus, the \textit{momentum} of a particle with mass $m_i$ and velocity $\vv_i$ is $\pp_i := m_i \vv_i$, and the momentum of a system is $\sum_i \pp_i$.
+
+\begin{defn}
+    (Momentum).
+
+    Consider any reference frame, and suppose a particle has mass $m$ and velocity $\vv$ from the perspective of that frame. Then the \textit{momentum (from the perspective of that frame)} $\pp$ of a particle with mass $m$ and velocity $\vv$ is $\pp := m \vv$.
+\end{defn}
+
+With this new ``momentum'' terminology, Newton's second law can be restated as:
+
+\begin{axiom}
+    \label{N2_part1_restated_momentum}
+    (Axiomatic part of Newton's second law for a system, in terms of momentum).
+    
+    From the perspective of an inertial frame, the total momentum $\sum_i \pp_i$ is conserved in every isolated system.
+\end{axiom}
+
+Another reason that momentum, the quantity of motion, deserves to be called ``of motion'' is that it \textit{determines} the motion of isolated particles. The next theorem describes how isolated particles behave when we view them from an unbiased perspective.
+
+\begin{theorem}
+    \label{thm_isolated_particle_constant_velocity}
+    From the perspective of an inertial frame, every isolated particle has constant velocity. 
+\end{theorem}
+
+\begin{proof}
+    Consider a isolated particle, and suppose that from the perspective of an inertial frame, it has mass $m$ and velocity $\vv$. Since the particle is isolated, its momentum $\pp = m\vv$ is constant. We also have $\vv = \frac{\pp}{m}$. Since $\pp$ is constant, and since the mass of a particle is constant, then $\vv$ is also constant.
+\end{proof}
+
+What about particles that aren't isolated, particles that are being influenced- pushed or pulled- by what we might call a \textit{force}? Those are the most interesting ones. Strictly speaking, the Law doesn't actually determine the motion of such particles, but it \textit{strongly} suggests an approach, since it tells us what the quantity of motion is: if we can measure a change in the particle's quantity of motion over time, then we'll be able to determine the particle's new quantity of motion, and thus determine the particle's new velocity! The idea to measure the the change in the quantity of motion- the \textit{force}- affecting a particle is captured in this definition:
+
+\begin{defn}
+\label{N2_part1_defn}
+    (Definition part of Newton's second law for a particle).
+
+    The \textit{net force} $\FF_{\text{net}}$ an inertial frame perceives to be exerted on a particle with momentum $\pp$ is
+
+    \begin{align*}
+        \FF_{\text{net}} := \frac{d\pp}{dt} = \frac{d}{dt}(m\vv) = m\aa.
+    \end{align*}
+
+    The last equation follows because the mass of a particle is constant. Overall,
+
+    \begin{align*}
+        \FF_{\text{net}} = m\aa.
+    \end{align*}
+\end{defn}
+
+Before we actually use the concept of force to calculate motion, though, let's pause for a moment to notice how we might recast conservation of momentum for systems in this new language of forces. First, we simply define the net force on a system to be the change in momentum over time of that system.
+
+\begin{defn}
+\label{N2_part2_system}
+    (Definition part of Newton's second law for a system).
+
+    The \textit{net force} an inertial frame perceives to be exerted on a system with total momentum $\sum_i \pp_i$ is $\FF_{\text{net}} := \frac{d}{dt} \sum_i \pp_i = \sum_i \frac{d\pp_i}{dt} =  \sum_i \FF_{\text{net}, i}$, where $\FF_{\text{net}, i} = m_i \aa_i$ is the net force on a particle.
+\end{defn}
+
+Then we can recast Newton's second law so that instead of being about conservation of momentum, it's about having zero net force applied.
+
+\begin{axiom}
+    \label{N2_part1_restated_force}
+    
+    (Axiomatic part of Newton's second law for a system, in terms of force).
+    
+    From the perspective of an inertial frame, the net force $\FF_{\text{net}} := \sum_i \FF_{\text{net}, i}$ on every isolated system is $\mathbf{0}$.
+\end{axiom}
+
+\begin{proof}
+    We prove the equivalence of Axioms \ref{N2_part1_restated_momentum} and Axioms \ref{N2_part1_restated_force}. We have: Axiom \ref{N2_part1_restated_force} $\iff$ the net force $\FF_{\text{net}} := \sum_i \FF_{\text{net}, i}$ on every isolated system is $\mathbf{0}$ $\iff$ $\frac{d}{dt} \sum_i \pp_i = \mathbf{0}$ for every isolated system $\iff$ $\sum_i \pp_i$ is conserved for every isolated system $\iff$ Axiom \ref{N2_part1_restated_momentum}. 
+\end{proof}
+
+Now finally, as promised, it's time to make use of forces. We consider a particle whose quantity of motion is being changed by some force, and use our measurement of the force to determine the particle's motion.
+
+We present two derivations: one for a simpler, but illustrative, case in which it's easier to determine the motion of the particle; one for the general case. After you understand the simpler case, you pretty much understand the general case, so don't worry!
+
+\begin{deriv}
+    (Using Newton's second law to determine the motion of a particle- simpler case).
+
+    Suppose we know the net force $\FF_{\text{net}}$ an inertial frame perceives to be applied to a particle. By the definition which is Newton's second law, this net force is equal to the time derivative of the particle's momentum. We know that since a particle has constant mass, that time derivative is equal to $m \aa$, the product of the particle's mass and acceleration, so
+    
+    \begin{align*}
+        \FF_{\text{net}} = m \aa.
+    \end{align*}
+
+    In this derivation we consider the simpler case in which the net force $\FF_{\text{net}}$ can be expressed as a function of time $t$ only, and need not be expressed as a function of quantities such as the particle's position $\xx$, or the particle's velocity $\vv$.
+    
+    In this case, after making functional dependencies more explicit, we have
+    
+    \begin{align*}
+        \FF_{\text{net}}(t) = m \aa(t).
+    \end{align*}
+    
+    To get at the position $\xx(t)$, we first solve for the second time derivative of position, which is the acceleration $\aa(t)$,
+    
+    \begin{align*}
+        \aa(t) = \frac{\FF_{\text{net}}(t)}{m}.
+    \end{align*}
+    
+    We integrate\footnotemark the acceleration $\aa(t)$ to find the velocity $\vv(t)$:    
+    
+    \begin{align*}
+        \vv(t) = \int_{t_1}^t \frac{d\vv(t)}{dt} dt + \vv(t_1) = \int_{t_1}^t \aa(t) dt + \vv(t_1), \text{ where $\aa(t) = \frac{\FF_{\text{net}}}{m}$}.
+    \end{align*}
+    
+    And we integrate\footnotemark the velocity $\vv(t)$ to find the position $\xx(t)$:
+    
+    \begin{align*}
+        \xx(t) = \int_{t_2}^t \frac{d\xx(t)}{dt} dt + \xx(t_2) = \int_{t_2}^t \vv(t) dt + \xx(t_2).
+    \end{align*}
+
+    So, we see that, in this simpler case, at least, Newton's second law does in fact determine the motion of the particle.
+\end{deriv}
+
+\addtocounter{footnote}{-2}
+\stepcounter{footnote}\footnotetext{Of course, we have to know the velocity at some point in time (we need to know $\vv(t_1)$ for some $t_1$) to fully determine the integral.}
+\stepcounter{footnote}\footnotetext{Of course, we have to know the position at some point in time (we need to know $\xx(t_2)$ for some $t_2$) to fully determine the integral.}
+
+Now, onto the general case.
+
+\begin{deriv}
+    (Using Newton's second law to determine the motion of a particle- more complicated case).
+
+    In the general case, we can't assume that the net force $\FF_{\text{net}}$ an inertial perceives to be applied to the particle is only a function of time $t$. The force of gravity, for example, depends on the particle's position $\xx$ in space (the closer the particle is to the Earth, the more pull it feels), and the force of air resistance depends on the particle's velocity (the faster the particle flies through the air, the more more the air pushes back against it). So, in the general case, we may be looking at an equation like
+
+    \begin{align*}
+        \FF_{\text{net}}(\xx, \vv, t) = m\aa(\xx, \vv, t).
+    \end{align*}
+
+    Rewriting acceleration as the second time derivative of position gives a little clarity here. Doing so, the above becomes
+
+    \begin{align*}
+        \FF_{\text{net}}(\xx, \vv, t) = m \frac{d^2 \xx}{dt}\Big|_{\xx, \vv, t}.
+    \end{align*}
+
+    This is a \textit{differential equation} in the function $t \mapsto \xx(t)$. It can be solved for $\xx(t)$, just as algebraic equations such as $ax^2 + bx + c = 0$ can be solved for the variable $x$.
+
+    When the acceleration was expressible as a function of time only, our technique of integrating acceleration to obtain velocity and then integrating velocity to obtain position was actually a way of solving a differential equation. Of course, the differential equation above is more complicated than the one from the constant mass case, so the same integration technique won't work.
+    
+    Rest assured, though, the theory of differential equations guarantees that as long as the net force $\FF_{\text{net}}$ is a reasonable and not too crazy, there will indeed Platonically exist\footnotemark a unique position function $t \mapsto \xx(t)$ that solves the equation\footnotemark.
+\end{deriv}
+
+\addtocounter{footnote}{-2}
+\stepcounter{footnote}\footnotetext{It \textit{will} platonically exist! But if $\FF_{\text{net}}$ is complicated, coming up with a formula $t \mapsto \xx(t)$ may not be possible.}
+\stepcounter{footnote}\footnotetext{Technically, the theory of differential equations only guarantees existence of a unique position function $t \mapsto \xx(t)$ solving the equation for some \textit{interval} of $t$ values. Usually, this interval is $(-\infty, \infty)$.}
+
+\subsection*{More on inertial frames, and the original form of Newton's first law}
+
+Our definition of inertial frame was a bit vague. As was discussed in the preface, it had to be that way in order to keep the notion tangible, and avoid a theory that is disconnected from reality. We now wrangle that definition into something essentially logically equivalent\footnote{It's not logically equivalent because we didn't include the forward direction $\implies$ that's included in the theorem we state here.}, but that seems like a better heuristic test.
+
+\begin{theorem}
+\label{thm_inertial_frame_concrete_characterization}
+    (A more concrete characterization of inertial frames).
+    
+    A frame is inertial if and only if it perceives isolated particles to have constant velocity.
+\end{theorem}
+
+\begin{proof}
+    \mbox{} \\ \indent
+    ($\implies$). This is Theorem \ref{thm_isolated_particle_constant_velocity}.
+    
+    ($\impliedby)$. An equivalent statement is the contrapositive, which is ``if a frame perceives isolated a particle to have time-dependent velocity, then the frame is non-inertial''. This statement is equivalent to the vague definition of inertial frame we gave.
+\end{proof}
+
+We also finally show that Galileo's ship, so long as it moves at constant velocity, is also an inertial frame, like he thought.
+
+\begin{theorem}
+\label{thm_family_inertial_frames_constant_velocity}
+    Any frame moving with constant velocity relative to an inertial frame is also inertial.
+\end{theorem}
+
+\begin{proof}
+    (The following is a proof sketch, not a fully rigorous proof). 
+    
+    Let $G$ be a frame moving with constant velocity relative to an inertial frame $F$. We want to show that $G$ is also inertial. 
+    
+    Since $G$ doesn't introduce its own nonzero acceleration to the situation, the acceleration $G$ that perceives isolated particles to have is the same acceleration as $F$ that perceives isolated particles to have, which is zero. So, $G$ perceives isolated particles to have zero acceleration, i.e., constant velocity. This means $G$ is inertial.
+    
+    % This is what we'd use for the full proof. Except chagne this derivation so that \ff_1(t), \ff_2(t), \ff_3(t) are replaced with \ff_1, \ff_2, \ff_3, which don't vary with time. No need to assume time-dependence up front since we assume time-independence later.
+
+    % Let $F(t) = ((\ff_1(t), \ff_2(t), \ff_3(t)), \xx_{F}(t))$, and consider another frame $G$ of $\R^3$ given by $G(t) = ((\gg_1(t), \gg_2(t), \gg_3(t)), \xx_{G}(t))$. Let $\xx:\R \rightarrow \R^n$ be the path of a particle. We have
+
+    % \begin{align*}
+    %     m \frac{d^2[[\xx(t)]]_{F(t)}}{dt^2}
+    %     &= m \frac{d^2}{dt^2}\Big(\xx_{G}(t) - \xx_{F}(t) + [[\xx(t)]]_{G(t)} \Big)
+    %     \\
+    %     &= m \frac{d^2}{dt^2}\Big(\xx_{G}(t) - \xx_{F}(t) + \sum_{i = 1}^3 z_i(t) \gg_i(t) \Big) \text{ for some $z_1, z_2, z_3: \R \rightarrow \R$} \\
+    %     &= m \frac{d}{dt}\Big(\frac{d(\xx_{G}(t) - \xx_{F}(t))}{dt} + \sum_{i = 1}^3  \Big[\frac{dz_i(t)}{dt} \gg_i(t) + z_i(t) \frac{d \gg_i(t)}{dt}\Big]\Big) \\
+    %     &= m \frac{d}{dt}\Big(\frac{d(\xx_G(t) - \xx_F(t))}{dt} + \sum_{i = 1}^3  \frac{dz_i(t)}{dt} \gg_i(t) + \sum_{i = 1}^3 z_i(t) \frac{d \gg_i(t)}{dt}\Big) \\
+    %     &= m \Big(\frac{d^2(\xx_G(t) - \xx_F(t))}{dt^2} + \sum_{i = 1}^3  \Big[ \frac{d^2 z_i(t)}{dt^2} \gg_i(t) + \frac{dz_i(t)}{dt} \frac{\gg_i(t)}{dt}\Big] + \sum_{i = 1}^3 \Big[ \frac{dz_i(t)}{dt} \frac{d \gg_i(t)}{dt} + z_i(t) \frac{d^2 \gg_i(t)}{dt^2} \Big]\Big) \\
+    %     &= m \Big(\frac{d^2(\xx_G(t) - \xx_F(t))}{dt^2} + \sum_{i = 1}^3 \frac{d^2 z_i(t)}{dt^2} \gg_i(t) +
+    %     2 \sum_{i = 1}^3 \frac{dz_i(t)}{dt} \frac{d\gg_i(t)}{dt} + \sum_{i = 1}^3 z_i(t) \frac{d^2 \gg_i(t)}{dt^2} \Big) \\
+    %     &= m \Big(\frac{d^2(\xx_G(t) - \xx_F(t))}{dt^2} + [[\aa(t)]]_{G(t)} +
+    %     2 \sum_{i = 1}^3 \frac{dz_i(t)}{dt} \frac{d\gg_i(t)}{dt} + \sum_{i = 1}^3 z_i(t) \frac{d^2 \gg_i(t)}{dt^2} \Big).
+    %     \end{align*}
+
+    %     The first term inside the parentheses is the relative acceleration between the frames $F$ and $G$. The second term inside the parentheses is the acceleration as seen by frame $G$. The latter two terms inside the parentheses, containing time derivatives of $G$'s axes, are related to the rotation of $G$.
+\end{proof}
+
+\subsection*{Newton's third law}
+
+So far, we've very discussed the principle of relativity, Newton's first law, and Newton's second law. Laying this foundation required care and subtlety! We had to think deeply about axioms, on how vague definitions can actually help, and on how extremely fundamental definitions (which might seem like theorems) express intuition. This is most of the work in establishing a good understanding of Newtonian mechanics. Now that we have a good foundation, we won't have to be as precise. And, funnily enough, even though it is one of ``Newton's laws'', Newton's third law doesn't require as much subtlety! Below, we just derive it from the second law.
+
+\begin{theorem}
+    (Newton's third law).
+
+    Consider particles $p_i$ and $p_j$ that are initially isolated but eventually collide. If the the force applied by $p_i$ on $p_j$ as $\FF_{ij}$, then we have $\FF_{ij} = -\FF_{ji}$.
+\end{theorem}
+
+\begin{proof}
+    Since they are isolated, the particles $p_i$ and $p_j$  constitute an isolated system. Thus the total momentum $\pp_i + \pp_j$ is constant, and the time derivative of the total momentum is the zero vector at all times, including the time $t_0$ at which the collision occurs:
+
+    \begin{align*}
+        \frac{d\pp_i}{dt}\Big|_{t = t_0} + \frac{d\pp_j}{dt}\Big|_{t = t_0} = \mathbf{0}.
+    \end{align*}
+
+    We consider the terms on the left of the above equation. For the sake of analyzing them, let $\Delta t$ be a time interval centered around $t_0$. Then $\frac{\Delta \pp_i}{\Delta t}$ is approximately the time-rate of the momentum transfer to $p_i$ from $p_j$. As we let $\Delta t \rightarrow 0$, then $\frac{\Delta \pp_i}{\Delta t} \rightarrow \frac{d\pp_i}{dt}\Big|_{t_0}$, which is exactly the instantaneous time-rate of momentum transfer to $p_i$ from $p_j$. In other words $\frac{d\pp_i}{dt}\Big|_{t_0} = \FF_{ji}$. Similarly, $\frac{d\pp_j}{dt}\Big|_{t_0} = \FF_{ij}$. So the above is equivalent to
+
+    \begin{align*}
+        \FF_{ji} + \FF_{ij} = \mathbf{0},
+    \end{align*}
+
+    which is equivalent to the claim.
+\end{proof}
+
+Newton's third law is a little tough to see in the real world. This is because of friction. When you push on a wall, the wall pushes back on you, but it's hard to see it because the friction between your feet and the floor matches the force of the wall's push on you, thus preventing you from sliding backwards. To obviously see the effects of the wall pushing back on you, there has to be less friction: you could wear socks while standing on a smooth polished floor, or try the experiment in an ice rink.
+
+\subsection*{Summary of Newton's laws}
+
+Now we know the fundamentals of classical mechanics:
+
+\begin{itemize}
+    \item The \textit{principle of relativity} is the axiom that there exists a set of physical laws and a set of reference frames, called the \textit{inertial reference frames}, that all perceive the physical laws to be obeyed.
+    \item \textit{Newton's first law} is the axiom that the ground frame is an inertial frame.
+    \item \textit{Newton's second law} is the axiom that inertial reference frames perceive that momentum is conserved in isolated systems, coupled with the definition of force as the time derivative of momentum.
+    \item \textit{Newton's third law} is the theorem (following from the second law) that when one object applies a force to another, the other applies an ``equal and opposite force'' back on the one.
+\end{itemize}
+
+It's interesting to compare our understanding of Newton's laws to Newton's original understanding of them, so we do this now.
+
+\subsubsection*{The original version of Newton's first law}
+
+This is a modern translation of the original version of Newton's first law:
+
+\begin{quote}
+    Particles maintain constant velocity except when acted upon by a force.
+\end{quote}
+
+The statement seems a bit pointless, since it’s implied by the second law: the net force on a particle is the product of its mass and acceleration, so, if there's no net force, there can be no acceleration, i.e., the particle's velocity must be constant.
+
+The true spirit of the first law, and Newton's intent, was to communicate that the natural state of an object is \textit{relative rest}, i.e, rest relative to some inertial frame, not \textit{absolute rest} relative to some chosen inertial frame. Absolute rest cannot be a valid concept, because, as we've recently learned, there is no ``special'' frame- only a special collection of frames!
+
+\subsubsection*{The original version of Newton's second and third laws}
+
+We established the second and third laws in the following way:
+
+\begin{itemize}
+    \item Assume conservation of momentum as an axiom.
+    \item Define the net force on a system, $\FF_{\text{net}} := \frac{d}{dt} \sum_i \pp_i$.
+    \item Derive the third law, $\FF_{ij} = -\FF_{ji}$, from conservation of momentum.
+\end{itemize}
+
+We phrased things this way because it seems most intuitive to define net force as the time derivative of the total quantity of motion only once we know what the quantity of motion is. Newton didn't quite do this! He defined force first, assumed the third law (rather than conservation of total momentum) as an axiom, and then used the third law to derive the conservation of momentum.
+
+\begin{itemize}
+    \item (Newton's second law). Define the force on a particle, $\FF := \frac{d\pp}{dt}$.
+    \item (Newton's third law). Assume $\FF_{ij} = -\FF_{ji}$ as an axiom.
+    \item (Corollary). Derive conservation of momentum from the third law.
+\end{itemize}
+
+\section*{Work on subtle assumptions of classical mechanics}
+
+\subsection*{Absolute time $\iff$ instantaneous interactions}
+
+\begin{theorem}
+    \label{thm_absolute_time_instantaneous_interactions}
+    (Absolute time $\iff$ instantaneous interactions).
+
+    Time is independent of inertial frame if and only if the speed at which interactions propagate is infinite. 
+\end{theorem}
+
+\begin{proof}
+    \mbox{} \\ \indent
+    ($\implies$). If the notion of time is independent of inertial frame, i.e., if the times $t_F$ and $t_G$ that inertial frames $F$ and $G$ perceive to elapse are equal, $t_F = t_G$, for all inertial frames $F$ and $G$, then position and its derivatives transform in the way of classical mechanics. In particular, if frame $F$ travels with relative velocity $V_F$ parallel to an inertial frame $G$, then a velocity $v$ in frame $F$ transforms to $G$ as $v \mapsto v + V_F$.
+
+    By the principle of relativity, the velocity $c$ at which interactions propagate is frame-independent, so $c = c + V_F$ for all $F$. This necessitates $c = \infty$, i.e., that interactions be instantaneous.
+    
+    ($\impliedby$). Consider an inertial frame $F$ in which\footnote{As long as an inertial frame exists and an isolated particle exists, such a frame is guaranteed to exist.} an isolated particle $p$ has constant \textit{nonzero} velocity $v_F$. Let $t_F$ denote the time that $F$ perceives to pass. We can define $d(t_F) := v_F t_F$ to be the distance $F$ perceives $p$ to travel after $F$ perceives a time of $t_F$ to elapse.
+
+    If interactions are instantaneous, then any other inertial frame $G$ will agree with $F$ on the time it takes $d$ to achieve a certain value; letting $t_F$ and $t_G$ be the times each frame perceives to elapse, we have $d(t_f) = d(t_G)$. Since $d$ is an invertible function, this implies $t_F = t_G$, showing that all inertial frames $G$ experience the same time as $F$. In other words, time is independent of inertial frame.
+\end{proof}
+
+\subsection*{Machian ideas: everything should be relative}
+
+\subsubsection*{The distant stars}
+
+After we have a more concrete idea of exactly what the ``influences'' that can bias frames (and which do not bias inertial frames) are, and know that they are $m\aa$, it becomes clear that rotating frames are not inertial because, relative to an inertial frame, they have nonzero $\aa$. If we take Newton's assumption that the distant stars give an inertial frame, then since the Earth rotates relative to the distant stars, the ground frame cannot be inertial.
+
+Newton recognized this, and only assumed the ground frame is inertial when performing experiments on the surface of the Earth that also have a scale insignificant to the size of the Earth. For matters which required a frame even closer to inertial than the ground frame, such as the observation of the motion of planets, Newton considered measurements relative to the \textit{distant stars}. Thus he used the distant stars as his inertial reference frame.
+
+\subsubsection*{Confusion}
+
+Why is the reference frame of the distant stars so special, though? The distant stars are conceptually equivalent to a particle of zero mass that is thought of as ``stationary'', and with which the Earth rotates with respect to. But a particle with zero mass might as well not be there at all. So, the distant stars are conceptually equivalent to an arbitrary reference frame $F$.
+
+We know that the ground frame is non-inertial. We also know that the ground frame can only experience one unique set of non-inertial physical laws, otherwise the principle of relativity would be violated. The question I have is: \textit{why} are the particular non-inertial physical laws that the ground frame experiences the ones that indicate it's rotating relative to a relatively arbitrary-seeming frame, $F$?
+
+I think my confusion distilled is as follows:
+
+\begin{itemize}
+    \item There's some family of inertial frames out there, but we don't know which one it is.
+    \item We make an extremely lucky guess that one of the frames in this family is given by the distant stars. (This is the confusion. How do we get so lucky?)
+    \item Using the distant stars as an inertial frame, we get sensible calculations for motion in the ground frame that show the ground frame is rotating.
+\end{itemize}
+
+Perhaps the right way to think about things is:
+
+\begin{itemize}
+    \item Frames are locally inertial, not globally. Frames are inertial only in isolated space, which is where there is no mass. To formalize this in the existing content we would want to add:
+    \begin{itemize}
+        \item (Theorem). Each particle of nonzero mass in the universe exerts a force on every other particle of nonzero mass in the universe.
+        \item (Theorem). In a massless universe, all reference frames are inertial. In a universe with mass, no reference frames are inertial.
+    \end{itemize}
+    \item The distant stars identify which frame in isolated space is the ``original'' one that would be all there is if there were no mass.
+\end{itemize}
+
+I'm not sure if I buy all of the above though. I'm inclined to think that there would still be many different possible ways to move around in space, and thus not a single ``original'' frame, if there were no mass in the universe.
+
+But I supposed if we assumed the following as axiom, everything would be consistent:
+
+\begin{axiom}
+    In a massless universe there is exactly one reference frame.
+\end{axiom}
+
+The second above suggested theorem follows from this axiom.
+
+Figuring out a good way to integrate this into the existing presentation might involve modifying this part:
+
+\begin{quote}
+    Since we can imagine any frame to be taking any trajectory through space (by imagining space to be taking the reverse trajectory around the frame), you might wonder how there can be only a single motion, and thus a single motion-induced influence (or lack thereof), contributing to the physical laws obeyed by any frame. Wouldn't it be the case that a frame is inertial from some perspectives but not others?
+\end{quote}
+
+\newpage
+
+\section*{Energy}
+
+% Derivation I sent Matthew:
+
+% Consider a particle that experiences a net force $\FF(\xx)$ at each $\xx \in \R^3$, and suppose that the particle's position at time $t$ is given by $\xx(t)$. The work done on the particle by the net force during the time interval $[t_0, t]$ is
+
+% \begin{align*}
+%     \int_C \FF_\text{net} \cdot d \xx &= \int_{t_0}^t \FF_{\text{net}} \cdot \frac{d \xx}{dt} dt \\
+%     &= \int_{t_0}^t m \aa \cdot \vv \spc dt \\
+%     &= \int_{t_0}^t m \frac{d\vv}{dt} \cdot \vv \spc dt.
+% \end{align*}
+
+% Notice that $\frac{d}{dt}(\vv \cdot \vv) = 2\vv \cdot \frac{d\vv}{dt}$, so $\frac{d\vv}{dt} \cdot \vv = \frac{1}{2}\frac{d}{dt}(\vv \cdot \vv)$; since $\vv \cdot \vv = ||\vv||^2$, we have $\frac{d\vv}{dt} \cdot \vv = \frac{1}{2}\frac{d}{dt}||\vv||^2$. Thus, the above becomes
+
+% \begin{align*}
+%     \int_{t_0}^t m \frac{1}{2}\frac{d}{dt}(||\vv||^2) = \frac{1}{2}m \int_{t_0}^t \frac{d}{dt}(||\vv||^2) dt = \frac{1}{2}m||\vv||^2\Big|^t_{t_0}.
+% \end{align*}
+
+% This shows that the work done on a particle by the net force from $t_0$ to $t$ is equal to $K(t) - K(t_0)$, where $K(t) := \frac{1}{2}m||\vv(t)||^2$. We interpret ``work done by net force on particle'' to be ``work that is stored in particle'', and additionally use the word \textit{energy} to mean ``stored work''. Because it depends on velocity, the function $K$ is called the \textit{kinetic energy}.
+
+Consider a particle in motion. Let $\FF(\xx) = \begin{pmatrix} F_x(\xx) \\ F_y(\xx) \\ F_z(\xx) \end{pmatrix}$ be the force exerted on the particle at position $\xx$.
+
+Define the \textit{work} done on the particle as it traverses a path $C$ to be
+
+\begin{align*}
+    W_{\FF, C} := \int_C \FF(\xx) \cdot \frac{d \xx(t)}{d t} dt.
+\end{align*}
+
+Note that if $-C$ is the reverse parametization of $C$, then
+
+\begin{align*}
+    W_{\FF, -C} = -W_{\FF, C}
+\end{align*}
+
+This is because if $\xx_1(t)$ parametizes $C$ for $t \in [t_0, t_f]$ then $\xx_2(t) = \xx_1(t_0 + t_f - t)$ parametizes $-C$ and has $\frac{d\xx_2(t)}{dt} = - \frac{d\xx_1(t)}{dt}$.
+
+Returning to the definition of work, we have
+
+\begin{align*}
+    W_{\FF, C} &= \int_C \left( F_x(\xx(t)) \frac{dx(t)}{dt} + F_y(\xx(t)) \frac{dy(t)}{d t} + F_z(\xx(t)) \frac{d z(t)}{dt} \right) dt \\
+    &= \int_C F_x(\xx(t)) \frac{d x(t)}{d t} d t + \int_C F_y(\xx(t)) \frac{d y(t)}{d t} d t + \int_C F_z(\xx(t)) \frac{d z(t)}{d t} d t \\
+    &= \int_C F_x(\xx) d x + \int_C F_y(\xx) d y + \int_C F_z(\xx) dz \\
+    &= \int_C \FF(\xx) \cdot d \xx.
+\end{align*}
+
+Therefore 
+
+\begin{align*}
+    \boxed
+    {
+        W_{\FF, C} = \int_C \FF(\xx) \cdot d \xx.
+    }
+\end{align*}
+
+\subsection*{Kinetic energy}
+
+Now consider the \textit{net work} done on a particle as it travels along an arbitrary path $C$. By ``net work'', we mean the work done on the particle by the net force $\FF_{\text{net}} = m \aa$.
+
+\begin{align*}
+    W_{\FF_{\text{net}}, C} &= \int_C \FF_{\text{net}}(\xx) \cdot \frac{d \xx}{d t} d t \\
+    &= \int_C m \aa \cdot \vv d t = \int_C m \frac{d \vv}{d t} \cdot \vv d t.
+\end{align*}
+
+Note that $\frac{d(||\vv||^2)}{dt} = \frac{d(\vv \cdot \vv)}{dt} = 2 \frac{d\vv}{dt} \cdot \vv$, so this becomes
+
+\begin{align*}
+    W_{\FF_{\text{net}}, C} = \frac{1}{2} m \int_C \frac{d(||\vv||^2)}{dt} dt = \frac{1}{2} m \int_C d(||\vv||^2) = \frac{1}{2} m (||\vv(t_f)||^2 - ||\vv(t_0)||^2).
+\end{align*}
+
+So, if we now impose that the path $C$ is such that $\vv(t_0) = \mathbf{0}$, then we get $W_{\FF_{\text{net}}, C} = \frac{1}{2}m||\vv_f||^2$. Note, the particular choice of the path $C$ does not matter!
+
+Thus, we can define the \textit{kinetic energy} $K$ of the particle to be the net work that must be done on the particle to accelerate the particle from a speed of zero to its current speed, i.e.
+
+\begin{align*}
+    K &:= W_{\FF_{\text{net}}, C} \text{, where $C$ is such that $\vv(0) = \mathbf{0}$} \\
+       &= \frac{1}{2}m||\vv||^2.
+\end{align*}
+
+\begin{align*}
+    \boxed
+    {
+        K = \frac{1}{2}m||\vv||^2
+    }
+\end{align*}
+
+Then, by the previous derivation, we obtain the \textit{work-energy theorem}: the net work done on a particle traveling on an arbitrary path $C$ is equal to the change in its kinetic energy from the start to end of $C$. This is because, earlier, we had that $W_{\FF_{\text{net}}, C} = \frac{1}{2} m (||\vv(t_f)||^2 - ||\vv(t_0)||^2)$. Given our new definition of $K$, this implies
+
+\begin{align*}
+    \boxed
+    {
+        W_{\FF_{\text{net}}, C} = \Delta K.
+    }
+\end{align*}
+
+\subsection*{Potential energy}
+
+Now, we define the \textit{change in potential energy} $\Delta U_{\FF}$ \textit{of a particle due to} $\FF$ \textit{after traversing a curve $C$}. 
+
+\begin{align*}
+    \Delta U_{\FF, C} := W_{\FF, -C} = -W_{\FF, C}.
+\end{align*}
+
+Here's an intuitive way to think of potential energy. Choose $C$ to be some path that aligns with the force field $\FF$. (If you're thinking about gravitational potential energy, $C$ would start ``at infinity'' and end at the Earth. Traveling along $C$ would amount to falling towards the Earth). As the particle travels along $C$, its kinetic energy increases because $\FF$ acts in the same direction as the particle's movement; $\FF$ ``stores'' kinetic energy in the particle. If the particle were to travel backwards along $C$ and go back to where it came from (i.e., travel along $-C$), then the force $\FF$ would act on the particle in the opposite direction, and would ``extract'' stored work from the particle. After the particle has arrived back at the starting point of $C$ (the end point of $-C$), it now has the \textit{potential} to regain all of the energy that was ``extracted'' by the force: all the particle would have to do to regain this as kinetic energy is just travel along the path $C$. Thus, we can think of $\Delta U_{\FF, C}$ as the amount of kinetic energy the particle would stand to gain if it traveled along $-C$.
+
+The definition of $\Delta U_{\FF, C}$ immediately implies that the potential energy due to $\FF_{\text{net}}$ satisfies
+
+\begin{align*}
+    \Delta U_{\FF_{\text{net}}, C} = -\Delta K.
+\end{align*}
+
+In other words,
+
+\begin{align*}
+    \boxed
+    {
+        \Delta U_{\FF_{\text{net}}, C} + \Delta K = 0.
+    }
+\end{align*}
+
+\subsection*{Conservative forces}
+
+Let $\xx_0$ and $\xx_f$ be two points in space. We wish to consider the notion of ``\textit{the} potential energy difference between $\xx_0$ and $\xx_f$''. 
+
+Unfortunately, there are many paths $C$ between $\xx_0$ and $\xx_f$ that can be used to compute the change in potential energy $\Delta U_{\FF, C}$, and thus many different numbers $\Delta U_{\FF, C}$ that could be considered to be ``\textit{a} potential energy difference between $\xx_0$ and $\xx_f$''. So we are in general not able to associate a \textit{single} potential energy difference with two points.
+
+Of course, we \textit{can} do what we wish when the force $\FF$ is \textit{path-independent}, i.e., where the change in potential energy $\Delta U_{\FF, C}$ on a path between $\xx_0$ and $\xx_f$ is independent of the path $C$. Thus, for a path-independent force $\FF$, we define \textit{the potential energy $U(\xx_0, \xx_f)$ between $\xx_0$ and $\xx_f$} to be
+
+\begin{align*}
+    U_{\FF}(\xx_0, \xx_f) := \Delta U_{\FF, C}, \text{ where $C$ is any path that ends on $\xx$}.
+\end{align*}
+
+\subsubsection*{Equivalent conditions for path-independence}
+
+The following conditions are equivalent:
+
+\begin{itemize}
+    \item $\FF$ is path-independent ($\Delta U_{\FF, C}$ is independent of $C$ $\iff$ $\int_C \FF \cdot d\xx$ is independent of $C$)
+    \item $\FF$ is conservative ($\Delta U_{\FF, C} = 0$ when $C$ is a closed path $\iff$ $\int_C \FF \cdot d\xx = 0$ when $C$ is a closed path)
+    \item $\FF$ has a potential function (there exists $\xx_0$ and $U_{\FF}$ such that $\FF(\xx) = - \nabla U_{\FF}(\xx_0, \xx)$ $\iff$ there exists $f$ such that $\FF = \nabla f$)
+\end{itemize}
+
+\begin{comment}
+\textbf{Proof that path-independence $\iff$ potential function}
+
+In the situation in which work done by $\FF$ is path-independent (i.e. $\Delta U_{\FF, C}$ is independent of $C$), then $\FF(\xx) = -\nabla (\Delta U(\xx))$. To see this, note that, for any $C$ ending on the point $\xx$, we have
+
+\begin{align*}
+    -\Delta U_{\FF}(\xx) = W_{\FF, C} = \int_{C} \FF(\xx) \cdot d \xx = \int_C F_x(\xx) d x + \int_C F_y(\xx) d y + \int_C F_z(\xx) dz.
+\end{align*}
+
+We can choose to be $C$ whatever we want, and the integral will still be the same. Thus, after choosing $C$ to run parallel to the $x$-axis from $x = x_0$ to $x = x$, parallel to the $y$-axis from $y = y_0$ to $y = y$, and parallel to the $z$-axis from $z = z_0$ to $z$ (please forgive the lack of dummy variables), we get
+
+\begin{align*}
+    -\Delta U_{\FF}(\xx) = \int_{x_0}^x F_x(\xx) d x + \int_{y_0}^y F_y(\xx) d y + \int_{z_0}^z F_z(\xx) dz.
+\end{align*}
+
+At this point it's clear that $-\nabla (\Delta U_{\FF}(\xx)) = \nabla (-\Delta U_{\FF}(\xx)) = \FF(\xx)$.
+
+(This discussion proves that when line integrals $\int_C \FF \cdot d \xx$ are path-independent, $\FF$ has a potential function: we explicitly constructed the potential function here. You can also show the other direction: if there is a ``potential function'' $\phi$ such that $\FF = \nabla \phi$, then line integrals $\int_C \FF \cdot dd \xx$ are path-independent. So, it turns out that ``line integrals involving $\FF$ are path-independent'' $\iff$ ``$\FF$ has a potential function''.)
+\end{comment}
+
+\newpage
+
+\section*{Rotational dynamics}
+
+\subsection*{With assuming conservation of momentum as an axiom}
+
+The theory for rotational dynamics is analogous to the theory for translational dynamics. I recently learned how in translational dynamics, we accept conservation of momentum as axiom. We can accept a similar axiom for rotational dynamics:
+
+\begin{axiom}
+    (Conservation law for rotational dynamics).
+
+    From the perspective of an inertial frame, the following condition holds in every isolated system:
+
+    \begin{align*}
+        \text{For every point $\xx_0$, the sum }  \sum_i (\xx_i - \xx_0) \times \pp_i \text{ is conserved}
+    \end{align*}
+\end{axiom}
+
+Just as we defined momentum $\pp$ to be the conserved quantity of translational dynamics, we define \textit{angular momentum} $\LL$ to be the conserved quantity of rotational dynamics.
+
+\begin{defn}
+    (Momentum).
+
+    Consider any reference frame, and suppose a particle has momentum $\pp$ and position $\xx$ from the perspective of that frame. Then the \textit{angular momentum $\LL_{\xx_0}$ (from the perspective of that frame) about a point $\xx_0$} is $\LL_{\xx_0} := (\xx - \xx_0) \times \pp$.
+\end{defn}
+
+\begin{defn}
+    (Angular momentum).
+
+    The \textit{angular momentum $\LL_{\xx_0}$ about a point $\xx_0$} is $\xx - \xx_0$    
+\end{defn}
+
+Therefore the above axiom is equivalent to
+
+\begin{axiom}
+    (Conservation of total angular momentum).
+
+    From the perspective of an inertial frame, the total angular momentum about each point is conserved in an isolated system.
+\end{axiom}
+
+Of course, there is a huge difference in complexity between the conservation of momentum and conservation of angular momentum axioms. It seems somewhat plausible to experimentally stumble upon the first one; doing the same for the second seems hard to imagine. This is actually what happened historically! Newton stated derived the first as a theorem\footnote{Rather than using momentum conservation to prove the third law, as we do, Newton used the third law to prove momentum conservation.} in his \textit{Principa}, and developed a good understanding of rotational dynamics, but didn't have the proper tools- vectors- to formulate the second. It was approximately 200 years later when angular momentum was formalized, and this was after Euler, who also didn't have vectors, made contributions on rotational mass.
+
+Nevertheless, accepting the second above axiom probably gives the best understanding of rotational dynamics. Just as force was defined to be the time derivative of momentum, \textit{torque} $\ttau$ is defined to be the time derivative of angular momentum. We can then quickly conclude that if we can derive an expression for $I_{\xx_0}$ such that $\LL_{\xx_0} = I_{\xx_0} \oomega$ for circular motion of a particle about the point $\xx_0$, then this $I_{\xx_0}$ must be the correct notion of \textit{rotational mass about $\xx_0$}. For such a particle we have $||\LL_{\xx_0}|| = ||\xx - \xx_0|| \spc ||\pp|| = ||\xx - \xx_0|| m ||\vv|| = m ||\xx - \xx_0||^2 ||\oomega||$. Thus the rotational mass of a particle of mass $m$ about a point $\xx_0$ is $m ||\xx - \xx_0||^2$.
+
+\subsection*{Without assuming conservation of momentum as an axiom}
+
+It's still worthwhile to find a pathway through rotational dynamics without having the privelege of first knowing about angular momentum, since this is what happened historically.
+
+Some good intuition we all have for rotational dynamics is the \textit{law of the lever}- the fact that it's easier to rotate an object about an axis the further you push from the axis. It's easier to open a door if you push on its edge than if you push closer to the hinge, and it's easier to snap a branch if you bend it more widely than narrowly.
+
+I felt that any good explanation of rotational dynamics would be a formalization of the law of the lever. So, I tried to formalize it in several ways.
+
+\begin{enumerate}
+    \item The most obvious and common way to formalize the law of the lever is to postulate that the magnitude of the torque produced by a force of magnitude $F$ acting at distance $r$ from the axis of rotation should be an increasing function of both $F$ and $r$. So far, this makes sense. Then, it is claimed that not only should torque be an increasing function of $F$ and $r$, but it should be proportional to both $F$ and $r$. This is a very specific claim that I can find no good justification for other than ``do experiments''. That sort of justification should be reserved for only the most fundamental of concepts. And this law of the lever thing does not feel like it is \textit{that} fundamental.
+    
+    \item I had the idea that we could derive the law of the lever in pure kinematical terms, just by thinking about angular acceleration. The claim to prove I came up with is: ``angular acceleration is an increasing function of the distance $r$ from the axis of rotation''.
+
+    Angular acceleration of what, though? The vagueness of this claim led me astray. But, not realizing this, I first thought about the angular acceleration of a \textit{particle} in circular motion, which we know to be $\alpha = a_{\text{tan}}/r$. This result isn't at all what we want, since $\alpha$ is a decreasing function of $r$ here.
+
+    Of course, the ``what'' I should have been considering was a \textit{rod} of length $R$ rotating about its end, not a particle, that is caused to rotate by a force $F$ applied a distance $r$ away from its end. Somehow, we have to account for the fact that particles in the rod interact with each other in such a way to maintain the integrity of the rod. Looking ahead to concepts we haven't yet derived, we should obtain $\alpha = \tau/I = (rF)/(mR^2) = (rma_{\text{tan}})/(mR^2) = (ra_{\text{tan}})/(R^2)$, which \textit{is} an increasing function of $r$. 
+    
+    With the rod, one special case that obscured things for me is that if $r = R$, we have $\alpha = a_{\text{tan}}/r$. This seems reminiscent of the particle situation; since $r \mapsto a_{\text{tan}}/r$ is a decreasing function, this seems to conflict with the fact that $\alpha$ is an increasing function of $r$. There really is no conflict, though, because the converse is also true: if $\alpha = a_{\text{tan}}/r$, then it necessarily follows that $r = R$. In other words, when $\alpha = a_{\text{tan}}/r$, then $\alpha$ isn't a function of $r$ that can be considered to be increasing or decreasing; it's just a number. To see this even more clearly, make the notation more explicit, and define $\alpha(r) := (rF)(mR^2) = (ra_{\text{tan}})/(R^2)$. Then the case $r = R$ is stated as $\alpha(R) = a_{\text{tan}}/R$, which makes it clear that when $\alpha = a_{\text{tan}}/r$, we must have $r = R$.
+
+    \item With the previous scenario, I had the sense that, of the two concepts used to look ahead to the correct answer, rotational mass was more at the heart of the situation, since it's a manifestation of how particles in a rigidbody interact with each other in such a way that mass further from the axis of rotation ``matters'' more.
+
+    (Of course, if we can define either torque or rotational mass, we automatically get the other for free, either as $I = ||\sum_i \ttau_i||/||\aalpha||$ or $\sum_i \ttau_i = I \aalpha$.)
+
+    So, I tried to figure out a good first-principles derivation of rotational mass. The ideal derivation would be a microscopic analysis of the particles in the rod pushing and pulling on one another as the rod is rotated, subject to the constraint that the rod maintains its integrity, which is equivalent to the condition that the particles experience the same angular velocity. I'm don't have enough time to figure this out, right now, unfortunately.
+
+    \item At this point, I had to resort to an argument I'm familiar with but that I still find unsatisfying, since it uses energy, which doesn't feel that fundamental to me (since energy is work, and work is defined in terms of more fundamental things like force and position). The argument is simple:
+    \begin{itemize}
+        \item Notice that kinetic energy in a \textit{rigidbody} attributable to rotation is $T_{\text{rot}} = \sum_i \frac{1}{2} m_i v_i^2 = \sum_i \frac{1}{2} m_i (r_i \omega)^2 = \frac{1}{2} (\sum_i m_i r_i^2) \omega^2$. We define $I := (\sum_i m_i r_i^2)$ because this $I$ plays the role of mass: $T_{\text{rot}} = \frac{1}{2}I \omega^2$.
+    \end{itemize}
+
+    \item And then I discovered an argument that feels more fundamental than the previous one relying on energy. This argument relies on d'Alembert's principle with constraints applied to static equilibrium. (Go ahead to the section on analytical mechanics read about d'Alembert's principle if you're interested- that's the only prerequesite from that section\footnote{Unfortunately, it wouldn't make sense to put Newtonian rotational dynamics after non-Newtonian (but still classical) analytical mechanics, even though a small part of analytical mechanics is a prerequisite.}.)
+
+    When applied to static equilibrium, d'Alembert's principle shows that the sum of the hypothetical increments of work done by hypothetical displacements (where the hypothetical displacements still respect the constraints of the system) and by \textit{applied} forces (not constraint forces) must be zero.
+    
+    Consider a balance beam that's pivoted at its center. Suppose that vertical forces $F_1$ and $F_2$ are applied at distances $d_1$ and $d_2$ from the center of the beam on opposite sides, and that the beam is in equilibrium. The valid hypothetical valid increments of work for this system are the ones whose displacements are perpendicular to the beam. Since the valid hypothetical displacements are in exactly the same direction as the applied forces, then the total hypothetical work done by valid hypothetical displacements is $F_1 d_1 + F_2 d_2 = 0$.
+
+    We see torque naturally appearing here. So, this is good motivation for defining torque!
+
+    \item Now that I know about the angular momentum approach, it seems to me that the best overall approach would be to derive that angular momentum is conserved in isolated systems from the assumption that translational momentum is conserved in isolated systems.
+
+    I've looked into this a little, and found this \textit{can} be done if we assume the strong form of Newton's third law, which is the usual third law plus the assumption that reaction forces are central forces. This is because assuming the strong form of Newton's third law is equivalent to assuming not only that physics is location invariant but also direction invariant.
+\end{enumerate}
+
+% \subsection*{Angular velocity}
+
+% \newcommand{\oomega}{\boldsymbol{\omega}}
+
+% In spiral motion, which is when $\rr(t) = r(t) \hat{\rr}(\theta(t))$, where $\hat{\rr}(t) = \begin{pmatrix} \cos(\theta(t)) \\ \sin(\theta(t)) \end{pmatrix} $ we have $\vv(t) = \frac{d\rr(t)}{dt} = \frac{dr(t)}{dt} \hat{\rr}(\theta(t)) + r(t) \frac{d \theta(t)}{dt} \hat{\boldsymbol{\theta}}(\theta(t))$. Physicists suppress $\theta(t)$ and $t$ and state this as ``$\vv = \dot{r} \hat{\rr} + r \dot{\theta} \hat{\boldsymbol{\theta}}$''. 
+
+% We define $\omega(t) := \frac{d \theta(t)}{dt}$, and see $\vv(t) = v_{||}(t) \hat{\rr}(\theta(t)) + v_\perp(t) \hat{\boldsymbol{\theta}}(\theta(t))$, where
+
+% \begin{align*}
+%     v_{||}(t) = \frac{dr(t)}{dt} \\
+%     v_\perp(t) = r(t) \omega(t).
+% \end{align*}
+
+% The important result here is
+
+% \begin{align*}
+%     \omega(t) = \frac{v_\perp(t)}{r(t)}.
+% \end{align*}
+
+% In the special case when $r$ and $\theta$ are constant, then $v_\perp$ is a constant, and so $\omega$ is the constant $\omega = \frac{v_\perp}{r}$.
+
+% When $\rr$ is a general curve, we define $\oomega := \frac{v_\perp(t)}{r(t)} \widehat{\rr(t) \times \vv(t)} = \frac{1}{r(t)^2} r(t) v_\perp(t) \widehat{\rr(t) \times \vv(t)} = \frac{1}{r(t)^2} \rr(t) \times \vv(t)$. Thus
+
+% \begin{align*}
+%     \oomega(t) = \frac{\rr(t) \times \vv(t)}{r(t)^2}.
+% \end{align*}
+
+% \newpage
+
+\newpage
+
+\section*{Analytical mechanics}
+
+\subsection*{Preface}
+
+Thus far, our study of classical mechanics has been restricted to \textit{Newtonian mechanics}, i.e., making use of Newton's second law. We now turn to the more modern branch of classical mechanics, which is extremely prevalent even in modern non-classical theories, called \textit{analytical mechanics}. In analytical mechanics, one aims to encapsulate the laws of Nature in scalar equations that are equivalent to the vector equation that is Newton's second law.
+
+The typical introduction to analytical mechanics starts off quite inspired and grandiose. One is told that the motion of a system is the one that follows a sort of path of least resistance, the one that minimizes a certain \textit{action}. This sounds magnificent!
+
+But when someone explains to you what the action actually is,
+
+\begin{align*}
+    \text{action} := \int_{t_0}^{t_f} L \spc dt, \text{ where $L = T - U$},
+\end{align*}
+
+everything seems a lot less intuitive. Why does Nature seek to minimize this very particular quantity (the integral of the difference between kinetic and potential energy over time)? 
+
+This statement- that Nature minimizes the action- is \textit{intuitive sounding}, and a good \textit{conclusion} to arrive at from more basic principles, but it shouldn't be treated as a starting point. In this section on analytical mechanics I derive the least action principle (which should really be called the stationary action principle\footnote{Since the motion of a system corresponds to a \textit{stationary} point of the action functional, not necessarily a minimum.}) in what I think is the best first-principles approach:
+
+\begin{itemize}
+    \item We derive d'Alembert's principle, a scalar equivalent to the vector equation that is Newton's second law.
+    \item We change the coordinates used in d'Alembert's principle to \textit{generalized coordinates} to obtain the \textit{Euler-Lagrange} equations.
+    \item Since the Euler-Lagrange equations are differential equations, one would suspect that there are corresponding integral equation. We can in fact derive  an equivalent \textit{single} integral equation, which turns out to be the action principle mentioned above.
+\end{itemize}
+
+\subsection*{d'Alembert's principle}
+
+Recall from Definition \ref{N2_part2_system} that one form of Newton's second law is the statement
+
+\begin{align*}
+    \FF_{\text{net}} := \sum_i \FF_{\text{net}, i} = \sum_i m \aa_i,
+\end{align*}
+
+which describes the net force $\FF_{\text{net}}$ on a system in terms of the net forces $\FF_{\text{net}, i}$ on the isolated particles in the system.
+
+This form of Newton's second law is a vector equation. If we consider hypothetical, or \textit{virtual}, displacements that each particle may take, then we can actually find another form of the second law that can be written as a scalar equation. This scalar form of Newton's second law is called the \textit{d'Alembert principle}, and was discovered by Jean le Rond d'Alembert in 1743.
+
+\begin{defn}
+    (Virtual displacement).
+
+    A \textit{virtual displacement} is a hypothetical displacement $\Delta \rr$ that a particle may make.
+\end{defn}
+
+\begin{deriv}
+    (d'Alembert's principle).
+
+    Newton's second law is equivalent to the system of scalar equations
+
+    \begin{align*}
+        \FF_{\text{net}, 1} &= m\aa_1 \\
+        &\vdots \\
+        \FF_{\text{net}, n} &= m\aa_n.
+    \end{align*}
+
+    We can take the dot product of each side of every equation with a virtual displacement $\Delta \rr_i$ to obtain a system of scalar equations:
+
+    \begin{align*}
+        \FF_{\text{net}, 1} \cdot \Delta \rr_1 &= m\aa_1 \cdot \Delta \rr_1 \\
+        &\vdots \\
+        \FF_{\text{net}, n} \cdot \Delta \rr_n &= m\aa_n \cdot \Delta \rr_n.
+    \end{align*}
+
+    By adding together all of the equations, we obtain a scalar equation
+
+    \begin{align*}
+        \sum_i \FF_{\text{net},i} \cdot \Delta \rr_i = \sum_i m\aa_i \cdot \Delta \rr_i \text{ for all virtual $\Delta \rr_1, ..., \Delta \rr_n$}.
+    \end{align*}
+
+    This scalar equation not only follows from the above system; that system follows from this scalar! This is because the above scalar equation is equivalent to
+
+    \begin{align*}
+        \sum_i (\FF_{\text{net},i} - m\aa_i) \cdot \Delta \rr_i = 0 \text{ for all virtual $\Delta \rr_1, ..., \Delta \rr_n$}.
+    \end{align*}
+
+    Since we can choose the virtual displacements so that all terms in this above sum are nonnegative, then it follows that every term in the above sum must be zero\footnote{Suppose for contradiction that one or more terms were positive. Then the sum would be greater than or equal to that positive number, and not equal to zero as we know it has to be.}.
+\end{deriv}
+
+Therefore, we have the following theorem.
+
+\begin{theorem}
+    (d'Alembert's principle).
+
+    Newton's second law, a vector equation, is equivalent to the following scalar equation:
+
+    \begin{align*}
+        \sum_i \FF_{\text{net},i} \cdot \Delta \rr_i = \sum_i m\aa_i \cdot \Delta \rr_i \text{ for all virtual $\Delta \rr_1, ..., \Delta \rr_n$}.
+    \end{align*}
+\end{theorem}
+
+\subsubsection*{d'Alembert's principle with constraints}
+
+If we want to consider forces that constrain motion, like the normal force that keeps a particle falling down a slide on the slide? To do so, we'll define the idea of a \textit{valid virtual displacement}, which is a virtual displacement that obeys the constraints.
+
+\begin{defn}
+    (Valid virtual displacement).
+
+    A virtual displacement $\Delta \rr$ of a particle is \textit{valid (with respect to constraint forces $\FF^{(c)}_1, ..., \FF^{(c)}_n$)} if and only if it doesn't interfere with the constraints, i.e., if and only if none of the constraints do work on it, if and only if  $\Delta \rr \cdot \FF^{(c)}_i = 0$ for all $i$.
+\end{defn}
+
+\begin{deriv}
+    (d'Alembert's principle with constraints).
+
+    If we take d'Alembert's principle, separate each $\FF_{\text{net}, i}$ into a net constraint force $\FF^{(c)}_i$ and a net non-constraint (or net ``applied'') force $\FF^{(a)}_i$, and also restrict the virtual displacements to be valid ones, then we obtain
+
+    \begin{align*}
+        &\sum_i (\FF^{(a)}_i + \FF^{(c)}_i) \cdot \Delta \rr_i = \sum_i \FF^{(a)}_i \cdot \Delta \rr_i + \sum_i \FF^{(c)}_i \cdot \Delta \rr_i = \sum_i m \aa_i \cdot \Delta \rr_i \text{ for all valid virtual $\Delta \rr_1, ..., \Delta \rr_n$}.
+    \end{align*}
+    
+    Since $\FF^{(c)}_i \cdot \Delta \rr_i = 0$ for valid $\Delta \rr_i$, the second sum vanishes, and we have
+    
+    \begin{align*}
+        \sum_i \FF^{(a)}_i \cdot \Delta \rr_i = \sum_i m \aa_i \cdot \Delta \rr_i \text{ for all valid virtual $\Delta \rr_1, ..., \Delta \rr_n$}.
+    \end{align*}
+
+    This is \textit{d'Alembert's principle with constraints}.
+\end{deriv}
+
+\subsection*{The Euler-Lagrange equations}
+
+d'Alembert's principle is, somewhat straightforwardly, equivalent to Newton's second law. We now take d'Alembert's principle and derive from it another equivalent condition, which is much less obviously equivalent to Newton's second law. This new equivalent condition will be a system of differential equations, which are called the \textit{Euler-Lagrange equations}.
+
+The idea is to start with d'Alembert's principle and then change coordinates to generalized coordinates $q_1, ..., q_k$:
+
+\begin{align*}
+    &\sum_i (\FF_{\text{net},i} - m\aa_i) \cdot \Delta \rr_i = 0 \text{ for all virtual $\Delta \rr_1, ..., \Delta \rr_n$}. \\
+    &\sum_i (\FF_{\text{net},i} - m\aa_i) \cdot \sum_j \frac{\pd \rr_i}{\pd q_j} \Delta q_j = 0 \text{ for all virtual $\Delta \rr_1, ..., \Delta \rr_n$ and $q_1, ..., q_k$}
+\end{align*}
+
+
+\newpage
+
+\section*{Special relativity}
+
+Assume either that instantaneous interactions do not occur and use Theorem \ref{thm_absolute_time_instantaneous_interactions} to conclude that the velocity of propagation of interactions is finite, or assume that the Maxwell equations must be true in all inertial reference frames. Either assumption yields
+
+\begin{align*}
+    (*) \quad \text{The speed of light is the same in all inertial reference frames.}
+\end{align*}
+
+After we have established (*), it remains to discover (1) the time dialation formula, (2) the length contraction formula, and (3) that $(\Delta s)^2 := (\Delta t)^2 - d^2$ is frame-invariant.
+
+\subsubsection*{Most popular modern approach}
+
+\begin{enumerate}
+    \item Define the spacetime interval $\Delta s$ to be such that $(\Delta s)^2 = (\Delta t)^2 - d^2$
+    \item Use (*) to prove the spacetime interval is invariant
+    \item Prove that transformations between frames must be linear 
+    \item Define Lorentz transformations to be the linear transformations between frames that preserve the spacetime interval
+    \item Obtain time dilation and length contraction as a consequence of the Lorentz transformation
+    \item Introduce notions of coordinate time and proper time
+\end{enumerate}
+
+\subsubsection*{Approach in Thomas Moore's \textit{Unit R} book}
+
+\begin{enumerate}
+    \item Introduce notions of coordinate time, proper time, and the spacetime interval $\Delta s$. Define the spacetime interval between two events to be the coordinate time interval experienced by a clock that travels between them; this immediately implies that spacetime interval is frame-invariant.
+    \item Use (*) to derive that $(\Delta s)^2 = (\Delta t)^2 - d^2$ when $\Delta t \geq d$
+    \item Prove that if ``insideness/outsideness'' is frame-independent, then length contraction cannot occur in the direction perpendicular to motion
+    \item Draw $t'$ and $x'$ axes by reasoning about spacetime intervals taken on these axes (using the formula of (2)), and derive the one-dimensional Lorentz transformation from this description of the $t'$ and $x'$ axes
+    \item Use the one-dimensional Lorentz transformation to prove the spacetime interval is preserved even when $t \ngeq d$
+\end{enumerate} 
+
+\subsubsection*{Approach in Ohanian's \textit{Classical Electrodynamics}}
+
+\begin{enumerate}
+    \item Define the spacetime interval $\Delta s$ to be such that $(\Delta s)^2 = (\Delta t)^2 - d^2$
+    \item Use (*) to prove the spacetime interval is invariant
+    \item Use (*) to derive the one-dimensional Lorentz transformation, but where the factor $\gamma$ is unknown
+    \item Use the invariance of the spacetime interval to obtain the formula for $\gamma$
+\end{enumerate}
+
+\newpage
+
+\subsubsection*{My approach}
+
+I really like how Moore motivates considering the spacetime interval, but I find Ohanian's derivation of the one-dimensional Lorentz transformation much cleaner than Moore's. I also have my own preferences: I feel that time dialation and length contraction first are the most obvious consequences of (*); the idea of the spacetime interval (much less its invariance!) is less obvious. So, my logical structure is:
+
+\begin{enumerate}
+    \item (Original). Use (*) to derive time dialation and length contraction formulas. This motivates the idea of considering the notion of coordinate time (before knowing about time dialation, it seems reasonable to assume absolute time!).
+    \item (Moore). Prove that if ``insideness/outsideness'' is frame-independent, then length contraction cannot occur in the direction perpendicular to the motion.
+    \item (Moore). Introduce notions of coordinate time, proper time, and spacetime interval (define the spacetime interval $\Delta s$ between two events to be the coordinate time interval experienced by a clock that travels between them; this immediately implies that spacetime interval is frame-invariant)
+    \item (Moore). Derive that $(\Delta s)^2 = (\Delta t)^2 - d^2$ when $\Delta t \geq d$
+    \item (Ohanian). Use (*) to derive the one-dimensional Lorentz transformation, but where the factor $\gamma$ is unkown
+    \item (Original). Appeal to the time dialation and length contraction formulas to obtain the formula for $\gamma$
+    \item (Moore). Use the one-dimensional Lorentz transformation to prove the formula for the spacetime interval is invariant even when $t \ngeq d$
+\end{enumerate}
+
+\subsubsection*{Equivalence between modern approach and others}
+
+To show all of these non-modern approaches are equivalent to the modern one, we would need to prove that the set of spacetime-interval-preserving linear transformations is equal to the set of transformations obtained by rotating the one-dimensional Lorentz transformation. Here is info on this: \url{https://physics.stackexchange.com/a/564536}).
+
+\newpage
+
+\section*{Random special relativity notes}
+
+\subsection*{Ohanian's \textit{Classical Electrodynamics}}
+
+\subsubsection*{Invariance of the spacetime interval}
+
+We have\footnote{The idea to formalize dependence on $v$ as an assumption rather than hand-waving, as Ohanian does, about how ``the only other quantity the constant could depend on is $v$'' is from \url{https://arxiv.org/pdf/physics/0302045.pdf}. The argument I use could be applied for any quantity that is not $v$, so, to be very thorough, we should probably assume dependence on $u_1, ..., u_n, v$ and eliminate dependence on all the $u_i$.}
+
+\begin{align*}
+    ds'^2 = dt'^2 - dx'^2 = \Big( \frac{\pd t'}{\pd t} dt + \frac{\pd t'}{\pd x} dx + \frac{\pd t'}{\pd v} dv \Big)^2 - \Big( \frac{\pd x'}{\pd t} dt + \frac{\pd x'}{\pd x} dx + \frac{\pd x'}{\pd v} dv \Big)^2.
+\end{align*}
+
+Therefore there exist $A, B, C, D_1, D_2, D_3$ for which
+
+\begin{align*}
+    dt'^2 - dx'^2 &= A(x, t, v) dt^2 + B(x, t, v) dx^2 + \spc dv + C(x, t, v) dv^2 \\
+    &+ D_1(x, t, v) dt \spc dx + D_2(x, t, v) dt \spc dv + D_3(x, t, v) dx \spc dv
+    \text{ for all $(x, t, v)$}.
+\end{align*}
+
+Eliminate $D_1, D_2, D_3$ from the above by taking advantage of the fact that substituting $x \mapsto -x$ and $v \mapsto -v$ causes $dx$ to change to $-dx$ and $dv$ to change to $-dv$, respectively. (Make a substitution, add equations, and divide the result by $2$ to perform one of these eliminations.) We obtain
+
+\begin{align*}
+    dt'^2 - dx'^2 = A(x, t, v) dt^2 + B(x, t, v) dx^2 + C(x, t, v) dv^2 \text{ for all $(x, t, v)$}.
+\end{align*}
+
+Notice that in the special case when $dx = dt$, then $dx' = dt'$, and the above becomes \\ ``$0 = A(x, t, v) dt^2 + B(x, t, v) dt^2 + C(x, t, v) dv^2 \text{ for all $(x, t, v)$}$''. Consider further the special case in which $dv = 0$ to conclude that $B = - A$. So, we have
+
+\begin{align*}
+    dt'^2 - dx'^2 = A(x, t, v) (dt^2 - dx^2) + C(x, t, v) dv^2 \text{ for all $(x, t, v)$}.
+\end{align*}
+
+Because the speed of light is frame-invariant, events that are separated by a light signal in one frame must be separated by a light signal in all other frames; symbolically, $ds = 0$ iff $ds' = 0$. In the special case when $ds = 0$, the above becomes ``$0 = C(x, t, v) dv^2 \text{ for all $(x, t, v)$}$'', which forces $C = 0$, giving
+
+\begin{align*}
+    dt'^2 - dx'^2 = A(x, t, v)(dt^2 - dx^2) \text{ for all $(x, t, v)$}.
+\end{align*}
+
+That is, $ds'^2 = A(x, t, v) ds^2$. This can be restated as
+
+\begin{align*}
+    \eta_{\alpha \beta} dx'^\alpha dx'^\beta = A(x, t, v) \eta_{\mu \nu} dx^\mu dx^\nu \text{ for all $(x, t, v)$}.
+\end{align*}
+
+The above equality is an equality of functions (the metric $ds^2 = \eta_{\mu \nu} dx^\mu dx^\nu$ acts on an element of the tangent space\footnote{\url{https://math.stackexchange.com/questions/3740010/confusion-about-notation-over-einstein-summation-notation/3740078#3740078}} as $ds^2(v) = \eta_{\mu \nu} dx^\mu(v) dx^\nu(v)$, so, it must hold when each side is applied to an arbitrary tangent vector). The linearity of each side implies that the above must hold when each side is applied to an arbitrary basis tangent vector $\frac{\pd}{\pd x^\rho}$:
+
+\begin{align*}
+    \eta_{\alpha \beta} \frac{\pd x'^\alpha}{\pd x^\rho} \frac{\pd x'^\beta}{\pd x^\rho} = A(x, t, v) \eta_{\mu \nu} \frac{\pd x^\mu}{\pd x^\rho} \frac{\pd x^\nu}{\pd x^\rho} \text{ for all $\rho \in \{1, ..., n\}$} \text{ and $(x, t, v)$}.
+\end{align*}
+
+Now we clearly have
+
+\begin{align*}
+    A(x, t, v) = \frac{\sum_{\alpha \beta} \eta_{\alpha \beta} \frac{\pd x'^\alpha}{\pd x^\rho} \frac{\pd x'^\beta}{\pd x^\rho}}{\sum_\mu \eta_{\mu \mu} } \text{ for all $\rho \in \{1, ..., n\}$} \text{ and $(x, t, v)$}.
+\end{align*}
+
+Spacetime transformations are affine\footnote{\url{https://physics.stackexchange.com/a/12859}}, so $\frac{\pd x'^\alpha}{\pd x^\rho}$ and $\frac{\pd x'^\beta}{\pd x^\rho}$ must be constant for all $\alpha, \beta, \rho$. \textbf{Actually, I think we can argue that somehow they depend on $v$} (since $\frac{\pd x'^\alpha}{\pd x^\rho} = \frac{\pd x'^\alpha/\pd t}{\pd x^\rho/\pd t}$?). So, $A$ is really just a function of $v$ but not $x$ or $t$.
+
+So far we've shown $ds^2 = A(v) ds'^2$. Notice that due to the homogeneity of space, $A$ cannot depend on the direction of the velocity due to the homogeneity of space, so we more specifically have $ds^2 = A(|v|) ds'^2$. By symmetry, we have $ds'^2 = A(|-v|) ds^2 = A(|v|) ds^2$. Equating the two different expressions for $ds^2$ implies $A(|v|) = \pm 1$ for all $v$. \textbf{Since $ds^2 > 0$ we must have $A(|v|) = 1$ for all $v$.}
+
+
+Sidenote\footnote{\url{https://physicspages.com/pdf/Relativity/Metric\%20tensor\%20under\%20Lorentz\%20transformation.pdf}}: the invariance of the spacetime interval implies that applying two Lorentz transformations to the metric $\eta_{\alpha \beta}$ returns the metric, just with adjusted indices: $\Lambda^\alpha_\mu \Lambda^\beta_\nu \eta_{\alpha \beta} = \eta_{\mu \nu}$.
+
+
+
+Good readings for this:
+
+\begin{itemize}
+    \item \url{https://physics.stackexchange.com/questions/426373/invariance-of-spacetime-interval-directly-from-postulate}
+    \item \url{https://physics.stackexchange.com/questions/127409/metric-tensor-in-special-and-general-relativity}
+    \item \url{https://math.stackexchange.com/questions/3740010/confusion-about-notation-over-einstein-summation-notation/3740078#3740078}
+    \begin{itemize}
+        \item $\eta = \eta_{\alpha \beta} dx^\alpha \otimes dx^\beta$. If we define $\eta \omega := \text{sym}(\eta \otimes \omega) = \frac{1}{2}(\eta \otimes \omega + \omega \otimes \eta)$, then since $\eta_{\alpha \beta} = \eta_{\beta \alpha}$ we have $\eta = \eta_{\alpha \beta} dx^\alpha dx^\beta$.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Lorentz transformation}
+
+\begin{itemize}
+    \item $\{\text{$x'$-axis}\} = \{(x, t) \mid t'(x, t) = 0\}$ and $\{\text{$t'$-axis}\} = \{(x, t) \mid x'(x, t) = 0\}$. 
+    \item We have $x' = 0$ exactly when $x = vt$, so $\{\text{$t'$-axis}\} = \{(x, t) \mid x = vt\}$.
+    \item Spacetime transformations must map lines to lines\footnote{Starting with this sentence, the argument is taken from Ohanian's \textit{Classical Electrodynamics}} (so that paths of isolated particles get mapped to paths of isolated particles), so the $x'$-axis must also be a straight line. Since the speed of light is frame-independent, the $x'$-axis must be the reflection of the $t'$-axis across the line $x = ct$. Assuming $c = 1$, the $x'$-axis is $\{\text{$x'$-axis}\} = \{(x, t) \mid x = -\frac{1}{v}t \}$.
+    \item Thus, $(x'(x, t) = 0) \iff (x - vt = 0)$ and $(t'(x, t) = 0) \iff (t - vx = 0)$.
+    \item Any two rank-$1$ linear functions that share the same kernel are scalar multiples of each other, so $t' = k(t - vx)$ and $x' = k(x - vt)$. Consider the special cases $x = 0 \implies t' = kt$ and $t = 0 \implies x' = kx$ to conclude that $k$ is the factor involved in length contraction and time dialation; $k = \gamma$.
+\end{itemize}
+
+\newpage
+
+\subsection*{Thomas Moore's \textit{Unit R}}
+
+\begin{itemize}
+    \item Axiom: the speed of light is frame-independent.
+    \item Two clocks are said to be \textit{synchronized} iff the time of the second is offset from the time of the first by the time it would take for light to travel from the first to the second. I.e., iff $t_2 = t_1 + \frac{d}{c}$, where $d$ is the distance between the clocks.
+    \item Let $F$ be a reference frame and let $A$ and $B$ be events whose locations are measured relative to $F$. The \textit{coordinate time between $A$ and $B$ relative to $F$} is defined as follows:
+    \begin{itemize}
+        \item Let $c_A$ be a clock located at $A$ and $c_B$ be a clock synchronized to clock $A$ located at $B$; let $t_A$ be the time of event $A$ that's measured by $c_A$, and $t_B$ be the time of event $B$ that's measured by $c_B$. The \textit{coordinate time between $A$ and $B$ relative to $F$} is $t_B - t_A$.
+    \end{itemize}
+    \item Let $A$ and $B$ be events in some arbitrary frame. The \textit{proper time (measured by a curve $\rr:U \subseteq \R \rightarrow \R^3$) between $A$ and $B$} is the coordinate time interval accrued by the clock that follows the curve $\rr$ from $A$'s location to $B$'s location. The \textit{spacetime interval between $A$ and $B$} is the proper time on the straight-line path between $A$ and $B$.
+    \item Formula for the spacetime interval:
+    \begin{itemize}
+        \item Consider a light clock of height $L$ traveling with horizontal velocity $v$. Let $A$ and $B$ be events whose positions coincide with the light clock as it travels. Let the time at which $A$ occurs be that of a light pulse leaving the bottom of the clock, and let the time at which $B$ occurs be that of the same light pulse returning to the bottom of the clock. Let $\Delta t$ denote the coordinate time interval, relative to the rest frame, between $A$ and $B$. (Notice that this setup assumes $\Delta t > v \Delta t$).
+        \item In the light clock's frame, $A$ and $B$ both occur at the clock face, so the coordinate time between these two events relative to the light clock's frame is $\Delta t' = 2L$. Since the light clock's frame is intertial, we have $\Delta s = \Delta t'$. So $\Delta s = 2L$.
+        \item The coordinate time $\Delta t$ between $A$ and $B$ relative to the home frame is the distance between clocks at $A$ and $B$ that have been synchronized, which is $2\sqrt{L^2 + (\frac{1}{2}d)^2}$.
+        \item We have $2L = 2\sqrt{L^2 + (\frac{1}{2}d)^2}$, where $d = v \Delta t$, which implies $(\Delta s)^2 = (\Delta t)^2 - d^2$. Overall, we have $(\Delta s)^2 = (\Delta t)^2 - d^2$ when $\Delta t \geq d$.
+        \item Proof of no length contraction perpendicular to motion
+        \begin{itemize}
+            \item Suppose for contradiction that there is length contraction perpendicular to the direction of motion. Now imagine two rods of differing lengths, with their lengths oriented vertically, travelling horizontally towards each other. (The rods are separated by some depth so that they may pass each other.) Imagine that paint is constantly spraying from the ends of each of the rods. If we view rod $1$ as stationary, then rod $2$ is moving and thus experiences contraction, so when the rods pass each other, $2$ will spray lines of paint that fall inside the lines of paint sprayed by $1$. But we can also imagine $2$ as stationary and $1$ as moving, so it must also be true that when the rods pass each other, $1$ will spray lines of paint that fall inside the lines of paint sprayed by $2$. If it is true that ``insideness/outsideness'' is frame-independent, which seems intuitive enough, then we have reached a contradiction!
+        \end{itemize}
+    \end{itemize}
+    \item Proper time
+    \begin{itemize}
+        \item ``$\Delta \tau = \int_{t_A}^{t_B} ds$''
+        \item Important inequality: $\Delta t \geq \Delta s \geq \Delta \tau$
+        \item Twin paradox
+        \begin{itemize}
+            \item The proper time of the twin who is viewed as accelerating is not the same as the spacetime interval, a frame's coordinate time is only equivalent to the spacetime interval if it is intertial.
+            \item There is inherent asymmetry in the situation: ``If two people were to travel between two points, one taking a straight-line path and one taking a windy path, we would not think it's remarkable that the one taking the windy path traveled more distance! Placing oneself in the position of the windy-path reference frame so as to make the windy path seem straight does not change this.''
+        \end{itemize}
+    \end{itemize}
+    \item $t'$ and $x'$ axes
+    \begin{itemize}
+        \item Since $\{\text{$t'$-axis}\} = \{(x, t) \mid x'(x, t) = 0\}$, the spacetime interval of an arbitrary point $(x', t')$ on the $t'$-axis is $t'^2 - 0^2$. Suppose $(x, t)$ are the cooresponding coordinates in the unprimed frame. Due to the invariance of the spacetime interval, this same spacetime interval is $t^2 - x^2 = t^2 - (\frac{v}{c}t)^2$; we have $t'^2 = t^2 - (\frac{v}{c}t)^2$. Thus $t'^2 = (1 - (\frac{v}{c})^2)t^2 = \gamma^{-2} t^2$, and so $t' = \gamma^{-1} t$.        
+    \end{itemize}
+    \item Lorentz transformations
+    \item Invariance of spacetime interval via Lorentz transformation:
+    \begin{itemize}
+        \begin{align*}
+            (\Delta t')^2 - (\Delta x')^2 - (\Delta y')^2 - (\Delta z')^2
+            &= \Big(\gamma(\Delta t - \beta \Delta x)\Big)^2 - \Big(\gamma(-\beta \Delta t + \Delta x)\Big)^2 - (\Delta y)^2 - (\Delta z)^2 \\
+            &= ... \\
+            &= \gamma^2 (1 - \beta^2)\Big((\Delta t)^2 - (\Delta x)^2\Big) - (\Delta y)^2 - (\Delta z)^2 \\
+            &= (\Delta t)^2 - (\Delta x)^2 - (\Delta y)^2 - (\Delta z)^2 
+        \end{align*}
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Original observations}
+
+\begin{itemize}
+    \item $\{\text{$x'$-axis}\} = \Big\{ \begin{pmatrix} vt \\ t \end{pmatrix} \mid t \in \R \Big\} = \spann\Big(\begin{pmatrix} v \\ 1 \end{pmatrix}\Big)$ and $\{\text{$t'$-axis}\} = \Big\{ \begin{pmatrix} (1/v)t \\ t \end{pmatrix} \mid t \in \R \Big\} = \spann\Big( \begin{pmatrix} 1 \\ v \end{pmatrix} \Big)$.
+\end{itemize}
+
+\newpage
+
+\subsection*{Notes on Ch. 1 of Stephen Parrott's \textit{Relativistic Electrodynamics and Differential Geometry}}
+
+An \textit{event} is the primitive concept of special relativity. The set of all events is called \textit{spacetime}, and is denoted with $E$.
+
+\vspace{.5cm}
+
+A bijection $\ff:E \rightarrow \R^4$ is called a \textit{Lorenz coordinatization of $E$} iff 
+\begin{enumerate}
+    \item All clocks that are stationary in $\ff(E)$ measure coordinate time.
+    \begin{itemize}
+        \item This is not true in general relativity!
+    \end{itemize}
+    \item Light travels in straight lines and always travels at the same same speed.
+\end{enumerate}
+
+The clock associated with a Lorentz coordinatization $\ff$ is clock that is stationary at the origin $\mathbf{0}$ of $\ff(E)$.
+
+Special relativity assumes that a Lorentz coordinatization of $E$ exists.
+
+\vspace{.5cm}
+
+The \textit{worldline} of a particle described by a position function $\rr(t)$ is the set $\{(t, \rr(t))\}$.
+
+If a light pulse has position function $\rr(t) = \rr_0 + c\hat{\vv} t$, where $\hat{\vv}$ is a unit vector, then its worldline is the image of $t \mapsto (t, \rr(t)) = (t, \rr_0 + c\hat{\vv} t) = (1, c\hat{\vv}) t + (0, \rr_0)$. The same worldline is traversed by the frame that moves at light speed, alongisde the light pulse; it is traversed by $t \mapsto (c, c \hat{\vv}) t + (0, \rr_0) = c(1, \hat{\vv})t + (0, \rr_0)$. Finding the Minkowski-length of this frame's direction vector, we have $\langle c(1, \hat{\vv}), c(1, \hat{\vv})\rangle = c^2\langle(1, \hat{\vv}), (1, \hat{\vv})\rangle = c^2(1 - \hat{\vv} \cdot \hat{\vv}) = c^2 (1 - 1) = 0$.
+
+Thus, the worldline of any light pulse can be written as a  \text{null line}, which has the form $\rr(t) = \rr_0 + \vv t$, for some $\vv \in \R^4$ such that $\langle \vv, \vv \rangle = 0$.
+
+\vspace{.5cm}
+
+\textit{Minkowski space} $M$ is $\R^4$ equipped with the Minkowski inner product $\langle \cdot, \cdot \rangle$ defined by ${\langle (x^0, \xx), (y^0, \yy) \rangle := c^2 x^0 y^0 - \xx \cdot \yy}$. This implies that the norm induced by the Minkowsi inner product of an event $(t, \xx)$ is then ${||(x^0, \xx)||^2 = \sqrt{(ct)^2 - ||\xx||_E^2}}$, where $||\cdot||_E$ is the Euclidean norm.
+
+Suppose $\ff:E \rightarrow M$ is a Lorentz coordinatization. We want to find bijections $\gg:M \rightarrow M$ such that $\gg \circ \ff:E \rightarrow M$ is also a Lorentz coordinatization.
+
+You can prove that if $\gg \circ \ff$ is a Lorentz coordinization, then $\gg$ must send null lines to null lines.
+
+\vspace{.5cm}
+
+A \textit{Lorenz transformation} is an orthogonal linear function $M \rightarrow M$. Recall that orthogonal linear functions preserve inner product. Thus Lorentz transformations send null to null lines. But, Lorentz transformations still could do something nasty, and send stationary clocks that measure coordiante time to stationary clocks that don't measure coordinate time!
+
+To prevent this, we want to choose $\gg$ to be such that
+
+\begin{itemize}
+    \item if $\ff$ is a Lorentz coordinatization and $\gg$ is a Lorentz transformation, then $\gg \circ \ff$ must also be a Lorentz coordinatization.
+\end{itemize}
+
+Suppose $\ff$ is a Lorentz coordinatization, and consider the Lorentz transformation\footnote{I keep thinking ``$\gg$ can't be linear because it doesn't send $\mathbf{0}$ to $\mathbf{0}$''. But it is! $\gg(\mathbf{0}, 0) = \mathbf{0} + 0 \cdot \vv = \mathbf{0}$.} $\gg$ defined by ${\gg(\xx, t) = \ff(\xx) + t \vv}$, where $t$ is the coordinate time of $\ff$. Clocks moving with a constant velocity of $\vv$ in the first coordinatization will be stationary in the second, and thus, by axiom (1) of Lorentz coordinatizations, also measure coordinate time in that coordinatization.
+
+Since stationary clocks in any Lorentz-transformed-to coordinatization measure coordinate time, [...], the speed of light is the same in any Lorentz-transformed-to coordinatization. (?)
+
+\vspace{.5cm}
+
+An example of a Lorentz transformation is a \textit{boost} of speed $b$ in the $x$-direction, ${(t, x, y, z) \mapsto \gamma(b)(t - bx, x - bt, y, z)}$, where $\gamma(b) := \sqrt{1 - (b/c)^2}$. Evidently, time and length in a boosted coordinatization are different than in the original coordinatization. This wouldn't tell us much if we didn't know that stationary clocks in the boosted coordinatization do indeed measure coordinate time. But they do!
+
+A \textit{spatial rotation} is the direct sum of the identity on $\R$ and an orthogonal linear function on $\R^3$. Note, spatial rotations may include reflections. Spatial rotations are Lorentz transformations. 
+
+If $\RR$ is a spatial rotation and $\ff$ a Lorentz transformation, then $\ff^{-1} \circ \RR \circ \ff$ is a spatial rotation.
+
+Any Lorentz transformation is of the form $\pm \bb \circ \RR$, where $\bb$ is a boost and $\RR$ is a spatial rotation. Lorentz transformations which preserve the sign of the time-coordinate are of the form $\bb \circ \RR$.
+
+\vspace{.5cm}
+
+Two events are said to be...
+
+\begin{itemize}
+    \item \textit{time-separated} (``timelike'') if there's no reference frame in which they're simultaneous (but there is a reference frame in which they're at the same position); $(\Delta s)^2 > 0$
+    \item \textit{space-separated} (``spacelike'') if there's no reference frame in which they're at the same location (but there is a reference frame in which they're simultaneous); $(\Delta s)^2 < 0$
+    \item \textit{light-separated} (``lightlike'' or ``null'') if a light ray connects the two events; $(\Delta s)^2 = 0$
+\end{itemize}
+
+\newpage
+
+\subsection*{Notes on the ``Mathematical Tools'' chapter of Stephen Parrott's \textit{Relativistic Electrodynamics and Differential Geometry}}
+
+\begin{itemize}
+    \item A basis $\hU = \{\huu_1, ..., \huu_n\}$ is said to be orthonormal with respect to a metric tensor $g$ iff $g(\huu_i, \huu_j) = \pm \delta_{ij}$.
+    
+    \item Parrott says ``inner product'' to mean ``metric tensor''.
+
+    \item Assume we always have a basis $E$ for $V$ and a metric tensor $g$ on $V$. Define $v^i := ([\vv]_E)^i$, $v_i := ([\vv^\flat]_{E^*})_i$, $\phi_i := ([\phi]_{E^*})_i$, $\phi^i := ([\phi^\sharp]_E)^i$. 
+    
+    \item Parrott uses $f$ rather than $\phi$ for elements of $V^*$, and uses $\vv^*$ to mean $\vv^\flat$
+    
+    \item $v^i = g^{ij} v_j$, $v_i = g_{ij} v_j$
+    
+    \item $g(\vv, \ww) = v^i w^j g_{ij} = \vv^\flat(\ww) = v_i w^i = \ww^\flat(\vv) = v^i w_i$
+    
+    \item $\binom{p}{q}$ tensors are defined to be elements of $\LLLL((V^*)^{\times p} \times (V^*)^{\times q} \rightarrow K)$. $V^p_q$ denotes the set of $\binom{p}{q}$ tensors on $V$.
+    
+    \item $T$ denotes a linear function $V \rightarrow V$. Define $T^i := ([T(\vv)]_E)^i$ and $T^i{}_j := ([T(\ee_i)]_E)^j$.
+    
+    \item Parrott says ``adjoint'' to mean ``dual transformation'', and denotes the dual transformation of $T:V \rightarrow V$ with $T^\dag:V^* \rightarrow V^*$
+    
+    \item $T^i = v^j T^i{}_j$ and $(T^*)_i = \phi_j T^j{}_i$. Parrott notes that you can interpret these formulas as saying that to compute the action of $T$ on a vector $\vv \in V$ or a dual vector $\phi \in V^*$, we use the same matrix $(T^i_j)$, but in different ways- ways that one can remember by appealing to the up-down index convention.
+    
+    \item If we have a nondegenerate bilinear form $B$ on $V$ and $W$, then $\LLLL(V \times W \rightarrow K) \cong \LLLL(V \rightarrow W)$ via $C \mapsto (\vv \mapsto C(\vv, \cdot)^{\sharp_1})$. Parrott discusses the case $V = W$.
+    
+    \item The natural isomorphism $\flat:V \rightarrow V^*$ provides natural isomorphisms between $T^p_q(V)$ and $T^r_s(V)$ when $p + q = r + s$. This leads to staggered index notation for coordinates of tensors.
+\end{itemize}
+
+``Alternating forms''
+\begin{itemize}
+    \item $\alt \spc \LLLL(V^{\times k} \rightarrow K)$ is denoted by $\Lambda_k(V)$. Elements of $\Lambda_k(V)$ for $k \geq 1$ are called ``$k$-forms''.
+    
+    \item When people use Einstein notation for elements of $\Lambda^k(V)$, they denote them as $\frac{1}{k!} \omega_{i_1 ... i_k} \ee_{i_1} \wedge ... \wedge \ee_{i_k}$, where it is assumed that $\omega_{\sigma(i_1) ... \sigma(i_k)} = \sgn(\sigma) \omega_{i_1 ... i_k}$, because of following fact.
+    
+    \begin{itemize}
+        \item Every wedge product of vectors is an antisymmetric tensor by definition. Every antisymmetric tensor is a basis sum of antisymmetric tensors.
+        \item Suppose $\omega \in \Lambda^k(V)$ is expressed relative to the basis $\{ \ee_{i_1} \wedge ... \wedge \ee_{i_k} \mid i_1 < ... < i_k \}$ as $\omega = \sum_{i_1 < ... < i_k} \omega_{i_1 ... i_k} \ee_{i_1} \wedge ... \wedge \ee_{i_k}$. If we define $\eta_{j_1 ... j_k}$ such that $\eta_{\sigma(j_1) ... \sigma(j_k)} = \sgn((j_1, ..., j_k)) \omega_{i_1 ... i_k}$, where $i_1 < ... < i_k$, then we have
+        
+        \begin{align*}
+            \omega = \sum_{i_1 < ... < i_k} \frac{1}{k!} \sum_{\sigma \in S_k} \eta_{\sigma(i_1) ... \sigma(i_k)} \ee_{\sigma(i_1)} \wedge ... \wedge \ee_{\sigma(i_k)} = \frac{1}{k!} \sum_{i_1, ..., i_k} \eta_{i_1, ..., i_k} \ee_{i_1} \wedge ... \wedge \ee_{i_k}.
+        \end{align*}
+    \end{itemize}
+    
+    \item If $V$ is a vector space with metric tensor $g$, then there is an induced metric tensor $h$ on $T^k_0(V)$ defined on elementary tensors by $h(\vv_1 \otimes ... \otimes \vv_k, \ww_1 \otimes ... \otimes \ww_k) := g(\vv_1, \ww_1) ... g(\vv_k, \ww_k)$. The subspace $\Lambda^k(V) \subseteq T^k_0(V)$ inherits this metric tensor. When restricted to $\Lambda^k(V)$, the metric tensor $h$ is the same as the function, extended with linearity, that sends $(\vv_1 \wedge ... \wedge \vv_k, \ww_1 \wedge ... \wedge \ww_k) \mapsto k! \det(g(\vv_i, \ww_j))$. Parrott uses a normalization convention, so that his metric tensor on $\Lambda^k(V)$ is $\frac{1}{k!} h$.
+    \begin{itemize}
+        \item (Proof that the restriction of $h$ to $\Lambda^k(V)$ is said function). 
+        
+        If $\TT = \vv_1 \otimes ... \otimes \vv_k$ and $\SS = \ww_1 \otimes ... \otimes \ww_k$ then $\alt(\TT) = \sum_{\sigma \in S_k} \sgn(\sigma) \vv_{\sigma(1)} \otimes ... \otimes \vv_{\sigma(k)}$ and $\alt(\SS) = \sum_{\tau \in S_k} \ww_{\tau(1)} \otimes ... \otimes \ww_{\tau(k)}$ and so $h(\alt(\TT), \alt(\SS)) = \sum_{\tau \in S_k} \sum_{\sigma \in S_k} \sgn(\tau) \sgn(\sigma) h(\vv_{\sigma(1)}, \ww_{\tau(1)}) ... h(\vv_{\sigma(k)}, \ww_{\tau(k)})$. Notice that the inner sum is the result of taking the determinant of the matrix $\Big( h(\vv_i, \ww_j) \Big)$ after shuffling the columns by $\tau$:
+        
+        \begin{align*}
+            \det\Big( h(\vv_i, \ww_j) \Big) &= \sgn(\tau) \det\Big( h(\vv_i, \ww_{\tau(j)}) \Big) \\
+            &= \sum_{\sigma \in S_k} \sgn(\tau) \sgn(\sigma) h(\vv_{\sigma(1)}, \ww_1) ... h(\vv_{\sigma(k)}, \ww_k).
+        \end{align*}
+        
+        So, the double sum turns into the single sum $\sum_{\tau \in S_k} \det\Big( h(\vv_i, \ww_j) \Big) = k! \det\Big( h(\vv_i, \ww_j) \Big)$.
+    \end{itemize}
+     
+    \item If $\TT = \vv_1 \wedge ... \wedge \vv_k$ and $\SS = \ww_1 \wedge ... \ww_k$ are such that $\vv_i = \ww_j$ for some $i, j$, then $h(\TT, \SS) = 0$.
+    
+    \item Any wedged basis for $\Lambda^k(V)$ produced from an orthonormal basis for $V$ is orthonormal with respect to the metric tensor $h$ on $\Lambda^k(V)$.
+    \begin{itemize}
+        \item From \url{https://www.homotopico.com/2019/06/10/hodge-star.html}: \\ $h(\huu_{i_1} \wedge ... \wedge \huu_{i_k}, \huu_{j_1} \wedge ... \wedge \huu_{j_k}) = \det(g(\huu_{i_a}, \huu_{j_b})) = \sum_{\sigma \in S_n} \text{sgn}(\sigma) g(\huu_{i_1}, \huu_{j_{\sigma(1)}}) ... g(\huu_{i_k}, \huu_{j_{\sigma(k)}})$. This is equal to
+            
+        \begin{align*}
+            \begin{cases}
+                \sgn(\sigma) g^{i_1 j_{\sigma(1)}} ... g^{i_k j_{\sigma(k)}} & \exists \sigma \spc \forall a \spc i_a = j_{\sigma(a)} \\
+                0 & \text{else}
+            \end{cases}
+            =
+            \begin{cases}
+                \sgn(\sigma) (-1)^s & \exists \sigma \spc \forall a \spc i_a = j_{\sigma(a)} \\
+                0 & \text{else}
+            \end{cases},
+        \end{align*}
+        
+        where $s$ is the number of elements of $\hU$ that have a negative norm. This $s$ is also the number of negative eigenvalues of $g$, I think. (Proof: $(g(\huu_i, \huu_j))$ is diagonal because $\hU$ is orthonormal, and thus the entries on the diagonal are the eigenvalues. The entires on the diagonal are also $\pm 1$, so the claim follows).
+            
+        Note that the above gives the equation seen in Parrott, $h(\huu_{i_1} \wedge ... \wedge \huu_{i_k}, \huu_{i_1} \wedge ... \wedge \huu_{i_k}) = \prod_{a = 1}^k g(\huu_{i_a}, \huu_{i_a})$.
+    \end{itemize}
+    
+    \item An orientation on an $n$-dimensional vector space $V$ is specified by designating a preferred orthonormal basis $\hU = \{\huu_1, ..., \huu_n\}$ of $V$. Such a choice of orientation corresponds to the volume form $\omega_\vol \in \Lambda^n(V)$ defined by $\omega_\vol := \huu_1 \wedge ... \wedge \huu_n$.
+    
+    \item If $E$ is a not-necessarily orthonormal basis for $V$, then we have $\ee_1 \wedge ... \wedge \ee_n = \pm \sqrt{\Big| \det \Big( g(\huu_i, \huu_j) \Big) \Big|} \omega_\vol$, where $\pm$ depends on the orientation of $E$.
+    \begin{itemize}
+        \item Lemma: $\det([\hU]_E) = \pm \sqrt{ \Big| \det \Big( g(\huu_i, \huu_j) \Big) \Big|}$. Proof of lemma: we have $\Big( g(\ee_i, \ee_j) \Big) = [\hU]_E \Big( g(\huu_i, \huu_j) \Big) [\hU]_E^\top$. Taking the determinant of both sides we see $\det\Big( g(\ee_i, \ee_j) \Big) = \det([\hU]_E)^2 \det \Big(g(\huu_i, \huu_j) \Big)$. Notice that since $\hU$ is orthonormal, $\det \Big(g(\huu_i, \huu_j) \Big) = (-1)^s$, where $s$ is the number of negative eigenvalues of $g$'s matrix relative to any basis. The lemma follows.
+        \item Proof: $\ee_1 \wedge ... \wedge \ee_n = \det([\hU]_E) \huu_1 \wedge ... \wedge \huu_n$, since $\vv \mapsto [\hU]_E [\vv]_\hU$, which is the function sending $\huu_i \mapsto \ee_i$, has determinant $\det([\hU]_E)$.
+    \end{itemize}
+    
+    \item Since we have the musical isomorphism $\flat:V \rightarrow V^*$, Parrott works in $\tLambda^n(V^*)$ instead of $\Lambda^n(V)$. The volume form induced $\widetilde{\omega}_\vol$ induced on this space by $\flat$ satisfies $\widetilde{\omega}_\vol(\huu_1, ..., \huu_n) = 1$. Since $\det$ is the unique multilinear alternating function that sends orthonormal bases to $1$, then $\widetilde{\omega}_\vol = \det$. Parrott uses $\Omega$ to denote $\widetilde{\omega}_\vol$.
+    
+    \begin{itemize}
+        \item (Proof that $\widetilde{\omega}_\vol(\huu_1, ..., \huu_n) = 1$). Suppose an $n$-dimensional vector space $V$ has orientation given by $\hU$. Then $\omega_\vol = \huu_1 \wedge ... \wedge \huu_n \in \Lambda^n(V) \overset{\flat}{\mapsto} \huu_1^\flat \twedge ... \twedge \huu_n^\flat = \widetilde{\omega}_\vol \in \tLambda(V^*)$, and $\widetilde{\omega}_\vol(\huu_1, ..., \huu_n) = (\huu_1^\flat \twedge ... \twedge \huu_n^\flat)(\huu_1, ..., \huu_n) = \det(\huu_i^\flat(\huu_j)) = \det(g(\huu_i, \huu_j)) = \det(\delta_{ij}) = 1$.
+    \end{itemize}
+    \item Hodge dual derivation from \url{https://www.homotopico.com/2019/06/10/hodge-star.html}
+    \begin{itemize}
+        \item Let $\omega \in \Lambda^k(V)$ and $\eta \in \Lambda^{n - k}(V)$. Since $\omega \wedge \eta$ is some scalar multiple of $\omega_\vol$, there is a function $\phi_\eta \in (\Lambda^k(V))^*$ such that $\omega \wedge \eta = \phi_\eta(\omega) \omega_\vol$.
+        
+        $\phi_\eta$ is indeed linear.
+        \begin{itemize}
+            \item $\phi_\eta(\omega_1 + \omega_2) \omega_\vol = (\omega_1 + \omega_2) \wedge \eta = \omega_1 \wedge \eta + \omega_2 \wedge \eta = \phi_\eta(\omega_1) \omega_\vol + \phi_\eta(\omega_2) \omega_\vol \implies \phi_\eta(\omega_1 + \omega_2) \omega_\vol = \phi_\eta(\omega_1) \omega_\vol + \phi_\eta(\omega_2) \omega_\vol \implies \phi_\eta(\omega_1 + \omega_2) \omega_\vol = (\phi_\eta(\omega_1) + \phi_\eta(\omega_2)) \omega_\vol \implies \phi_\eta(\omega_1 + \omega_2) = \phi_\eta(\omega_1) + \phi_\eta(\omega_2)$. Showing $\phi_\eta(c \omega) = c \phi_\eta(\omega)$ is similar.
+        \end{itemize}
+        $\phi_\eta$ is well-defined.
+        \begin{itemize}
+            \item $\omega_1 = \omega_2 = \omega \implies \phi_\eta(\omega_1 - \omega_2) \omega_\vol = (\omega_1 - \omega_2) \wedge \eta = (\omega - \omega) \wedge \eta = 0 \implies \phi_\eta(\omega_1 - \omega_2) \omega_\vol = 0 \implies \phi_\eta(\omega_1 - \omega_2) = 0 \implies \phi_\eta(\omega_1) =  \phi_\eta(\omega_2)$.
+        \end{itemize}
+        
+        We have $\omega \wedge \eta = \frac{1}{k!(n - k)!} \omega_{i_1 ... i_k} \eta_{j_1 ... j_{n - k}} \epsilon^{i_1 ... i_k j_1 ... j_{n - k}} \omega_\vol$, so $\phi_\eta(\omega) = \frac{1}{k!(n - k)!} \omega_{i_1 ... i_k} \eta_{j_1 ... j_{n - k}} \epsilon^{i_1 ... i_k j_1 ... j_{n - k}}$, where the coordinates here are relative to an orthonormal basis $\hU$ of $V$.
+        
+        Define $\phi:\Lambda^{n - k}(V) \rightarrow (\Lambda^k(V))^*$ to be the map sending $\eta \mapsto \phi_\eta$. $\phi$ is linear; the proof for showing so is analogous to the proof that shows $\phi_\eta$ is linear. Since $\dim(\Lambda^{n - k}(V)) = \binom{n}{n - k} = \binom{n}{k} = \dim(\Lambda^k(V)) = \dim((\Lambda^k(V))^*)$, then $\phi$ is an isomorphism iff it is one-to-one. Once we know $\phi$ is an isomorphism then we define the Hodge dual $\perp:\Lambda^k(V) \rightarrow \Lambda^{n - k}(V)$ to be the map such that $\phi_{\perp \omega} = \omega^\flat$ for all $\omega \in \Lambda^k(V)$, where $\flat$ is the musical isomorphism induced by the metric tensor $h$ on $\Lambda^k(V)$. If we know that $\phi$ is an isomorphism, then $\perp$ must be unique since $\phi \circ \perp = \flat$, so $\perp = \phi^{-1} \circ \flat$.
+        
+        We show $\phi$ has a trivial kernel.
+        \begin{itemize}
+            \item Assume $\phi_\eta = 0$, i.e., that $\phi_\eta(\omega) = \frac{1}{k!(n - k)!} \omega_{i_1 ... i_k} \eta_{j_1 ... j_{n - k}} \epsilon^{i_1 ... i_k j_1 ... j_{n - k}} = 0$ for all $\omega$. This implies that $\phi_\eta(\omega) = 0$ when $\omega$ is of the form $\omega = \huu_{r_1} \wedge ... \wedge \huu_{r_k}$.
+            
+            \item When this is the case, the coordinates $\frac{1}{k!(n - k)!} \omega_{{i_1}...{i_k}}$ of $\omega$ relative to $\hU$ are $\frac{1}{k!(n - k)!} \delta^{r_1 ... r_k}_{i_1 ... i_k}$, so we have $\frac{1}{k!(n - k)!} \delta^{r_1 ... r_k}_{i_1 ... i_k} \eta_{j_1 ... j_{n - k}} \epsilon^{i_1 ... i_k j_1 ... j_{n - k}} = 0$. Each term in this implicit sum is nonzero only when there is a $\sigma \in S_k$ such that $(i_1, ..., i_k) = \sigma((r_1, ..., r_k))$, with nonzero terms having a factor of $\sgn(\sigma)$, so the implicit sum is the same as $\frac{1}{k!(n - k)!} \sum_{\sigma \in S_k} \sgn(\sigma) \eta_{j_1 ... j_{n - k}} \epsilon^{\sigma(r_1) ... \sigma(r_k) j_1 ... j_{n - k}}$. (Notice that the argument of the sum $\sum_{\sigma \in S_k}$ is still an implicit sum). Since swapping two indices in the Levi-Civita symbol negates it, we can apply the permutation $\sigma^{-1}$ to the $r$ indices and obtain this equivalent equation: $\frac{1}{k!(n - k)!} \sum_{\sigma \in S_k} \eta_{j_1 ... j_{n - k}} \epsilon^{r_1 ... r_k j_1 ... j_{n - k}} = \frac{1}{(n - k)!} \eta_{j_1 ... j_{n - k}} \epsilon^{r_1 ... r_k j_1 ... j_{n - k}} = 0$. So $\frac{1}{(n - k)!} \eta_{j_1 ... j_{n - k}} \epsilon^{r_1 ... r_k j_1 ... j_{n - k}} = 0$.
+        
+            \item In all, we have shown that $(\phi_\eta = 0)$ implies $(\frac{1}{(n - k)!} \eta_{j_1 ... j_{n - k}} \epsilon^{r_1 ... r_k j_1 ... j_{n - k}} = 0 \text{ for all $\omega$ of the form}$ \\ $\omega = \huu_{r_1} \wedge ... \wedge \huu_{r_k})$, i.e., that $(\phi_\eta = 0)$ implies $(\frac{1}{(n - k)!} \eta_{j_1 ... j_{n - k}} \epsilon^{r_1 ... r_k j_1 ... j_{n - k}} = 0 \text{ for all $r_1, ..., r_k$})$.
+            
+            Now let $s_1, ..., s_{n - k}$ be any particular choice of the $j$'s. Since the above implication holds for all $r$, it holds in particular when $\{r_1, ..., r_k\} = \{1, ..., n\} - \{s_1, ..., s_{n - k}\}$. That is, when the $r$'s are complementary to the $s$'s we still have $\frac{1}{(n - k)!} \eta_{j_1 ... j_{n - k}} \epsilon^{r_1 ... r_k j_1 ... j_{n - k}} = 0$. In this situation, $\epsilon$ is nonzero only on permutations of these $s$'s, so the sum becomes $\frac{1}{(n - k)!} \sum_{\sigma \in S_{n - k}} \eta_{\sigma(s_1)} ... \eta_{\sigma(s_{n - k})} \epsilon^{r_1 ... r_k \sigma(s_1) ... \sigma(s_{n - k})}$, where the inner sum here is \textit{not} an implicit sum over the $s$'s. This is the same as \\ $\frac{1}{(n - k)!} \sum_{\sigma \in S_{n - k}} \sgn(\sigma)^2 \eta_{s_1 ... s_{n - k}} \epsilon^{r_1 ... r_k s_1 ... s_{n - k}} = \eta_{s_1 ... s_{n - k}} \epsilon^{r_1 ... r_k s_1 ... s_{n - k}} = \pm \eta_{s_1 ... s_{n - k}}$. 
+            
+            \item Thus $\phi_\eta = 0$ implies $\pm \eta_{s_1 ... s_{n - k}} = 0$ for all $s_1, ..., s_{n - k}$, i.e. $\phi_\eta = 0$ implies $\eta = 0$.
+        \end{itemize}
+    \end{itemize}
+    \item The Hodge dual of $\TT \in \Lambda^k(V)$ is denoted with $\perp \TT$.
+    \item Applying $\perp$ to the equation characterizing the Hodge dual shows $h$ is uniquely characterized by $h(\omega, \eta) = \perp(\eta \wedge (\perp \omega))$.
+    \item $\perp \perp 
+    \omega = s (-1)^{k(n - k)} \omega$, where $s$ is
+    \item If $\TT = \phi^{\vv_1} \twedge ... \twedge \phi^{\vv_k}$ then $(\perp \TT)(\ww_1, ..., \ww_{n - k}) = \widetilde{\omega}_\vol(\vv_1, ..., \vv_k, \ww_1, ..., \ww_{n - k})$.
+\end{itemize}
+
+Other
+
+\begin{itemize}
+    \item $M$ denotes a manifold
+    \item Defines charts; uses $\phi_U:U \subseteq M \rightarrow \R^n$ to denote a chart
+    \item Talks about smoothly compatible charts 
+    \item $M_\pp$ is used to denote $T_\pp(M)$
+    \item $\widetilde{\vv}|_\pp:C^\infty(\R^n \rightarrow \R) \rightarrow \R$ denotes the map $f \mapsto \frac{\pd f}{\pd \vv}\Big|_\pp$
+    \item Mentions how since the set of derivations at $\pp \in \R^n$ (recall, Lee calls this set $T_\pp(\R^n)$) is equal to the set of directional derivative functions at $\pp$, a sensible definition of $T_\pp(M)$ is the set of derivations at $\pp$
+    \item When $M$ is also a vector space, then $\vv \mapsto \frac{\pd}{\pd \vv}\Big|_\pp$ is a natural identification of $M$ with $T_\pp(M)$
+    \item Parrott says ``vector field'' to mean ``not necessarily continuous vector field'' (i.e. ``rough vector field'')
+    \item A vector field $v$ on $M$ is said to be $C^\infty(M \rightarrow T(M))$ iff $\pp \mapsto v_\pp(f)$ is $C^\infty$ whenever $f$ is $C^\infty$ 
+    \item 
+    \item The commutator $[v, w]_\pp$ of two vector fields $v, w$ on $M$ is the element of $T_\pp(M)$ defined by \\ ${[v, w]_\pp(f) := v_\pp(w(f)) - w_\pp(v(f))}$. Note, one does have to check that the commutator satisfies the ``product rule'' to ensure it is in $T_\pp(M)$.
+\end{itemize}
+
+\end{document}
