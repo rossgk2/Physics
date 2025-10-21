@@ -1,0 +1,358 @@
+\section*{Ohanian's \textit{Classical Electrodynamics}}
+
+\subsection*{Invariance of the spacetime interval}
+
+We have\footnote{The idea to formalize dependence on $v$ as an assumption rather than hand-waving, as Ohanian does, about how ``the only other quantity the constant could depend on is $v$'' is from \url{https://arxiv.org/pdf/physics/0302045.pdf}. The argument I use could be applied for any quantity that is not $v$, so, to be very thorough, we should probably assume dependence on $u_1, ..., u_n, v$ and eliminate dependence on all the $u_i$.}
+
+\begin{align*}
+	ds'^2 = dt'^2 - dx'^2 = \Big( \frac{\pd t'}{\pd t} dt + \frac{\pd t'}{\pd x} dx + \frac{\pd t'}{\pd v} dv \Big)^2 - \Big( \frac{\pd x'}{\pd t} dt + \frac{\pd x'}{\pd x} dx + \frac{\pd x'}{\pd v} dv \Big)^2.
+\end{align*}
+
+Therefore there exist $A, B, C, D_1, D_2, D_3$ for which
+
+\begin{align*}
+	dt'^2 - dx'^2 &= A(x, t, v) dt^2 + B(x, t, v) dx^2 + \spc dv + C(x, t, v) dv^2 \\
+	&+ D_1(x, t, v) dt \spc dx + D_2(x, t, v) dt \spc dv + D_3(x, t, v) dx \spc dv
+	\text{ for all $(x, t, v)$}.
+\end{align*}
+
+Eliminate $D_1, D_2, D_3$ from the above by taking advantage of the fact that substituting $x \mapsto -x$ and $v \mapsto -v$ causes $dx$ to change to $-dx$ and $dv$ to change to $-dv$, respectively. (Make a substitution, add equations, and divide the result by $2$ to perform one of these eliminations.) We obtain
+
+\begin{align*}
+	dt'^2 - dx'^2 = A(x, t, v) dt^2 + B(x, t, v) dx^2 + C(x, t, v) dv^2 \text{ for all $(x, t, v)$}.
+\end{align*}
+
+Notice that in the special case when $dx = dt$, then $dx' = dt'$, and the above becomes \\ ``$0 = A(x, t, v) dt^2 + B(x, t, v) dt^2 + C(x, t, v) dv^2 \text{ for all $(x, t, v)$}$''. Consider further the special case in which $dv = 0$ to conclude that $B = - A$. So, we have
+
+\begin{align*}
+	dt'^2 - dx'^2 = A(x, t, v) (dt^2 - dx^2) + C(x, t, v) dv^2 \text{ for all $(x, t, v)$}.
+\end{align*}
+
+Because the speed of light is frame-invariant, events that are separated by a light signal in one frame must be separated by a light signal in all other frames; symbolically, $ds = 0$ iff $ds' = 0$. In the special case when $ds = 0$, the above becomes ``$0 = C(x, t, v) dv^2 \text{ for all $(x, t, v)$}$'', which forces $C = 0$, giving
+
+\begin{align*}
+	dt'^2 - dx'^2 = A(x, t, v)(dt^2 - dx^2) \text{ for all $(x, t, v)$}.
+\end{align*}
+
+That is, $ds'^2 = A(x, t, v) ds^2$. This can be restated as
+
+\begin{align*}
+	\eta_{\alpha \beta} dx'^\alpha dx'^\beta = A(x, t, v) \eta_{\mu \nu} dx^\mu dx^\nu \text{ for all $(x, t, v)$}.
+\end{align*}
+
+The above equality is an equality of functions (the metric $ds^2 = \eta_{\mu \nu} dx^\mu dx^\nu$ acts on an element of the tangent space\footnote{\url{https://math.stackexchange.com/questions/3740010/confusion-about-notation-over-einstein-summation-notation/3740078#3740078}} as $ds^2(v) = \eta_{\mu \nu} dx^\mu(v) dx^\nu(v)$, so, it must hold when each side is applied to an arbitrary tangent vector). The linearity of each side implies that the above must hold when each side is applied to an arbitrary basis tangent vector $\frac{\pd}{\pd x^\rho}$:
+
+\begin{align*}
+	\eta_{\alpha \beta} \frac{\pd x'^\alpha}{\pd x^\rho} \frac{\pd x'^\beta}{\pd x^\rho} = A(x, t, v) \eta_{\mu \nu} \frac{\pd x^\mu}{\pd x^\rho} \frac{\pd x^\nu}{\pd x^\rho} \text{ for all $\rho \in \{1, ..., n\}$} \text{ and $(x, t, v)$}.
+\end{align*}
+
+Now we clearly have
+
+\begin{align*}
+	A(x, t, v) = \frac{\sum_{\alpha \beta} \eta_{\alpha \beta} \frac{\pd x'^\alpha}{\pd x^\rho} \frac{\pd x'^\beta}{\pd x^\rho}}{\sum_\mu \eta_{\mu \mu} } \text{ for all $\rho \in \{1, ..., n\}$} \text{ and $(x, t, v)$}.
+\end{align*}
+
+Spacetime transformations are affine\footnote{\url{https://physics.stackexchange.com/a/12859}}, so $\frac{\pd x'^\alpha}{\pd x^\rho}$ and $\frac{\pd x'^\beta}{\pd x^\rho}$ must be constant for all $\alpha, \beta, \rho$. \textbf{Actually, I think we can argue that somehow they depend on $v$} (since $\frac{\pd x'^\alpha}{\pd x^\rho} = \frac{\pd x'^\alpha/\pd t}{\pd x^\rho/\pd t}$?). So, $A$ is really just a function of $v$ but not $x$ or $t$.
+
+So far we've shown $ds^2 = A(v) ds'^2$. Notice that due to the homogeneity of space, $A$ cannot depend on the direction of the velocity due to the homogeneity of space, so we more specifically have $ds^2 = A(|v|) ds'^2$. By symmetry, we have $ds'^2 = A(|-v|) ds^2 = A(|v|) ds^2$. Equating the two different expressions for $ds^2$ implies $A(|v|) = \pm 1$ for all $v$. \textbf{Since $ds^2 > 0$ we must have $A(|v|) = 1$ for all $v$.}
+
+
+Sidenote\footnote{\url{https://physicspages.com/pdf/Relativity/Metric\%20tensor\%20under\%20Lorentz\%20transformation.pdf}}: the invariance of the spacetime interval implies that applying two Lorentz transformations to the metric $\eta_{\alpha \beta}$ returns the metric, just with adjusted indices: $\Lambda^\alpha_\mu \Lambda^\beta_\nu \eta_{\alpha \beta} = \eta_{\mu \nu}$.
+
+
+
+Good readings for this:
+
+\begin{itemize}
+	\item \url{https://physics.stackexchange.com/questions/426373/invariance-of-spacetime-interval-directly-from-postulate}
+	\item \url{https://physics.stackexchange.com/questions/127409/metric-tensor-in-special-and-general-relativity}
+	\item \url{https://math.stackexchange.com/questions/3740010/confusion-about-notation-over-einstein-summation-notation/3740078#3740078}
+	\begin{itemize}
+		\item $\eta = \eta_{\alpha \beta} dx^\alpha \otimes dx^\beta$. If we define $\eta \omega := \text{sym}(\eta \otimes \omega) = \frac{1}{2}(\eta \otimes \omega + \omega \otimes \eta)$, then since $\eta_{\alpha \beta} = \eta_{\beta \alpha}$ we have $\eta = \eta_{\alpha \beta} dx^\alpha dx^\beta$.
+	\end{itemize}
+\end{itemize}
+
+\subsection*{Lorentz transformation}
+
+\begin{itemize}
+	\item $\{\text{$x'$-axis}\} = \{(x, t) \mid t'(x, t) = 0\}$ and $\{\text{$t'$-axis}\} = \{(x, t) \mid x'(x, t) = 0\}$. 
+	\item We have $x' = 0$ exactly when $x = vt$, so $\{\text{$t'$-axis}\} = \{(x, t) \mid x = vt\}$.
+	\item Spacetime transformations must map lines to lines\footnote{Starting with this sentence, the argument is taken from Ohanian's \textit{Classical Electrodynamics}} (so that paths of isolated particles get mapped to paths of isolated particles), so the $x'$-axis must also be a straight line. Since the speed of light is frame-independent, the $x'$-axis must be the reflection of the $t'$-axis across the line $x = ct$. Assuming $c = 1$, the $x'$-axis is $\{\text{$x'$-axis}\} = \{(x, t) \mid x = -\frac{1}{v}t \}$.
+	\item Thus, $(x'(x, t) = 0) \iff (x - vt = 0)$ and $(t'(x, t) = 0) \iff (t - vx = 0)$.
+	\item Any two rank-$1$ linear functions that share the same kernel are scalar multiples of each other, so $t' = k(t - vx)$ and $x' = k(x - vt)$. Consider the special cases $x = 0 \implies t' = kt$ and $t = 0 \implies x' = kx$ to conclude that $k$ is the factor involved in length contraction and time dialation; $k = \gamma$.
+\end{itemize}
+
+\newpage
+
+\section*{Thomas Moore's \textit{Unit R}}
+
+\begin{itemize}
+	\item Axiom: the speed of light is frame-independent.
+	\item Two clocks are said to be \textit{synchronized} iff the time of the second is offset from the time of the first by the time it would take for light to travel from the first to the second. I.e., iff $t_2 = t_1 + \frac{d}{c}$, where $d$ is the distance between the clocks.
+	\item Let $F$ be a reference frame and let $A$ and $B$ be events whose locations are measured relative to $F$. The \textit{coordinate time between $A$ and $B$ relative to $F$} is defined as follows:
+	\begin{itemize}
+		\item Let $c_A$ be a clock located at $A$ and $c_B$ be a clock synchronized to clock $A$ located at $B$; let $t_A$ be the time of event $A$ that's measured by $c_A$, and $t_B$ be the time of event $B$ that's measured by $c_B$. The \textit{coordinate time between $A$ and $B$ relative to $F$} is $t_B - t_A$.
+	\end{itemize}
+	\item Let $A$ and $B$ be events in some arbitrary frame. The \textit{proper time (measured by a curve $\rr:U \subseteq \R \rightarrow \R^3$) between $A$ and $B$} is the coordinate time interval accrued by the clock that follows the curve $\rr$ from $A$'s location to $B$'s location. The \textit{spacetime interval between $A$ and $B$} is the proper time on the straight-line path between $A$ and $B$.
+	\item Formula for the spacetime interval:
+	\begin{itemize}
+		\item Consider a light clock of height $L$ traveling with horizontal velocity $v$. Let $A$ and $B$ be events whose positions coincide with the light clock as it travels. Let the time at which $A$ occurs be that of a light pulse leaving the bottom of the clock, and let the time at which $B$ occurs be that of the same light pulse returning to the bottom of the clock. Let $\Delta t$ denote the coordinate time interval, relative to the rest frame, between $A$ and $B$. (Notice that this setup assumes $\Delta t > v \Delta t$).
+		\item In the light clock's frame, $A$ and $B$ both occur at the clock face, so the coordinate time between these two events relative to the light clock's frame is $\Delta t' = 2L$. Since the light clock's frame is intertial, we have $\Delta s = \Delta t'$. So $\Delta s = 2L$.
+		\item The coordinate time $\Delta t$ between $A$ and $B$ relative to the home frame is the distance between clocks at $A$ and $B$ that have been synchronized, which is $2\sqrt{L^2 + (\frac{1}{2}d)^2}$.
+		\item We have $2L = 2\sqrt{L^2 + (\frac{1}{2}d)^2}$, where $d = v \Delta t$, which implies $(\Delta s)^2 = (\Delta t)^2 - d^2$. Overall, we have $(\Delta s)^2 = (\Delta t)^2 - d^2$ when $\Delta t \geq d$.
+		\item Proof of no length contraction perpendicular to motion
+		\begin{itemize}
+			\item Suppose for contradiction that there is length contraction perpendicular to the direction of motion. Now imagine two rods of differing lengths, with their lengths oriented vertically, travelling horizontally towards each other. (The rods are separated by some depth so that they may pass each other.) Imagine that paint is constantly spraying from the ends of each of the rods. If we view rod $1$ as stationary, then rod $2$ is moving and thus experiences contraction, so when the rods pass each other, $2$ will spray lines of paint that fall inside the lines of paint sprayed by $1$. But we can also imagine $2$ as stationary and $1$ as moving, so it must also be true that when the rods pass each other, $1$ will spray lines of paint that fall inside the lines of paint sprayed by $2$. If it is true that ``insideness/outsideness'' is frame-independent, which seems intuitive enough, then we have reached a contradiction!
+		\end{itemize}
+	\end{itemize}
+	\item Proper time
+	\begin{itemize}
+		\item ``$\Delta \tau = \int_{t_A}^{t_B} ds$''
+		\item Important inequality: $\Delta t \geq \Delta s \geq \Delta \tau$
+		\item Twin paradox
+		\begin{itemize}
+			\item The proper time of the twin who is viewed as accelerating is not the same as the spacetime interval, a frame's coordinate time is only equivalent to the spacetime interval if it is intertial.
+			\item There is inherent asymmetry in the situation: ``If two people were to travel between two points, one taking a straight-line path and one taking a windy path, we would not think it's remarkable that the one taking the windy path traveled more distance! Placing oneself in the position of the windy-path reference frame so as to make the windy path seem straight does not change this.''
+		\end{itemize}
+	\end{itemize}
+	\item $t'$ and $x'$ axes
+	\begin{itemize}
+		\item Since $\{\text{$t'$-axis}\} = \{(x, t) \mid x'(x, t) = 0\}$, the spacetime interval of an arbitrary point $(x', t')$ on the $t'$-axis is $t'^2 - 0^2$. Suppose $(x, t)$ are the cooresponding coordinates in the unprimed frame. Due to the invariance of the spacetime interval, this same spacetime interval is $t^2 - x^2 = t^2 - (\frac{v}{c}t)^2$; we have $t'^2 = t^2 - (\frac{v}{c}t)^2$. Thus $t'^2 = (1 - (\frac{v}{c})^2)t^2 = \gamma^{-2} t^2$, and so $t' = \gamma^{-1} t$.        
+	\end{itemize}
+	\item Lorentz transformations
+	\item Invariance of spacetime interval via Lorentz transformation:
+	\begin{itemize}
+		\begin{align*}
+			(\Delta t')^2 - (\Delta x')^2 - (\Delta y')^2 - (\Delta z')^2
+			&= \Big(\gamma(\Delta t - \beta \Delta x)\Big)^2 - \Big(\gamma(-\beta \Delta t + \Delta x)\Big)^2 - (\Delta y)^2 - (\Delta z)^2 \\
+			&= ... \\
+			&= \gamma^2 (1 - \beta^2)\Big((\Delta t)^2 - (\Delta x)^2\Big) - (\Delta y)^2 - (\Delta z)^2 \\
+			&= (\Delta t)^2 - (\Delta x)^2 - (\Delta y)^2 - (\Delta z)^2 
+		\end{align*}
+	\end{itemize}
+\end{itemize}
+
+\section*{Original observations}
+
+\begin{itemize}
+	\item $\{\text{$x'$-axis}\} = \Big\{ \begin{pmatrix} vt \\ t \end{pmatrix} \mid t \in \R \Big\} = \spann\Big(\begin{pmatrix} v \\ 1 \end{pmatrix}\Big)$ and $\{\text{$t'$-axis}\} = \Big\{ \begin{pmatrix} (1/v)t \\ t \end{pmatrix} \mid t \in \R \Big\} = \spann\Big( \begin{pmatrix} 1 \\ v \end{pmatrix} \Big)$.
+\end{itemize}
+
+\newpage
+
+\section*{Notes on Ch. 1 of Stephen Parrott's \textit{Relativistic Electrodynamics and Differential Geometry}}
+
+An \textit{event} is the primitive concept of special relativity. The set of all events is called \textit{spacetime}, and is denoted with $E$.
+
+\vspace{.5cm}
+
+A bijection $\ff:E \rightarrow \R^4$ is called a \textit{Lorenz coordinatization of $E$} iff 
+\begin{enumerate}
+	\item All clocks that are stationary in $\ff(E)$ measure coordinate time.
+	\begin{itemize}
+		\item This is not true in general relativity!
+	\end{itemize}
+	\item Light travels in straight lines and always travels at the same same speed.
+\end{enumerate}
+
+The clock associated with a Lorentz coordinatization $\ff$ is clock that is stationary at the origin $\mathbf{0}$ of $\ff(E)$.
+
+Special relativity assumes that a Lorentz coordinatization of $E$ exists.
+
+\vspace{.5cm}
+
+The \textit{worldline} of a particle described by a position function $\rr(t)$ is the set $\{(t, \rr(t))\}$.
+
+If a light pulse has position function $\rr(t) = \rr_0 + c\hat{\vv} t$, where $\hat{\vv}$ is a unit vector, then its worldline is the image of $t \mapsto (t, \rr(t)) = (t, \rr_0 + c\hat{\vv} t) = (1, c\hat{\vv}) t + (0, \rr_0)$. The same worldline is traversed by the frame that moves at light speed, alongisde the light pulse; it is traversed by $t \mapsto (c, c \hat{\vv}) t + (0, \rr_0) = c(1, \hat{\vv})t + (0, \rr_0)$. Finding the Minkowski-length of this frame's direction vector, we have $\langle c(1, \hat{\vv}), c(1, \hat{\vv})\rangle = c^2\langle(1, \hat{\vv}), (1, \hat{\vv})\rangle = c^2(1 - \hat{\vv} \cdot \hat{\vv}) = c^2 (1 - 1) = 0$.
+
+Thus, the worldline of any light pulse can be written as a  \text{null line}, which has the form $\rr(t) = \rr_0 + \vv t$, for some $\vv \in \R^4$ such that $\langle \vv, \vv \rangle = 0$.
+
+\vspace{.5cm}
+
+\textit{Minkowski space} $M$ is $\R^4$ equipped with the Minkowski inner product $\langle \cdot, \cdot \rangle$ defined by ${\langle (x^0, \xx), (y^0, \yy) \rangle := c^2 x^0 y^0 - \xx \cdot \yy}$. This implies that the norm induced by the Minkowsi inner product of an event $(t, \xx)$ is then ${||(x^0, \xx)||^2 = \sqrt{(ct)^2 - ||\xx||_E^2}}$, where $||\cdot||_E$ is the Euclidean norm.
+
+Suppose $\ff:E \rightarrow M$ is a Lorentz coordinatization. We want to find bijections $\gg:M \rightarrow M$ such that $\gg \circ \ff:E \rightarrow M$ is also a Lorentz coordinatization.
+
+You can prove that if $\gg \circ \ff$ is a Lorentz coordinization, then $\gg$ must send null lines to null lines.
+
+\vspace{.5cm}
+
+A \textit{Lorenz transformation} is an orthogonal linear function $M \rightarrow M$. Recall that orthogonal linear functions preserve inner product. Thus Lorentz transformations send null to null lines. But, Lorentz transformations still could do something nasty, and send stationary clocks that measure coordiante time to stationary clocks that don't measure coordinate time!
+
+To prevent this, we want to choose $\gg$ to be such that
+
+\begin{itemize}
+	\item if $\ff$ is a Lorentz coordinatization and $\gg$ is a Lorentz transformation, then $\gg \circ \ff$ must also be a Lorentz coordinatization.
+\end{itemize}
+
+Suppose $\ff$ is a Lorentz coordinatization, and consider the Lorentz transformation\footnote{I keep thinking ``$\gg$ can't be linear because it doesn't send $\mathbf{0}$ to $\mathbf{0}$''. But it is! $\gg(\mathbf{0}, 0) = \mathbf{0} + 0 \cdot \vv = \mathbf{0}$.} $\gg$ defined by ${\gg(\xx, t) = \ff(\xx) + t \vv}$, where $t$ is the coordinate time of $\ff$. Clocks moving with a constant velocity of $\vv$ in the first coordinatization will be stationary in the second, and thus, by axiom (1) of Lorentz coordinatizations, also measure coordinate time in that coordinatization.
+
+Since stationary clocks in any Lorentz-transformed-to coordinatization measure coordinate time, [...], the speed of light is the same in any Lorentz-transformed-to coordinatization. (?)
+
+\vspace{.5cm}
+
+An example of a Lorentz transformation is a \textit{boost} of speed $b$ in the $x$-direction, ${(t, x, y, z) \mapsto \gamma(b)(t - bx, x - bt, y, z)}$, where $\gamma(b) := \sqrt{1 - (b/c)^2}$. Evidently, time and length in a boosted coordinatization are different than in the original coordinatization. This wouldn't tell us much if we didn't know that stationary clocks in the boosted coordinatization do indeed measure coordinate time. But they do!
+
+A \textit{spatial rotation} is the direct sum of the identity on $\R$ and an orthogonal linear function on $\R^3$. Note, spatial rotations may include reflections. Spatial rotations are Lorentz transformations. 
+
+If $\RR$ is a spatial rotation and $\ff$ a Lorentz transformation, then $\ff^{-1} \circ \RR \circ \ff$ is a spatial rotation.
+
+Any Lorentz transformation is of the form $\pm \bb \circ \RR$, where $\bb$ is a boost and $\RR$ is a spatial rotation. Lorentz transformations which preserve the sign of the time-coordinate are of the form $\bb \circ \RR$.
+
+\vspace{.5cm}
+
+Two events are said to be...
+
+\begin{itemize}
+	\item \textit{time-separated} (``timelike'') if there's no reference frame in which they're simultaneous (but there is a reference frame in which they're at the same position); $(\Delta s)^2 > 0$
+	\item \textit{space-separated} (``spacelike'') if there's no reference frame in which they're at the same location (but there is a reference frame in which they're simultaneous); $(\Delta s)^2 < 0$
+	\item \textit{light-separated} (``lightlike'' or ``null'') if a light ray connects the two events; $(\Delta s)^2 = 0$
+\end{itemize}
+
+\newpage
+
+\section*{Notes on the ``Mathematical Tools'' chapter of Stephen Parrott's \textit{Relativistic Electrodynamics and Differential Geometry}}
+
+\begin{itemize}
+	\item A basis $\hU = \{\huu_1, ..., \huu_n\}$ is said to be orthonormal with respect to a metric tensor $g$ iff $g(\huu_i, \huu_j) = \pm \delta_{ij}$.
+	
+	\item Parrott says ``inner product'' to mean ``metric tensor''.
+	
+	\item Assume we always have a basis $E$ for $V$ and a metric tensor $g$ on $V$. Define $v^i := ([\vv]_E)^i$, $v_i := ([\vv^\flat]_{E^*})_i$, $\phi_i := ([\phi]_{E^*})_i$, $\phi^i := ([\phi^\sharp]_E)^i$. 
+	
+	\item Parrott uses $f$ rather than $\phi$ for elements of $V^*$, and uses $\vv^*$ to mean $\vv^\flat$
+	
+	\item $v^i = g^{ij} v_j$, $v_i = g_{ij} v_j$
+	
+	\item $g(\vv, \ww) = v^i w^j g_{ij} = \vv^\flat(\ww) = v_i w^i = \ww^\flat(\vv) = v^i w_i$
+	
+	\item $\binom{p}{q}$ tensors are defined to be elements of $\LLLL((V^*)^{\times p} \times (V^*)^{\times q} \rightarrow K)$. $V^p_q$ denotes the set of $\binom{p}{q}$ tensors on $V$.
+	
+	\item $T$ denotes a linear function $V \rightarrow V$. Define $T^i := ([T(\vv)]_E)^i$ and $T^i{}_j := ([T(\ee_i)]_E)^j$.
+	
+	\item Parrott says ``adjoint'' to mean ``dual transformation'', and denotes the dual transformation of $T:V \rightarrow V$ with $T^\dag:V^* \rightarrow V^*$
+	
+	\item $T^i = v^j T^i{}_j$ and $(T^*)_i = \phi_j T^j{}_i$. Parrott notes that you can interpret these formulas as saying that to compute the action of $T$ on a vector $\vv \in V$ or a dual vector $\phi \in V^*$, we use the same matrix $(T^i_j)$, but in different ways- ways that one can remember by appealing to the up-down index convention.
+	
+	\item If we have a nondegenerate bilinear form $B$ on $V$ and $W$, then $\LLLL(V \times W \rightarrow K) \cong \LLLL(V \rightarrow W)$ via $C \mapsto (\vv \mapsto C(\vv, \cdot)^{\sharp_1})$. Parrott discusses the case $V = W$.
+	
+	\item The natural isomorphism $\flat:V \rightarrow V^*$ provides natural isomorphisms between $T^p_q(V)$ and $T^r_s(V)$ when $p + q = r + s$. This leads to staggered index notation for coordinates of tensors.
+\end{itemize}
+
+``Alternating forms''
+\begin{itemize}
+	\item $\alt \spc \LLLL(V^{\times k} \rightarrow K)$ is denoted by $\Lambda_k(V)$. Elements of $\Lambda_k(V)$ for $k \geq 1$ are called ``$k$-forms''.
+	
+	\item When people use Einstein notation for elements of $\Lambda^k(V)$, they denote them as $\frac{1}{k!} \omega_{i_1 ... i_k} \ee_{i_1} \wedge ... \wedge \ee_{i_k}$, where it is assumed that $\omega_{\sigma(i_1) ... \sigma(i_k)} = \sgn(\sigma) \omega_{i_1 ... i_k}$, because of following fact.
+	
+	\begin{itemize}
+		\item Every wedge product of vectors is an antisymmetric tensor by definition. Every antisymmetric tensor is a basis sum of antisymmetric tensors.
+		\item Suppose $\omega \in \Lambda^k(V)$ is expressed relative to the basis $\{ \ee_{i_1} \wedge ... \wedge \ee_{i_k} \mid i_1 < ... < i_k \}$ as $\omega = \sum_{i_1 < ... < i_k} \omega_{i_1 ... i_k} \ee_{i_1} \wedge ... \wedge \ee_{i_k}$. If we define $\eta_{j_1 ... j_k}$ such that $\eta_{\sigma(j_1) ... \sigma(j_k)} = \sgn((j_1, ..., j_k)) \omega_{i_1 ... i_k}$, where $i_1 < ... < i_k$, then we have
+		
+		\begin{align*}
+			\omega = \sum_{i_1 < ... < i_k} \frac{1}{k!} \sum_{\sigma \in S_k} \eta_{\sigma(i_1) ... \sigma(i_k)} \ee_{\sigma(i_1)} \wedge ... \wedge \ee_{\sigma(i_k)} = \frac{1}{k!} \sum_{i_1, ..., i_k} \eta_{i_1, ..., i_k} \ee_{i_1} \wedge ... \wedge \ee_{i_k}.
+		\end{align*}
+	\end{itemize}
+	
+	\item If $V$ is a vector space with metric tensor $g$, then there is an induced metric tensor $h$ on $T^k_0(V)$ defined on elementary tensors by $h(\vv_1 \otimes ... \otimes \vv_k, \ww_1 \otimes ... \otimes \ww_k) := g(\vv_1, \ww_1) ... g(\vv_k, \ww_k)$. The subspace $\Lambda^k(V) \subseteq T^k_0(V)$ inherits this metric tensor. When restricted to $\Lambda^k(V)$, the metric tensor $h$ is the same as the function, extended with linearity, that sends $(\vv_1 \wedge ... \wedge \vv_k, \ww_1 \wedge ... \wedge \ww_k) \mapsto k! \det(g(\vv_i, \ww_j))$. Parrott uses a normalization convention, so that his metric tensor on $\Lambda^k(V)$ is $\frac{1}{k!} h$.
+	\begin{itemize}
+		\item (Proof that the restriction of $h$ to $\Lambda^k(V)$ is said function). 
+		
+		If $\TT = \vv_1 \otimes ... \otimes \vv_k$ and $\SS = \ww_1 \otimes ... \otimes \ww_k$ then $\alt(\TT) = \sum_{\sigma \in S_k} \sgn(\sigma) \vv_{\sigma(1)} \otimes ... \otimes \vv_{\sigma(k)}$ and $\alt(\SS) = \sum_{\tau \in S_k} \ww_{\tau(1)} \otimes ... \otimes \ww_{\tau(k)}$ and so $h(\alt(\TT), \alt(\SS)) = \sum_{\tau \in S_k} \sum_{\sigma \in S_k} \sgn(\tau) \sgn(\sigma) h(\vv_{\sigma(1)}, \ww_{\tau(1)}) ... h(\vv_{\sigma(k)}, \ww_{\tau(k)})$. Notice that the inner sum is the result of taking the determinant of the matrix $\Big( h(\vv_i, \ww_j) \Big)$ after shuffling the columns by $\tau$:
+		
+		\begin{align*}
+			\det\Big( h(\vv_i, \ww_j) \Big) &= \sgn(\tau) \det\Big( h(\vv_i, \ww_{\tau(j)}) \Big) \\
+			&= \sum_{\sigma \in S_k} \sgn(\tau) \sgn(\sigma) h(\vv_{\sigma(1)}, \ww_1) ... h(\vv_{\sigma(k)}, \ww_k).
+		\end{align*}
+		
+		So, the double sum turns into the single sum $\sum_{\tau \in S_k} \det\Big( h(\vv_i, \ww_j) \Big) = k! \det\Big( h(\vv_i, \ww_j) \Big)$.
+	\end{itemize}
+	
+	\item If $\TT = \vv_1 \wedge ... \wedge \vv_k$ and $\SS = \ww_1 \wedge ... \ww_k$ are such that $\vv_i = \ww_j$ for some $i, j$, then $h(\TT, \SS) = 0$.
+	
+	\item Any wedged basis for $\Lambda^k(V)$ produced from an orthonormal basis for $V$ is orthonormal with respect to the metric tensor $h$ on $\Lambda^k(V)$.
+	\begin{itemize}
+		\item From \url{https://www.homotopico.com/2019/06/10/hodge-star.html}: \\ $h(\huu_{i_1} \wedge ... \wedge \huu_{i_k}, \huu_{j_1} \wedge ... \wedge \huu_{j_k}) = \det(g(\huu_{i_a}, \huu_{j_b})) = \sum_{\sigma \in S_n} \text{sgn}(\sigma) g(\huu_{i_1}, \huu_{j_{\sigma(1)}}) ... g(\huu_{i_k}, \huu_{j_{\sigma(k)}})$. This is equal to
+		
+		\begin{align*}
+			\begin{cases}
+				\sgn(\sigma) g^{i_1 j_{\sigma(1)}} ... g^{i_k j_{\sigma(k)}} & \exists \sigma \spc \forall a \spc i_a = j_{\sigma(a)} \\
+				0 & \text{else}
+			\end{cases}
+			=
+			\begin{cases}
+				\sgn(\sigma) (-1)^s & \exists \sigma \spc \forall a \spc i_a = j_{\sigma(a)} \\
+				0 & \text{else}
+			\end{cases},
+		\end{align*}
+		
+		where $s$ is the number of elements of $\hU$ that have a negative norm. This $s$ is also the number of negative eigenvalues of $g$, I think. (Proof: $(g(\huu_i, \huu_j))$ is diagonal because $\hU$ is orthonormal, and thus the entries on the diagonal are the eigenvalues. The entires on the diagonal are also $\pm 1$, so the claim follows).
+		
+		Note that the above gives the equation seen in Parrott, $h(\huu_{i_1} \wedge ... \wedge \huu_{i_k}, \huu_{i_1} \wedge ... \wedge \huu_{i_k}) = \prod_{a = 1}^k g(\huu_{i_a}, \huu_{i_a})$.
+	\end{itemize}
+	
+	\item An orientation on an $n$-dimensional vector space $V$ is specified by designating a preferred orthonormal basis $\hU = \{\huu_1, ..., \huu_n\}$ of $V$. Such a choice of orientation corresponds to the volume form $\omega_\vol \in \Lambda^n(V)$ defined by $\omega_\vol := \huu_1 \wedge ... \wedge \huu_n$.
+	
+	\item If $E$ is a not-necessarily orthonormal basis for $V$, then we have $\ee_1 \wedge ... \wedge \ee_n = \pm \sqrt{\Big| \det \Big( g(\huu_i, \huu_j) \Big) \Big|} \omega_\vol$, where $\pm$ depends on the orientation of $E$.
+	\begin{itemize}
+		\item Lemma: $\det([\hU]_E) = \pm \sqrt{ \Big| \det \Big( g(\huu_i, \huu_j) \Big) \Big|}$. Proof of lemma: we have $\Big( g(\ee_i, \ee_j) \Big) = [\hU]_E \Big( g(\huu_i, \huu_j) \Big) [\hU]_E^\top$. Taking the determinant of both sides we see $\det\Big( g(\ee_i, \ee_j) \Big) = \det([\hU]_E)^2 \det \Big(g(\huu_i, \huu_j) \Big)$. Notice that since $\hU$ is orthonormal, $\det \Big(g(\huu_i, \huu_j) \Big) = (-1)^s$, where $s$ is the number of negative eigenvalues of $g$'s matrix relative to any basis. The lemma follows.
+		\item Proof: $\ee_1 \wedge ... \wedge \ee_n = \det([\hU]_E) \huu_1 \wedge ... \wedge \huu_n$, since $\vv \mapsto [\hU]_E [\vv]_\hU$, which is the function sending $\huu_i \mapsto \ee_i$, has determinant $\det([\hU]_E)$.
+	\end{itemize}
+	
+	\item Since we have the musical isomorphism $\flat:V \rightarrow V^*$, Parrott works in $\tLambda^n(V^*)$ instead of $\Lambda^n(V)$. The volume form induced $\widetilde{\omega}_\vol$ induced on this space by $\flat$ satisfies $\widetilde{\omega}_\vol(\huu_1, ..., \huu_n) = 1$. Since $\det$ is the unique multilinear alternating function that sends orthonormal bases to $1$, then $\widetilde{\omega}_\vol = \det$. Parrott uses $\Omega$ to denote $\widetilde{\omega}_\vol$.
+	
+	\begin{itemize}
+		\item (Proof that $\widetilde{\omega}_\vol(\huu_1, ..., \huu_n) = 1$). Suppose an $n$-dimensional vector space $V$ has orientation given by $\hU$. Then $\omega_\vol = \huu_1 \wedge ... \wedge \huu_n \in \Lambda^n(V) \overset{\flat}{\mapsto} \huu_1^\flat \twedge ... \twedge \huu_n^\flat = \widetilde{\omega}_\vol \in \tLambda(V^*)$, and $\widetilde{\omega}_\vol(\huu_1, ..., \huu_n) = (\huu_1^\flat \twedge ... \twedge \huu_n^\flat)(\huu_1, ..., \huu_n) = \det(\huu_i^\flat(\huu_j)) = \det(g(\huu_i, \huu_j)) = \det(\delta_{ij}) = 1$.
+	\end{itemize}
+	\item Hodge dual derivation from \url{https://www.homotopico.com/2019/06/10/hodge-star.html}
+	\begin{itemize}
+		\item Let $\omega \in \Lambda^k(V)$ and $\eta \in \Lambda^{n - k}(V)$. Since $\omega \wedge \eta$ is some scalar multiple of $\omega_\vol$, there is a function $\phi_\eta \in (\Lambda^k(V))^*$ such that $\omega \wedge \eta = \phi_\eta(\omega) \omega_\vol$.
+		
+		$\phi_\eta$ is indeed linear.
+		\begin{itemize}
+			\item $\phi_\eta(\omega_1 + \omega_2) \omega_\vol = (\omega_1 + \omega_2) \wedge \eta = \omega_1 \wedge \eta + \omega_2 \wedge \eta = \phi_\eta(\omega_1) \omega_\vol + \phi_\eta(\omega_2) \omega_\vol \implies \phi_\eta(\omega_1 + \omega_2) \omega_\vol = \phi_\eta(\omega_1) \omega_\vol + \phi_\eta(\omega_2) \omega_\vol \implies \phi_\eta(\omega_1 + \omega_2) \omega_\vol = (\phi_\eta(\omega_1) + \phi_\eta(\omega_2)) \omega_\vol \implies \phi_\eta(\omega_1 + \omega_2) = \phi_\eta(\omega_1) + \phi_\eta(\omega_2)$. Showing $\phi_\eta(c \omega) = c \phi_\eta(\omega)$ is similar.
+		\end{itemize}
+		$\phi_\eta$ is well-defined.
+		\begin{itemize}
+			\item $\omega_1 = \omega_2 = \omega \implies \phi_\eta(\omega_1 - \omega_2) \omega_\vol = (\omega_1 - \omega_2) \wedge \eta = (\omega - \omega) \wedge \eta = 0 \implies \phi_\eta(\omega_1 - \omega_2) \omega_\vol = 0 \implies \phi_\eta(\omega_1 - \omega_2) = 0 \implies \phi_\eta(\omega_1) =  \phi_\eta(\omega_2)$.
+		\end{itemize}
+		
+		We have $\omega \wedge \eta = \frac{1}{k!(n - k)!} \omega_{i_1 ... i_k} \eta_{j_1 ... j_{n - k}} \epsilon^{i_1 ... i_k j_1 ... j_{n - k}} \omega_\vol$, so $\phi_\eta(\omega) = \frac{1}{k!(n - k)!} \omega_{i_1 ... i_k} \eta_{j_1 ... j_{n - k}} \epsilon^{i_1 ... i_k j_1 ... j_{n - k}}$, where the coordinates here are relative to an orthonormal basis $\hU$ of $V$.
+		
+		Define $\phi:\Lambda^{n - k}(V) \rightarrow (\Lambda^k(V))^*$ to be the map sending $\eta \mapsto \phi_\eta$. $\phi$ is linear; the proof for showing so is analogous to the proof that shows $\phi_\eta$ is linear. Since $\dim(\Lambda^{n - k}(V)) = \binom{n}{n - k} = \binom{n}{k} = \dim(\Lambda^k(V)) = \dim((\Lambda^k(V))^*)$, then $\phi$ is an isomorphism iff it is one-to-one. Once we know $\phi$ is an isomorphism then we define the Hodge dual $\perp:\Lambda^k(V) \rightarrow \Lambda^{n - k}(V)$ to be the map such that $\phi_{\perp \omega} = \omega^\flat$ for all $\omega \in \Lambda^k(V)$, where $\flat$ is the musical isomorphism induced by the metric tensor $h$ on $\Lambda^k(V)$. If we know that $\phi$ is an isomorphism, then $\perp$ must be unique since $\phi \circ \perp = \flat$, so $\perp = \phi^{-1} \circ \flat$.
+		
+		We show $\phi$ has a trivial kernel.
+		\begin{itemize}
+			\item Assume $\phi_\eta = 0$, i.e., that $\phi_\eta(\omega) = \frac{1}{k!(n - k)!} \omega_{i_1 ... i_k} \eta_{j_1 ... j_{n - k}} \epsilon^{i_1 ... i_k j_1 ... j_{n - k}} = 0$ for all $\omega$. This implies that $\phi_\eta(\omega) = 0$ when $\omega$ is of the form $\omega = \huu_{r_1} \wedge ... \wedge \huu_{r_k}$.
+			
+			\item When this is the case, the coordinates $\frac{1}{k!(n - k)!} \omega_{{i_1}...{i_k}}$ of $\omega$ relative to $\hU$ are $\frac{1}{k!(n - k)!} \delta^{r_1 ... r_k}_{i_1 ... i_k}$, so we have $\frac{1}{k!(n - k)!} \delta^{r_1 ... r_k}_{i_1 ... i_k} \eta_{j_1 ... j_{n - k}} \epsilon^{i_1 ... i_k j_1 ... j_{n - k}} = 0$. Each term in this implicit sum is nonzero only when there is a $\sigma \in S_k$ such that $(i_1, ..., i_k) = \sigma((r_1, ..., r_k))$, with nonzero terms having a factor of $\sgn(\sigma)$, so the implicit sum is the same as $\frac{1}{k!(n - k)!} \sum_{\sigma \in S_k} \sgn(\sigma) \eta_{j_1 ... j_{n - k}} \epsilon^{\sigma(r_1) ... \sigma(r_k) j_1 ... j_{n - k}}$. (Notice that the argument of the sum $\sum_{\sigma \in S_k}$ is still an implicit sum). Since swapping two indices in the Levi-Civita symbol negates it, we can apply the permutation $\sigma^{-1}$ to the $r$ indices and obtain this equivalent equation: $\frac{1}{k!(n - k)!} \sum_{\sigma \in S_k} \eta_{j_1 ... j_{n - k}} \epsilon^{r_1 ... r_k j_1 ... j_{n - k}} = \frac{1}{(n - k)!} \eta_{j_1 ... j_{n - k}} \epsilon^{r_1 ... r_k j_1 ... j_{n - k}} = 0$. So $\frac{1}{(n - k)!} \eta_{j_1 ... j_{n - k}} \epsilon^{r_1 ... r_k j_1 ... j_{n - k}} = 0$.
+			
+			\item In all, we have shown that $(\phi_\eta = 0)$ implies $(\frac{1}{(n - k)!} \eta_{j_1 ... j_{n - k}} \epsilon^{r_1 ... r_k j_1 ... j_{n - k}} = 0 \text{ for all $\omega$ of the form}$ \\ $\omega = \huu_{r_1} \wedge ... \wedge \huu_{r_k})$, i.e., that $(\phi_\eta = 0)$ implies $(\frac{1}{(n - k)!} \eta_{j_1 ... j_{n - k}} \epsilon^{r_1 ... r_k j_1 ... j_{n - k}} = 0 \text{ for all $r_1, ..., r_k$})$.
+			
+			Now let $s_1, ..., s_{n - k}$ be any particular choice of the $j$'s. Since the above implication holds for all $r$, it holds in particular when $\{r_1, ..., r_k\} = \{1, ..., n\} - \{s_1, ..., s_{n - k}\}$. That is, when the $r$'s are complementary to the $s$'s we still have $\frac{1}{(n - k)!} \eta_{j_1 ... j_{n - k}} \epsilon^{r_1 ... r_k j_1 ... j_{n - k}} = 0$. In this situation, $\epsilon$ is nonzero only on permutations of these $s$'s, so the sum becomes $\frac{1}{(n - k)!} \sum_{\sigma \in S_{n - k}} \eta_{\sigma(s_1)} ... \eta_{\sigma(s_{n - k})} \epsilon^{r_1 ... r_k \sigma(s_1) ... \sigma(s_{n - k})}$, where the inner sum here is \textit{not} an implicit sum over the $s$'s. This is the same as \\ $\frac{1}{(n - k)!} \sum_{\sigma \in S_{n - k}} \sgn(\sigma)^2 \eta_{s_1 ... s_{n - k}} \epsilon^{r_1 ... r_k s_1 ... s_{n - k}} = \eta_{s_1 ... s_{n - k}} \epsilon^{r_1 ... r_k s_1 ... s_{n - k}} = \pm \eta_{s_1 ... s_{n - k}}$. 
+			
+			\item Thus $\phi_\eta = 0$ implies $\pm \eta_{s_1 ... s_{n - k}} = 0$ for all $s_1, ..., s_{n - k}$, i.e. $\phi_\eta = 0$ implies $\eta = 0$.
+		\end{itemize}
+	\end{itemize}
+	\item The Hodge dual of $\TT \in \Lambda^k(V)$ is denoted with $\perp \TT$.
+	\item Applying $\perp$ to the equation characterizing the Hodge dual shows $h$ is uniquely characterized by $h(\omega, \eta) = \perp(\eta \wedge (\perp \omega))$.
+	\item $\perp \perp 
+	\omega = s (-1)^{k(n - k)} \omega$, where $s$ is
+	\item If $\TT = \phi^{\vv_1} \twedge ... \twedge \phi^{\vv_k}$ then $(\perp \TT)(\ww_1, ..., \ww_{n - k}) = \widetilde{\omega}_\vol(\vv_1, ..., \vv_k, \ww_1, ..., \ww_{n - k})$.
+\end{itemize}
+
+Other
+
+\begin{itemize}
+	\item $M$ denotes a manifold
+	\item Defines charts; uses $\phi_U:U \subseteq M \rightarrow \R^n$ to denote a chart
+	\item Talks about smoothly compatible charts 
+	\item $M_\pp$ is used to denote $T_\pp(M)$
+	\item $\widetilde{\vv}|_\pp:C^\infty(\R^n \rightarrow \R) \rightarrow \R$ denotes the map $f \mapsto \frac{\pd f}{\pd \vv}\Big|_\pp$
+	\item Mentions how since the set of derivations at $\pp \in \R^n$ (recall, Lee calls this set $T_\pp(\R^n)$) is equal to the set of directional derivative functions at $\pp$, a sensible definition of $T_\pp(M)$ is the set of derivations at $\pp$
+	\item When $M$ is also a vector space, then $\vv \mapsto \frac{\pd}{\pd \vv}\Big|_\pp$ is a natural identification of $M$ with $T_\pp(M)$
+	\item Parrott says ``vector field'' to mean ``not necessarily continuous vector field'' (i.e. ``rough vector field'')
+	\item A vector field $v$ on $M$ is said to be $C^\infty(M \rightarrow T(M))$ iff $\pp \mapsto v_\pp(f)$ is $C^\infty$ whenever $f$ is $C^\infty$ 
+	\item 
+	\item The commutator $[v, w]_\pp$ of two vector fields $v, w$ on $M$ is the element of $T_\pp(M)$ defined by \\ ${[v, w]_\pp(f) := v_\pp(w(f)) - w_\pp(v(f))}$. Note, one does have to check that the commutator satisfies the ``product rule'' to ensure it is in $T_\pp(M)$.
+\end{itemize}
