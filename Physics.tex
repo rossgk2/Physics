@@ -649,7 +649,7 @@ Now consider the \textit{net work} done on a particle as it travels along an arb
 Note that $\frac{d(||\vv||^2)}{dt} = \frac{d(\vv \cdot \vv)}{dt} = 2 \frac{d\vv}{dt} \cdot \vv$, so this becomes
 
 \begin{align*}
-    W_{\FF_{\text{net}}, C} = \frac{1}{2} m \int_C \frac{d(||\vv||^2)}{dt} dt = \frac{1}{2} m \int_C d(||\vv||^2) = \frac{1}{2} m (||\vv(t_f)||^2 - ||\vv(t_0)||^2).
+    W_{\FF_{\text{net}}, C} = \frac{1}{2} m \int_C \frac{d(||\vv||^2)}{dt} dt = \frac{1}{2} m (||\vv(t_f)||^2 - ||\vv(t_0)||^2).
 \end{align*}
 
 So, if we now impose that the path $C$ is such that $\vv(t_0) = \mathbf{0}$, then we get $W_{\FF_{\text{net}}, C} = \frac{1}{2}m||\vv_f||^2$. Note, the particular choice of the path $C$ does not matter!
@@ -750,7 +750,7 @@ At this point it's clear that $-\nabla (\Delta U_{\FF}(\xx)) = \nabla (-\Delta U
 
 \subsection*{With assuming conservation of momentum as an axiom}
 
-The theory for rotational dynamics is analogous to the theory for translational dynamics. I recently learned how in translational dynamics, we accept conservation of momentum as axiom. We can accept a similar axiom for rotational dynamics:
+The theory for rotational dynamics is analogous to the theory for translational dynamics. Just as we accept conservation of momentum as the fundamental axiom of translational dynamics, we can accept a similar axiom for rotational dynamics:
 
 \begin{axiom}
     (Conservation law for rotational dynamics).
@@ -765,15 +765,9 @@ The theory for rotational dynamics is analogous to the theory for translational 
 Just as we defined momentum $\pp$ to be the conserved quantity of translational dynamics, we define \textit{angular momentum} $\LL$ to be the conserved quantity of rotational dynamics.
 
 \begin{defn}
-    (Momentum).
-
-    Consider any reference frame, and suppose a particle has momentum $\pp$ and position $\xx$ from the perspective of that frame. Then the \textit{angular momentum $\LL_{\xx_0}$ (from the perspective of that frame) about a point $\xx_0$} is $\LL_{\xx_0} := (\xx - \xx_0) \times \pp$.
-\end{defn}
-
-\begin{defn}
     (Angular momentum).
 
-    The \textit{angular momentum $\LL_{\xx_0}$ about a point $\xx_0$} is $\xx - \xx_0$    
+    Consider any reference frame, and suppose a particle has momentum $\pp$ and position $\xx$ from the perspective of that frame. Then the \textit{angular momentum $\LL_{\xx_0}$ (from the perspective of that frame) about a point $\xx_0$} is $\LL_{\xx_0} := (\xx - \xx_0) \times \pp$.
 \end{defn}
 
 Therefore the above axiom is equivalent to
@@ -784,7 +778,7 @@ Therefore the above axiom is equivalent to
     From the perspective of an inertial frame, the total angular momentum about each point is conserved in an isolated system.
 \end{axiom}
 
-Of course, there is a huge difference in complexity between the conservation of momentum and conservation of angular momentum axioms. It seems somewhat plausible to experimentally stumble upon the first one; doing the same for the second seems hard to imagine. This is actually what happened historically! Newton stated derived the first as a theorem\footnote{Rather than using momentum conservation to prove the third law, as we do, Newton used the third law to prove momentum conservation.} in his \textit{Principa}, and developed a good understanding of rotational dynamics, but didn't have the proper tools- vectors- to formulate the second. It was approximately 200 years later when angular momentum was formalized, and this was after Euler, who also didn't have vectors, made contributions on rotational mass.
+Of course, there is a huge difference in complexity between the conservation of momentum and conservation of angular momentum axioms. It seems somewhat plausible to experimentally stumble upon the first one; doing the same for the second seems hard to imagine. This is actually what happened historically! Newton derived the first as a theorem\footnote{Rather than using momentum conservation to prove the third law, as we do, Newton used the third law to prove momentum conservation.} in his \textit{Principa}, and developed a good understanding of rotational dynamics, but didn't have the proper tools- vectors- to formulate the second. It was approximately 200 years later when angular momentum was formalized, and this was after Euler, who also didn't have vectors, made contributions on rotational mass.
 
 Nevertheless, accepting the second above axiom probably gives the best understanding of rotational dynamics. Just as force was defined to be the time derivative of momentum, \textit{torque} $\ttau$ is defined to be the time derivative of angular momentum. We can then quickly conclude that if we can derive an expression for $I_{\xx_0}$ such that $\LL_{\xx_0} = I_{\xx_0} \oomega$ for circular motion of a particle about the point $\xx_0$, then this $I_{\xx_0}$ must be the correct notion of \textit{rotational mass about $\xx_0$}. For such a particle we have $||\LL_{\xx_0}|| = ||\xx - \xx_0|| \spc ||\pp|| = ||\xx - \xx_0|| m ||\vv|| = m ||\xx - \xx_0||^2 ||\oomega||$. Thus the rotational mass of a particle of mass $m$ about a point $\xx_0$ is $m ||\xx - \xx_0||^2$.
 
@@ -818,17 +812,19 @@ I felt that any good explanation of rotational dynamics would be a formalization
         \item Notice that kinetic energy in a \textit{rigidbody} attributable to rotation is $T_{\text{rot}} = \sum_i \frac{1}{2} m_i v_i^2 = \sum_i \frac{1}{2} m_i (r_i \omega)^2 = \frac{1}{2} (\sum_i m_i r_i^2) \omega^2$. We define $I := (\sum_i m_i r_i^2)$ because this $I$ plays the role of mass: $T_{\text{rot}} = \frac{1}{2}I \omega^2$.
     \end{itemize}
 
-    \item And then I discovered an argument that feels more fundamental than the previous one relying on energy. This argument relies on d'Alembert's principle with constraints applied to static equilibrium. (Go ahead to the section on analytical mechanics read about d'Alembert's principle if you're interested- that's the only prerequesite from that section\footnote{Unfortunately, it wouldn't make sense to put Newtonian rotational dynamics after non-Newtonian (but still classical) analytical mechanics, even though a small part of analytical mechanics is a prerequisite.}.)
+    \item And then I discovered a derivation of torque that feels more fundamental than the previous one for rotational mass. This argument relies on d'Alembert's principle with constraints applied to static equilibrium. (Go ahead to the section on analytical mechanics read about d'Alembert's principle if you're interested- that's the only prerequesite from that section\footnote{Unfortunately, it wouldn't make sense to put Newtonian rotational dynamics after non-Newtonian (but still classical) analytical mechanics, even though a small part of analytical mechanics is a prerequisite.}.)
 
     When applied to static equilibrium, d'Alembert's principle shows that the sum of the hypothetical increments of work done by hypothetical displacements (where the hypothetical displacements still respect the constraints of the system) and by \textit{applied} forces (not constraint forces) must be zero.
     
-    Consider a balance beam that's pivoted at its center. Suppose that vertical forces $F_1$ and $F_2$ are applied at distances $d_1$ and $d_2$ from the center of the beam on opposite sides, and that the beam is in equilibrium. The valid hypothetical valid increments of work for this system are the ones whose displacements are perpendicular to the beam. Since the valid hypothetical displacements are in exactly the same direction as the applied forces, then the total hypothetical work done by valid hypothetical displacements is $F_1 d_1 + F_2 d_2 = 0$.
+    Consider a horizontal balance beam that's pivoted at its center. Suppose that vertical forces $F_1$ and $F_2$ are applied at distances $r_1$ and $r_2$ from the center of the beam on opposite sides, and that the beam is in equilibrium. The valid hypothetical valid increments of work for this system are the ones whose displacements are perpendicular to the beam. Since the valid hypothetical displacements are in exactly the same direction as the applied forces, then the total hypothetical work done by valid hypothetical displacements is $F_1 r_1 + F_2 r_2 = 0$.
 
     We see torque naturally appearing here. So, this is good motivation for defining torque!
 
     \item Now that I know about the angular momentum approach, it seems to me that the best overall approach would be to derive that angular momentum is conserved in isolated systems from the assumption that translational momentum is conserved in isolated systems.
 
     I've looked into this a little, and found this \textit{can} be done if we assume the strong form of Newton's third law, which is the usual third law plus the assumption that reaction forces are central forces. This is because assuming the strong form of Newton's third law is equivalent to assuming not only that physics is location invariant but also direction invariant.
+    
+    I imagine this derivation will probably still require knowing about either torque or rotational mass, though, so the above is still relevant. Really, I just need to take some time to figure out the kind of ideal derivation I mentioned above in (3).
 \end{enumerate}
 
 % \subsection*{Angular velocity}
