@@ -1,0 +1,1326 @@
+\documentclass{article}
+\usepackage{RNotation}
+
+\title{Classical physics}
+\author{Ross Grogan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Kinematics}
+
+Any observations we make about physical reality are based on observations we make from a particular \textit{frame of reference}.
+
+\begin{defn}
+	(Frame).
+	
+	A \textit{frame of reference}, or \textit{frame}, is a perspective from which phenomena are observed. 
+\end{defn}
+
+Hopefully, each one of us is familiar with the frame centered around ourself. From this \textit{ground frame}, we might see a ship coast down a river.
+
+\begin{defn}
+	(The ground frame).
+	
+	The ground frame is the frame of reference centered around \textit{you}, assuming you're standing on the ground of the Earth.
+\end{defn}
+
+We could also consider the frame of a moving ship, which sees the river and ground move past \textit{it}.
+
+As the ground and ship observe the world, they will agree on certain things (like whether the sun is shining brightly or not) and they will disagree on others (like whether a person sitting on the ground is ``moving'' or not). We have some vocabulary to help us distinguish between quantities which are agreed upon and quantities which are disagreed upon.
+
+\begin{defn}
+	(Relative and absolute).
+	
+	A quantity that depends on the reference frame that observes it is said to be \textit{relative}.
+	
+	A quantity that is independent of the reference frame that observes it (i.e. that is the same from all reference frames that observe it) is said to be \textit{absolute}.
+\end{defn}
+
+Now, of all the physical phenomena we can observe, each of them can be represented as the motion of one or more \textit{particles}.
+
+\begin{defn}
+	(Particle).
+	
+	A \textit{particle} is an extremely small object whose mass is constant with respect to time.
+\end{defn}
+
+For some phenomena- like that of a sports ball flying through the air or a car motoring down a road- this is fairly obvious. For others- like gears operating together in a mechanical apparatus, or the burning of a fire- it is less so. (The gears can be considered to be a collection of particles that maintain a particular relation to each other as they move. The fire, like all chemical processes, is a complex tangle of particle interactions on the molecular level.) Always, though, the situation can be reduced to the motion of particles. 
+
+\begin{defn}
+	(Motion and relative time).
+	
+	Consider a particle. The \textit{motion} that the ground frame observes the particle to have is represented by the particle's \textit{position relative to the ground frame}, which is the function $t \mapsto \xx(t)$ that sends a real number $t$, representing the elapsed \textit{time} measured by $F$, to a list of three real numbers $[\xx(t)]_F = (x(t), y(t), z(t)) = (x_1(t), x_2(t), x_3(t))$, representing the three-dimensional position that the ground frame observes the particle to occupy at that time.
+\end{defn}
+
+\begin{defn}
+	(Velocity and acceleration).
+	
+	Consider a particle. The particle's \textit{velocity relative to the ground frame} is the function $t \mapsto \vv(t)$ defined by
+	
+	\begin{align*}
+		\vv(t) := \frac{d\xx(t)}{dt}.
+	\end{align*}
+	
+	That is, the component functions $t \mapsto v_i(t)$ of $t \mapsto \vv(t)$ are given by $v_i(t) = \frac{dx_i(t)}{dt}$. Similarly, the particle's \textit{acceleration relative to $F$} is the function $t \mapsto \aa(t)$ defined by
+	
+	\begin{align*}
+		\aa(t) := \frac{d\vv(t)}{dt} = \frac{d^2\xx(t)}{dt^2}.
+	\end{align*}
+	
+	That is, the component functions $t \mapsto a_i(t)$ of $t \mapsto \aa(t)$ are given by $a_i(t) = \frac{dv_i(t)}{dt} = \frac{d^2 x_i(t)}{dt^2}$.
+\end{defn}
+
+Often, one will obtain a particle's acceleration function through some other physical analysis\footnotemark, and then try to determine the possible position functions that could have led to that acceleration. If we have enough data, we'll even be able to determine precisely which of these position functions must have been the one to occur. All this is an example of an exercise in \textit{kinematics}, the study of determining the position function of a particle by doing calculations that only involve position and its time-derivatives.
+
+\footnotetext{The ``other physical analysis'' is \textit{dynamics}. Dynamics is introduced in the next section.}
+
+\newpage
+
+\section*{Dynamics}
+
+\textit{Dynamics} is study of the action of how external influences on a particle affect its motion. Much of the time, solving a dynamics problem leads to knowing a \textit{differential equation} involving time-derivatives of position that implicitly determines a position function.
+
+Traditionally, there are three rules of classical dynamics, called \textit{Newton's laws of motion}. These laws, introduced in Isaac Newton's infamous \textit{Philosophiæ Naturalis Principia Mathematica} of 1687, provided a relatively simple method of deriving differential equations that determine particle motion.
+
+Newton was a genius, probably the greatest physicist ever, even greater than Albert Einstein. His laws revolutionized science forever, and the results he mathematically derived from those laws he formalized were even more daunting. Interestingly, though, even while Newton's laws are coherent enough for scientists (and high school physics students) to \textit{apply} them in practice without much trouble, they are rife with enough inconsistencies that trying to theoretically \textit{understand} exactly how they make sense can be frustrating. This is because Newton strangely relegated the most important Law of Nature to be considered a mere side-effect of his laws- a corollary. One can only guess that this organizational exists because it constituted a superficial and insignificant detail to the genius of Newton, and was thus easily overlooked.
+
+A deep understanding of Newton's laws, though, requires centralizing this law- the law of conservation of momentum- as what comes \textit{first}. In this section on classical dynamics, we'll give a revised presentation of Newton's definitions and laws and then compare it to Newton's original presentation. I also provide an optional preface that details a common, but flawed, way of trying to make theoretical sense of Newton's laws.
+
+\subsection*{Optional: common misunderstandings of Newton's laws}
+
+This preface is a response to the misleading and unsatisfactory explanations of Newton's laws of motion I've commonly seen. If you have no prior experience with Newton's laws, this preface won't make a lot of sense to you, and you can safely skip it. All of the relevant material is covered from the ground up after the preface. But in the case you've also been exposed to typical frustrating explanations, I hope this preface can help illuminate precisely what is handled badly, and show the better way.
+
+In the past, my main question on the topic was:
+
+\begin{quote}
+    Why is force defined to be $m\aa$ and not something else, like $m \vv$? We say forces are ``pushes''. But it seems to me just as intuitive to associate the notion of a ``push'' with $m\vv$ as it is to associate the notion of a ``push'' with $m\aa$. In general, it seems to me that we could define force to be $m\frac{d^n \xx}{dt^n}$ for any $n \geq 1$. Why must we choose $n = 2$?
+\end{quote}
+
+The answer I’d always find is this disappointing (and lazy) one:
+
+\begin{quote}
+    It’s just a definition! We can define anything we want. The real test is if that definition is useful, and produces a theory that agrees with experiment.
+\end{quote}
+
+To this awful excuse of an answer, I have two things to say.
+
+\begin{enumerate}
+    \item Yes, we \textit{can} technically define anything we want, but ``useful'' definitions have a reason for why they are useful. There is \textit{motivation} for every single one of them.
+    \item And yes, a connection must be made to reality. But the precise nature of that connection can be much better understood than what's suggested by phrase ``it agrees with experiment''. Empirical testing is a way to rule out incorrect theories, not a way to explain fundamental ones.
+\end{enumerate}
+
+\subsubsection*{What seems to be a common view}
+
+I worked out what I thought was the correct understanding, an antidote to this infuriating mindset. For a long time, my view was:
+
+\begin{quote}
+   We define ``force'' to be $m \aa$, somewhat arbitrarily, and then give another similarly-themed name, ``momentum'', to the quantity $m \vv$. Our choice to refer to $m \aa$ as ``force'' and to refer to $m \vv$ as ``momentum'' is similar to the situation in probability with the words ``probability'', ``likelihood'', and ``odds''. That is, we use similar sounding words that concepts that are of course algebraically related, but not fundamentally conceptually related.
+\end{quote}
+
+This led me to think that the conservation of momentum in an isolated system is a just a matter of parsing definitions, like this:
+
+\begin{quote}
+    \begin{itemize}
+        \item (Definition). We define \textit{force} $\FF := m \aa$ and \textit{momentum} $\pp := m \vv$.
+        \item (Theorem). When mass is constant, the time derivative of momentum coeincidentally happens to be force: $\frac{d\pp}{dt} = \frac{d}{dt}\left(m\vv\right) = m\aa = \FF$.
+        \item (Definition). An isolated system is one experiencing no total force.
+        \item (Theorem). If there's no total force, there's no change in total momentum. Therefore total momentum is conserved in an isolated system.
+    \end{itemize}
+\end{quote}
+
+And I thought that really, the important thing is that the definition of force leads to a differential equation that determines the position of a particle:
+
+\begin{quote}
+    It doesn't really matter whether we define ``force'' to be $m\aa = m\frac{d^2\xx}{dt^2}$ or $m\vv = m \frac{d\xx}{dt}$, since either definition can be used to state the same differential equation. For example, the differential equation
+
+    \begin{align*}
+        -k_1 \frac{d\xx}{dt} = m\frac{d^2\xx}{dt^2},
+    \end{align*}
+
+    which makes use of $m \frac{d^2\xx}{dt^2}$, is equivalent\footnotemark to the differential equation
+
+    \begin{align*}
+        k_2 e^{-k_1 t/m} = m\frac{d\xx}{dt},
+    \end{align*}
+
+    which makes use of $m \frac{d\xx}{dt}$.
+
+    Of course, in this example- and pretty much any other you can come up with- it seems much more practical to intuit the equation that's written in terms of $m \aa = m \frac{d^2\xx}{dt^2}$. But that's only a heuristic justification for ``force'' being $m\aa$, not a theoretical one.
+\end{quote}
+
+\footnotetext{Assuming the necessary initial conditions are known.}
+
+It seems to me that this interpretation (that the connection between ``force'' and $m\aa$ is somewhat arbitrary, that the important thing is that an equation of motion formulated using $m\aa$ determines a unique position function) is pretty popular. The prevalent approach I see\footnote{Vladimir Arnold's \textit{Mathematical Methods of Classical Mechanics} and David Tong's lecture notes (\url{https://www.damtp.cam.ac.uk/user/tong/relativity/one.pdf}) both follow versions of this approach.} is to define the total force $\FF_{\text{tot}}$ on a particle to be the function that determines $m\aa = m \frac{d^2\xx}{dt^2}$ for the particle, while assuming that $\FF_{\text{tot}}$ can only depend on $\xx$, $\vv$, and $t$, since that is what's observed in practice:
+
+\begin{align*}
+    \text{The \textit{total force} $\FF_{\text{tot}}$ is the function such that } \FF_{\text{tot}}(\xx(t), \vv(t), t) = m \frac{d^2\xx}{dt^2}\Big|_t \text{ for all $t$}.
+\end{align*}
+
+One thing that always bothered me about this view is that it doesn't explain why zero acceleration appears so fundamentally in the characterization of inertial reference frames. If one accepts wholeheartedly that force \textit{must} directly involve acceleration, then sure, the explanation is easy. But if one doesn't, as is done in this view, there is a contradictory tension between something claimed to be just a convention (force) and something fundamental (inertial reference frames).
+
+\subsubsection*{The problem with the common view}
+
+Thankfully, I've discovered that this approach in which the connection between ``force'' and $m\aa$ is seen as somewhat arbitrary is actually wrong. There was a key mistake in my approach. From what I can tell, this same mistake is made by theoreticians who are trying to avoid assuming unnecessary axioms by cleverly restructuring the axioms into definitions.
+
+The mistake, quite subtle, was this definition:
+
+\begin{quote}
+    (Definition). An isolated system is one experiencing no external total force.
+\end{quote}
+
+This definition comes right after the definition $\FF := m\aa$, so it is really
+
+\begin{quote}
+    (Definition). An isolated system is one experiencing no external total $m\aa$.
+\end{quote}
+
+If one doesn't have a good reason for why ``force'' is $m\aa$, then this definition is just as arbitrary as the definition of ``force''! So, when we use the above definition, we unjustly \textit{assume} that the systems we look at in the real world and deem to be isolated are the same systems that experience no total $m\aa$. 
+
+The only way to be assured of this is to assume it. And we could do this. But we have no good reason to, because we have no good reason to define ``force'' as $m\aa$! No wonder everything seems like definition-parsing and coincidence in this approach!
+
+\subsubsection*{The heart of the matter: conservation of momentum}
+
+To properly handle the notion of ``isolated system'', we actually need to use a much more vague definition, like this:
+
+\begin{itemize}
+    \item (Definition). An isolated system is a system that is not subject to any influences outside of its boundaries.
+\end{itemize}
+
+We use this sort of vague definition to remind ourselves that the idea of an isolated system is very tangible. This tangibility allows us to look at old facts with new eyes: the conservation of momentum for isolated systems, previously uninteresting, is now \textit{fundamental}, because, if we imagine we forgot the definition of ``force'' and ``momentum'', we would still empirically know this axiom to be true!
+
+\begin{itemize}
+    \item (Axiom). The sum $\sum_i m_i \vv_i$ is conserved in an isolated system.
+\end{itemize}
+
+In fact, the \textit{only} way we can be sure of it is by experiment. It must be an observation, an axiom, not a theorem that can be derived!
+
+So, this observation- which identifies precisely what property of objects is fundamental to motion- is starkly true, a pure property of the universe, not merely true in the definition-parsing sense I thought it was. The ``quantity of motion'', which is $\sum_i m_i \vv_i$, not force, is what should be investigated first. Of course, in modern terminology, we say \textit{momentum} instead of ``the quantity of motion''.
+
+Only after knowing what the quantity of motion is should we define the \textit{force} on a particle to be the impetus that changes its quantity of motion. We define the total force $\FF_{\text{tot}}$ on a system to be $\FF_{\text{tot}} := \frac{d}{dt} \sum_i m_i \vv_i$. Thus, since the mass of a particle is constant, the total force $\FF_{\text{tot}}$ on a particle is the time derivative of the quantity of motion,
+
+\begin{align*}
+    \FF_{\text{tot}} := \frac{d\pp}{dt} = \frac{d}{dt}(m\vv) = m\aa.
+\end{align*}
+
+Having discovered why force is fundamentally tied to acceleration, we can now meaningfully prove what was once wrongfully used as a definition:
+
+\begin{itemize}
+    \item (Theorem). An isolated system is one experiencing no total force.
+    
+    \indent \textit{(Proof).} When a system is isolated, $\sum_i \pp_i$ is constant, and thus the total force $\FF_{\text{tot}}$ on the system is $\FF_{\text{tot}} := \frac{d}{dt}\sum_i \pp_i = \frac{d}{dt}(\textbf{const}) = \mathbf{0}$.
+\end{itemize}
+
+So, the terms ``momentum'' and ``force'' are much more intentionally chosen than I thought. \textit{Momentum} is shorthand for ``quantity of motion''. \textit{Force} is that which changes the quantity of motion. It’s not at all like the situation with ``probability'', ``likelihood'', and ``odds''!
+
+\newpage
+
+\subsection*{The law of conservation of momentum}
+
+As promised, we now present a reorganization of Newton's laws. We'll first give the proper reorganization, and then compare it to Newton's original formulation.
+
+First, we give some elementary definitions.
+
+\begin{defn}
+	(System).
+	
+	A \textit{physical system} is a collection of particles. We will say ``system'' to mean ``physical system''.
+\end{defn}
+
+\begin{defn}
+	(Isolated system). A system is said to be \textit{isolated} if and only if it is not subject to any influences outside of its boundaries\footnotemark.
+\end{defn}
+
+\footnotetext{As is discussed in the preface, this definition is intentionally kept vague so that when we later formally define what an ``influence'' is, we can \textit{prove}, instead of unwittingly assuming, that isolated systems do indeed correspond to the systems experiencing no total ``influence''.}
+
+\begin{defn}
+	(Isolated particle). A particle is said to be \textit{isolated} (or \textit{free}) if and only if, when considered as a single-particle system, it is isolated.
+\end{defn}
+
+With the elementary definitions out of the way, we can now get to the heart of the matter, the Law of Nature governing the behavior of particles.
+
+Before we state it, I should say: the Law is marvelous. We're lucky that it involves relatively simple concepts- one could imagine a universe in which it can't be formulated in such a simple way. There is actually an analog to the Law, for rotational motion, that is slightly more complicated than the Law\footnote{The analog is the law of conservation of angular momentum, and the more complicated concept it involves is the cross product.}. As a result of this \textit{slight} increase in complexity, the analog was only first understood about \textit{200 years} after Newton's statement of the Law!
+
+Without further ado, we present the Law, which Newton determined through experiment, building on top of the work of theorists like Descartes. The Law simply states that that from our reference frame on the ground of Earth, we observe that a certain ``quantity of motion'' is conserved over time in isolated systems.
+
+\begin{axiom}
+	(The fundamental conservation law).
+	
+	From the perspective of the ground frame, in every isolated system consisting of particles with masses $m_1, ..., m_n$ and velocities $\vv_1, ..., \vv_n$, the sum $\sum_{i = 1}^n m_i \vv_i$ is constant with respect to time.
+\end{axiom}
+
+Newton referred to the sum $\sum_i m_i \vv_i$ as \textit{the quantity of motion}. It deserves to be called ``\textit{the} quantity'' because it's conserved; it deserves to be said to be ``of motion'' because it depends on things which are fundamental to motion, mass and velocity.
+
+Working backwards, we can see that if $\sum_i m_i \vv_i$ is the quantity of motion for a system, then $m_i \vv_i$ should be the quantity of motion for a particle. In modern terminology, we say \textit{momentum} instead of ``quantity of motion''. Thus, the \textit{momentum} of a particle with mass $m_i$ and velocity $\vv_i$ is $\pp_i := m_i \vv_i$, and the momentum of a system is $\sum_i \pp_i$.
+
+\begin{defn}
+	(Momentum).
+	
+	Suppose that from the ground frame we observe a particle to have mass $m$ and velocity $\vv$. The \textit{momentum} $\pp$ of the particle \textit{relative to the ground frame} is $\pp := m \vv$.
+\end{defn}
+
+With this new ``momentum'' terminology, the fundamental conservation law can be restated as the following \textit{law of conservation of momentum}.
+
+\begin{axiom}
+	\label{N2_axiomatic_part_system_in_terms_of_momentum}
+	(The law of conservation of momentum).
+	
+	From the perspective of the ground frame, in every isolated system consisting of particles with momenta $\pp_1, ..., \pp_n$, the total momentum $\sum_i \pp_i$ is constant with respect to time.
+\end{axiom}
+
+\subsection*{Forces}
+
+The law of conservation of momentum truly is the Law of Nature: it determines the motion of particles. Below, we see how it straightforwardly determines the motion of isolated particles.
+
+\begin{theorem}
+	\label{thm_isolated_particle_constant_velocity}
+	From the perspective of the ground frame, every isolated particle has constant velocity. 
+\end{theorem}
+
+\begin{proof}
+	For any particle with mass $m$ and velocity $\vv$ we have $\vv = \pp/m$. In general, $m$ is constant since the mass of every particle is constant. If the particle is isolated, then $\pp$ is also constant, thus making $\vv$ constant.
+\end{proof}
+
+What about particles that aren't isolated, particles that are being influenced- pushed or pulled- by what we might call a \textit{force}? Those are the most interesting ones. Strictly speaking, the law of conservation of momentum doesn't actually determine the motion of such particles, but it strongly suggests an approach, since it tells us what the quantity of motion is: if we can measure a change in the particle's quantity of motion over time, then we'll be able to determine the particle's new quantity of motion, and thus determine the particle's new velocity! The idea to measure the the change in the quantity of motion- the \textit{force}- affecting a particle is captured in the following definition.
+
+\begin{defn}
+	\label{N2_defn_part_particle}
+	(Force on a particle).
+	
+	From the perspective of the ground frame, the \textit{total force} $\FF_{\text{tot}}$ exerted on a particle with momentum $\pp$ is defined to be
+	
+	\begin{align*}
+		\FF_{\text{tot}} := \frac{d\pp}{dt}.
+	\end{align*}
+	
+	If the particle has mass $m$, velocity $\vv$, and acceleration $\aa$, then since the mass of a particle is constant, we have
+	
+	\begin{align*}
+		\FF_{\text{tot}} = \frac{d}{dt}(m\vv) = m \frac{d\vv}{dt} = m\aa.
+	\end{align*}
+	
+	In general, we also find that the total force $\FF_{\text{tot}}$ only ever depends on position $\xx$, velocity $\vv$, or time $t$. With this assumption, the above, written with explicit functional dependencies, becomes
+	
+	\begin{align*}
+		\FF_{\text{tot}}(\xx(t), \vv(t), t) = m\aa(t) \text{ for all $t$},
+	\end{align*}
+	
+	where $t \mapsto \xx(t)$, $t \mapsto \vv(t)$, and $t \mapsto \aa(t)$ are the position, velocity, and acceleration of the particle.
+\end{defn}
+
+Since this most recent equation involves the function $t \mapsto \xx(t)$ and its time-derivatives, it is called a \textit{differential equation} in the function $t \mapsto \xx(t)$. This \textit{differential} equation can be solved for the \textit{function} $t \mapsto \xx(t)$, just as an \textit{algebraic} equation like $ax^2 + bx + c = 0$ can be solved for the \textit{number} $x$. \textit{It is in this way that expressing the definition of the total force on a particle determines that particle's position function.}
+
+Of course, since the above differential equation is very general, it is very difficult to obtain a formula (i.e. a \textit{closed form}) for the position function; impossible in some cases. Thankfully, the theory of differential equations does guarantee that as long as the total force $(\xx, \vv, t) \mapsto \FF_{\text{tot}}(\xx, \vv, t)$ is a reasonable and not too crazy, there will indeed exist a unique position function $t \mapsto \xx(t)$ that solves the equation\footnote{Technically, the theory of differential equations only guarantees existence of a unique position function $t \mapsto \xx(t)$ solving the equation for some \textit{interval} of $t$ values. Usually, this interval is $(-\infty, \infty)$.} \footnote{If $\FF_{\text{tot}}$ is complicated, coming up with a formula for the solution may not be possible. But it \textit{will} exist! You can imagine it metaphorically floating out there somewhere in the ``mathematical universe''.}. 
+
+This is all quite abstract, so it's illustrative to consider a simpler case in which we can obtain a concrete- and not just theoretically existent- position function that solves the differential equation.
+
+\begin{deriv}
+	(Using the definition of force to determine the motion of a particle).
+	
+	If $(\xx, \vv, t) \mapsto \FF_{\text{tot}}(\xx, \vv, t)$ can be expressed as a function of time only (i.e. its partial derivatives with respect to $\xx$ and $\vv$ are both always zero), then the above differential equation becomes
+	
+	\begin{align*}
+		\FF_{\text{tot}}(t) = m \aa(t).
+	\end{align*}
+	
+	To get at the position $\xx(t)$, we first solve for the second time derivative of position, which is the acceleration $\aa(t)$,
+	
+	\begin{align*}
+		\aa(t) = \frac{\FF_{\text{tot}}(t)}{m}.
+	\end{align*}
+	
+	We integrate\footnotemark the acceleration $\aa(t)$ to find the velocity $\vv(t)$:    
+	
+	\begin{align*}
+		\vv(t) = \int_{t_1}^t \frac{d\vv(t)}{dt} dt + \vv(t_1) = \int_{t_1}^t \aa(t) dt + \vv(t_1), \text{ where $\aa(t) = \frac{\FF_{\text{tot}}}{m}$}.
+	\end{align*}
+	
+	And we integrate\footnotemark the velocity $\vv(t)$ to find the position $\xx(t)$:
+	
+	\begin{align*}
+		\xx(t) = \int_{t_2}^t \frac{d\xx(t)}{dt} dt + \xx(t_2) = \int_{t_2}^t \vv(t) dt + \xx(t_2).
+	\end{align*}
+	
+	So, we can concretely see how, in this simpler case, at least, the definition of force does in fact determine the motion of the particle.
+\end{deriv}
+
+\addtocounter{footnote}{-2}
+\stepcounter{footnote}\footnotetext{Of course, we have to know the velocity at some point in time (we need to know $\vv(t_1)$ for some $t_1$) to fully determine the integral.}
+\stepcounter{footnote}\footnotetext{Of course, we have to know the position at some point in time (we need to know $\xx(t_2)$ for some $t_2$) to fully determine the integral.}
+
+Having now defined force (and seen its usefulness, too), we can recast conservation of momentum for systems to this new language of forces. First, we simply define the total force on a system to be the change in momentum over time of that system.
+
+\begin{defn}
+	\label{N2_defn_part_system}
+	(Force on a system).
+	
+	The \textit{total force} the ground frame perceives to be exerted on a system with total momentum $\sum_i \pp_i$ is $\FF_{\text{tot}} := \frac{d}{dt} \sum_i \pp_i = \sum_i \frac{d\pp_i}{dt} =  \sum_i \FF_{\text{tot}, i}$, where $\FF_{\text{tot}, i} = m_i \aa_i$ is the total force on each particle.
+\end{defn}
+
+Then we think of ``zero change in momentum'' as ``zero total applied force''.
+
+\begin{axiom}
+	\label{N2_axiomatic_part_system_in_terms_of_force}
+	
+	(The law of conservation of momentum, in terms of force).
+	
+	From the perspective of the ground frame, the total force $\FF_{\text{tot}} := \sum_i \FF_{\text{tot}, i}$ on every isolated system is $\mathbf{0}$.
+\end{axiom}
+
+\begin{proof}
+	We prove the equivalence of Axioms \ref{N2_axiomatic_part_system_in_terms_of_momentum} and Axioms \ref{N2_axiomatic_part_system_in_terms_of_force}. We have: Axiom \ref{N2_axiomatic_part_system_in_terms_of_force} $\iff$ the total force $\FF_{\text{tot}} := \sum_i \FF_{\text{tot}, i}$ on every isolated system is $\mathbf{0}$ $\iff$ $\frac{d}{dt} \sum_i \pp_i = \mathbf{0}$ for every isolated system $\iff$ $\sum_i \pp_i$ is conserved for every isolated system $\iff$ Axiom \ref{N2_axiomatic_part_system_in_terms_of_momentum}. 
+\end{proof}
+
+\newpage
+
+\subsection*{Force pairs}
+
+%Laying this foundation required care and subtlety! We had to think deeply about axioms, on how vague definitions can actually help, and on how extremely fundamental definitions (which might seem like theorems) express intuition. This is most of the work in establishing a good understanding of classical dynamics.
+
+While our current understanding of force (hopefully) feels pretty solid, it actually doesn't yet quite line up with observation. This isn't because the theory is very specifically, decidedly wrong about anything, but because it is more general than it needs to be, and accounts for things that simply don't happen. Currently, our theory is a bit like saying ``either the sun or the moon will rise in the morning''. That saying is technically correct; it's just less useful than the more specific statement ``only the sun rises in the morning''.
+
+Specifically, consider the situation of a particle $p$ exerting a force on another particle $q$. It seems somewhat plausible to imagine that in reaction to being exerted upon, $q$ might exert forces on any number of particles to which it is somehow related. But, just as we know the moon doesn't rise in the morning, observation shows that this is not the case. Observation shows that $q$ exerts only one ``reaction force'', that this reaction force is applied to $p$, and that the reaction force depends on the original force that $p$ applied to $q$. In other words, forces come in pairs. We assume the following axiom to formalize this observation.
+
+\begin{axiom}
+	(Forces come in pairs).
+	
+	From the perspective of the ground frame, consider all of the particles $p_1, ..., p_n$ in the universe, and let $\FF_{ij}$ denote the force exerted by particle $p_i$ on particle $p_j$. For all $i, j$, the force $\FF_{ij}$ only depends on itself and $\FF_{ji}$.
+\end{axiom}
+
+We can actually use the law of conservation of momentum to be very specific about exactly \textit{how} the reaction force $\FF_{ji}$ depends on $\FF_{ij}$. The following theorem helps with this.
+
+\begin{lemma}
+	(Expression for the sum of internal forces in a system).	
+	
+	From the perspective of the ground frame, in every system, the sum of all internal forces $\sum_i \FF_{\text{tot}, i}$ can be expressed as
+	
+	\begin{align*}
+		\sum_i \FF_{\text{tot}, i} = \sum_i \sum_{j > i} (\FF_{ij} + \FF_{ji}).	
+	\end{align*}
+\end{lemma}
+
+\begin{proof}
+	We have $\FF_{\text{tot}, i} = \sum_{j \neq i} \FF_{ji}$ because the total force on the $i$th particle is the sum of the forces on the $i$th particle from all other particles. Thus $\sum_i \FF_{\text{tot}, i} = \sum_i \sum_{j \neq i} \FF_{ji}$. We can rearrange the forces in this sum so that forces in the same pair are adjacent. Thus $\sum_i \sum_{j \neq i} \FF_{ji} = \sum_i \sum_{j > i} (\FF_{ij} + \FF_{ji})$. 
+\end{proof}
+
+Now that we have the above helper theorem, we can precisely characterize reaction forces by using the law of conservation of momentum. It actually turns out that this characterization is \textit{equivalent} to the law of conservation of momentum.
+
+\begin{theorem}
+	(Reaction forces are equal in magnitude and opposite in direction).
+	
+	From the perspective of the ground frame, consider all of the particles $p_1, ..., p_n$ in the universe, and let $\FF_{ij}$ denote the force exerted by particle $p_i$ on particle $p_j$. For all $i, j$, we have $\FF_{ji} = -\FF_{ij}$. In other words, each reaction force is equal in magnitude and opposite in direction to the force that induces it.
+\end{theorem}
+
+\begin{proof}
+	We need to show that the law of conservation of momentum is equivalent to the statement ``$\FF_{ji} = -\FF_{ij}$ for all $i, j$''.
+	
+	($\implies$). By the helper theorem, the ground frame perceives the sum of all forces in the universe $\sum_i \FF_{\text{tot}, i}$ to be $\sum_i \FF_{\text{tot}, i} = {\sum_{j > i} (\FF_{ij} + \FF_{ji})}$. The universe is by definition an isolated system, so we can apply the law of conservation of momentum in terms of force (Theorem \ref{N2_axiomatic_part_system_in_terms_of_force}) to it. Doing so, we have $\sum_{j > i} (\FF_{ij} + \FF_{ji}) = \mathbf{0}$. For the purposes of this proof, we will call this equation the ``conservation equation''.
+	
+	Because forces come in pairs, we can independently vary each sum term $\FF_{ij} + \FF_{ji}$. Thus the conservation equation must hold for all values of the sum terms.
+	
+	In particular, the conservation equation must hold when the sum terms are all the same, $\FF_{ij} + \FF_{ji} = \FF$ for all $i, j$. Assuming that there are $n$ terms in the sum, we obtain $n\FF = \mathbf{0}$, i.e. $\FF = \mathbf{0}$. Since $\FF_{ij} + \FF_{ji} = \FF$ for all $i, j$ then $\FF_{ij} + \FF_{ji} = \mathbf{0}$ for all $i, j$. Thus $\FF_{ji} = -\FF_{ij}$ for all $i, j$.
+	
+	($\impliedby$). If from the perspective of the ground frame we have $\FF_{ji} = -\FF_{ij}$ for all $i, j$, then $\FF_{ij} + \FF_{ji} = \mathbf{0}$ for all $i, j$, so the sum from the helper theorem becomes $\mathbf{0}$. This gives precisely the law of conservation of momentum in terms of force (Theorem \ref{N2_axiomatic_part_system_in_terms_of_force}).
+\end{proof}
+
+In the real world, this theorem about reaction forces is a little tough to see! This is because of friction. When you push on a wall, the wall pushes back on you, but it's hard to see it because the friction between your feet and the floor matches the force of the wall's push on you, thus preventing you from sliding backwards. To obviously see the effects of the wall pushing back on you, there has to be less friction: you could wear socks while standing on a smooth polished floor, or try the experiment in an ice rink.
+
+\newpage
+
+\section*{Relativity}
+
+\subsection*{Relative position, velocity, and acceleration}
+
+So far, we've qualified all our statements about physical reality with the specification that we are observing from the ground frame. Now, we're ready to more deeply explore the matter of relativity. We start by redefining the quantities of position, velocity, and acceleration to acknowledge the reference frame from which they are measured.
+
+\begin{defn}
+	(Motion and relative time).
+	
+	Let $F$ be a reference frame, and suppose it observes a particle. The \textit{motion} that $F$ observes the particle to have is represented by the particle's \textit{position relative to $F$}, which is the function $t \mapsto [\xx(t)]_F$ that sends a real number $t$, representing the elapsed \textit{time} measured by $F$, to a list of three real numbers $[\xx(t)]_F = ([x(t)]_F, [y(t)]_F, [z(t)]_F) = ([x_1(t)]_F, [x_2(t)]_F, [x_3(t)]_F)$, representing the three-dimensional position that $F$ observes the particle to occupy at that time.
+	
+	When $F$ is the ground frame, we often drop the square brackets $[\spc]$ and just use $t \mapsto \xx(t)$ to denote the position relative to $F$.
+\end{defn}
+
+\begin{defn}
+	(Velocity and acceleration).
+	
+	Let $F$ be a reference frame, and suppose it observes a particle. The particle's \textit{velocity relative to $F$} is the function $t \mapsto [\vv(t)]_F$ defined by
+	
+	\begin{align*}
+		[\vv(t)]_F := \frac{d[\xx(t)]_F}{dt}.
+	\end{align*}
+	
+	That is, the component functions $t \mapsto [v_i(t)]_F$ of $t \mapsto [\vv(t)]_F$ are given by $[v_i(t)]_F = \frac{d[x_i(t)]_F}{dt}$. Similarly, the particle's \textit{acceleration relative to $F$} is the function $t \mapsto [\aa(t)]_F$ defined by
+	
+	\begin{align*}
+		[\aa(t)]_F := \frac{d[\vv(t)]_F}{dt} = \frac{d^2[\xx]_F(t)}{dt^2}.
+	\end{align*}
+	
+	That is, the component functions $t \mapsto [a_i(t)]_F$ of $t \mapsto [\aa(t)]_F$ are given by $[a_i(t)]_F = \frac{d[v_i(t)]_F}{dt} = \frac{d^2[x_i(t)]_F}{dt^2}$.
+	
+	As was the case with position, when $F$ is the ground frame, we often drop the square brackets $[\spc]$ and just use $t \mapsto \vv(t)$ and $t \mapsto \aa(t)$ to denote velocity and acceleration relative to $F$.
+\end{defn}
+
+\subsection*{Inertial frames}
+
+The reason we've postponed a more thorough investigation of relativity until now is because there is a difficulty regarding frames that requires knowing what the quantity of motion is, and what the law of conservation of momentum is, to understand. We can proceed because we know those things now.
+
+Well, as far as the law of conservation of momentum is concerned, the existence of different reference frames introduces a bit of a complication. The law of conservation of momentum says the total quantity of motion in an isolated system remains constant over time... as long as we view it from the ground frame. Since the quantity of motion is a function of velocity, though, any frame that has a changing velocity relative to the ground frame will perceive an inherent baseline level of change in the quantity of motion of \textit{every} system it observes- even isolated ones\footnote{An inherent baseline of change in the quantity of motion is called a \textit{fictitious} influence.}. Such frames will observe isolated particles not acted on by any external ``influence'' to have their quantity of motion changed- i.e. to accelerate- for no discernible reason. In other words, there are some frames that perceive the law of conservation of momentum to be violated.
+
+The best way to understand the perspectives of such erratically moving frames is to compare them to perspectives of impartial frames, whose perceptions are \textit{not} biased by their own motion, and are thus ``restful'', or ``inert'', in some sense. We quickly give a name to these unbiased, ``inert'' frames.
+
+\begin{defn}
+	(Inertial frame).
+	
+	A frame is said to be \textit{inertial} if and only if it perceives the law of conservation of momentum to hold. That is, a frame is inertial if and only if it perceives every isolated system to have a total momentum that is constant with respect to time. A frame is called \textit{noninertial} if it is not inertial.
+\end{defn}
+
+Comparing arbitrary frames seems like a simple task; the following theorem is intuitive enough.
+
+\begin{theorem}
+	(Transformation between frames).
+	
+	Let $F$ be a frame with origin $\xx_F$ and $G$ be a frame with origins $\xx_G$. If both frames observe a particle, so that $t \mapsto [\xx(t)]_F$ is the position of the particle relative to $F$ and $t \mapsto [\xx(t)]_G$ is the position of the particle relative to $G$, then
+	
+	\begin{align*}
+		[\xx(t)]_F = [\xx_G(t)]_F + [\xx(t)]_G \text{ for all $t$}.
+	\end{align*}
+	
+	This equation is sometimes known as the \textit{general Galilean transformation}.
+\end{theorem}
+
+\begin{proof}
+	Think of $F$ as being stationary. To see the particle from the perspective of $G$, we first travel to the origin of $G$, which is $[\xx_G(t)]_F$, and then add on the position that $G$ observes, which is $[\xx(t)]_F$.
+\end{proof}
+
+This frame transformation theorem makes a subtle assumption that is easy to miss. As it stands, the theorem assumes that the time parameter $t$ is independent of both $F$ and $G$. If time were relative, and the time of $G$ ticked more slowly than the time of $F$, for instance, then we would need to input a \textit{later} time into $t \mapsto [\xx(t)]_G$ than is input to $t \mapsto [\xx_G(t)]_F$ in order to obtain the correct result.
+
+Of course in reality, we do observe time to be absolute; we just need to formalize the assumption.
+
+\begin{axiom}
+	(Time is absolute).
+	
+	There exists a frame-independent time parameter.
+\end{axiom}
+
+
+With that detail out of the way, we can now compare the perspective of a noninertial frame to that of an inertial frame, as promised.
+
+\begin{theorem}
+	(Force in a noninertial frame).
+	
+	Let the ground frame, which is inertial, be denoted by $I$. Let $F$ be a frame with origin $[\xx_F]_I$ relative to $I$, time-dependent axes relative to $I$ given by $t \mapsto [\ff_1(t)]_I, t \mapsto [\ff_2(t)]_I$, $t \mapsto [\ff_3(t)]_I$, and suppose $F$ has nonzero acceleration $[\aa_F]_I$ relative to $I$. Also, let $G$ be the ``intermediary frame between $I$ and $F$'' that has the axes of $I$ and has the origin of $F$.
+	
+	If a particle of mass $m$ experiences a total force of $[\FF_{\text{tot}}]_G$ from the perspective of $G$, it will have acceleration $[\aa]_I$ relative to the ground frame given by
+	
+	\begin{align*}
+		m[\aa]_I = [\FF_{\text{tot}}]_G + \FF_{\text{fict}},
+	\end{align*}
+
+	where
+	
+	\begin{align*}
+		\FF_{\text{fict}}(t) := m\Big([\aa_F(t)]_I +
+		2 \sum_{i = 1}^3 [v_i(t)]_F \frac{d[\ff_i(t)]_I}{dt} + \sum_{i = 1}^3 [x_i(t)]_F \frac{d^2 [\ff_i(t)]_I}{dt^2} \Big),
+	\end{align*}
+	
+	and where $[\xx(t)]_F = ([x_1(t)]_F, [x_2(t)]_F, [x_3(t)]_F)$ and $[\vv(t)]_F = ([v_1(t)]_F, [v_2(t)]_F, [v_3(t)]_F)$ are the position and velocity of the particle from the perspective of $F$.
+	
+	The term $\FF_{\text{fict}}$, which is the inherent baseline level of change in the quantity of motion present in $F$ that occurs as a result of the acceleration of $F$ relative to $I$, is known as a \textit{fictitious force} or \textit{pseudoforce}.
+\end{theorem}
+
+\begin{proof}
+	We have $[\xx(t)]_I = [\xx_F(t)]_I + [\xx(t)]_F$ by the general Galilean transformation, so 
+	
+	\begin{align*}
+		m[\aa(t)]_I &= m \frac{d^2}{dt^2}[\xx(t)]_I \text{ for all $t$} \\
+		&= m \frac{d^2}{dt^2}\Big([\xx_{F}(t)]_I + [\xx(t)]_F \Big) \text{ for all $t$}
+		\\
+		&= m \frac{d^2}{dt^2}\Big([\xx_{F}(t)]_I + \sum_{i = 1}^3 [x_i(t)]_F [\ff_i(t)]_I \Big) \text{ for all $t$} \\
+		&= m \frac{d}{dt}\Big([\vv_F(t)]_I + \sum_{i = 1}^3  \Big[[v_i(t)]_F [\ff_i(t)]_I + [x_i(t)]_F \frac{d [\ff_i(t)]_I}{dt}\Big]\Big) \text{ for all $t$} \\
+		&= m \frac{d}{dt}\Big([\vv_F(t)]_I + \sum_{i = 1}^3  [v_i(t)]_F [\ff_i(t)]_I + \sum_{i = 1}^3 [x_i(t)]_F \frac{d [\ff_i(t)]_I}{dt}\Big) \text{ for all $t$} \\
+		&= m \Big([\aa_F(t)]_I + \sum_{i = 1}^3  \Big[ [a_i(t)]_F [\ff_i(t)]_I + [v_i(t)]_F \frac{d[\ff_i(t)]_I}{dt}\Big] + \sum_{i = 1}^3 \Big[ [v_i(t)]_F \frac{d [\ff_i(t)]_I}{dt} + [x_i(t)]_F \frac{d^2 [\ff_i(t)]_I}{dt^2} \Big]\Big) \text{ for all $t$} \\
+		&= m \Big([\aa_F(t)]_I + \sum_{i = 1}^3 [a_i(t)]_F [\ff_i(t)]_I +
+		2 \sum_{i = 1}^3 [v_i(t)]_F \frac{d[\ff_i(t)]_I}{dt} + \sum_{i = 1}^3 [x_i(t)]_F \frac{d^2 [\ff_i(t)]_I}{dt^2} \Big) \text{ for all $t$} \\
+		&= m \Big([\aa_F(t)]_I + [\aa(t)]_G +
+		2 \sum_{i = 1}^3 [v_i(t)]_F \frac{d[\ff_i(t)]_I}{dt} + \sum_{i = 1}^3 [x_i(t)]_F \frac{d^2 [\ff_i(t)]_I}{dt^2} \Big) \text{ for all $t$} 
+	\end{align*}
+	
+	More succinctly, we have 
+	
+	\begin{align*}
+		m[\aa(t)]_I = m[\aa(t)]_G + \FF_{\text{fict}}(t) \text{ for all $t$},
+	\end{align*}
+	
+	where $\FF_{\text{fict}}$ is defined as necessary. Since $m[\aa(t)]_G = [\FF_{\text{tot}}(t)]_G$, we have
+	
+	\begin{align*}
+		m[\aa(t)]_I = [\FF_{\text{tot}}(t)]_G + \FF_{\text{fict}}(t) \text{ for all $t$},
+	\end{align*}
+	
+	which is the statement in the theorem.
+\end{proof}
+
+Having the previous theorem makes it easy to codify the previous discussion about what makes a frame noninertial in a theorem.
+
+\begin{theorem}
+	(Naive characterization of inertial frames).
+	
+	A reference frame is inertial if and only if it travels with constant velocity relative to the ground frame.
+\end{theorem}
+
+\begin{proof}
+	It's easiest to just restate the earlier discussion: ``Since the quantity of motion is a function of velocity, any frame that has a changing velocity relative to the ground frame will perceive an inherent baseline level of change in the quantity of motion of \textit{every} system it observes- even isolated ones.'' To be rigorous, though, notice that when we apply the previous theorem, we recover the usual definition of force in a reference frame $F$ if and only if $F$ has $[\aa_F]_I = \mathbf{0}$, i.e., if and only if it has zero acceleration relative to the ground frame. 
+\end{proof}
+
+\newpage
+
+\subsection*{Space}
+
+\subsubsection*{The distant stars}
+
+You might think all of this focus on the ground frame seems a little oddly specific. What's so profoundly spatially significant about the ground frame that makes it a perfect observer of the law of conservation of momentum (i.e. inertial)?
+
+Actually, the ground frame is \textit{not} such a perfect observer. The ground frame- which is really the surface of the Earth- is rotating relative to the frame in which the distant stars are stationary. This frame, called the \textit{frame of the distant stars}, is much closer to being a true inertial frame than is the ground frame. As a result of the Earth's rotation relative to the distant stars, we observe the phenomenon of wind currents which circulate in spirals (including hurricanes). These currents would just circulate back and forth in straight lines if Earth didn't rotate! 
+
+Of course, the frame of the distant stars is not exactly inertial, either. We can ask the same question again: what's so profoundly spatially significant about the distant stars that makes them induce an approximate inertial frame? Shouldn't it be extremely unlikely that, out of all of the infinitely many ways there are for a given frame to move relative to another, the very \textit{particular} way the frame of the distant stars moves makes it inertial?
+
+It can't be luck; that would be too random. So we have to come up with some other explanation.
+
+\subsubsection*{Gravitation}
+
+The answer has to do with mass. Thanks to Newton, we know that, just by existing, anything with mass exerts a force on every other object in the universe.
+
+\begin{axiom}
+	(Gravitation).
+	
+	Every particle in the universe exerts a force on every other particle in the universe. The strength of this force decreases as the distance between the particles involved increases.
+\end{axiom}
+
+If you think about it, because the distant stars are so far away that the gravitational force they exert on other objects is negligible, the distant stars are conceptually equivalent to a particle of zero mass. So their \textit{distance} is what's profoundly spatially significant about them.
+
+But how does a particle of zero mass induce a reference frame? That's a bit confusing. How can something which is in some sense not really there provide anything to reference? It seems to me that this the crux of the matter- assuming that a particle of zero mass can provide a reference frame. To me, the claim that a particle of zero mass can provide a reference frame seems equivalent to the claim that there would exist exactly one reference frame in a massless universe\footnote{The later claim is a bit unintuitive to me; I would expect there would be infinitely many reference frames in a massless universe!}.
+
+It therefore seems to me that the following axiom is assumed.
+
+\begin{axiom*}
+	In a massless universe there is exactly one reference frame.
+\end{axiom*}
+
+And it seems to me that this axiom quickly gives the following theorem.
+
+\begin{theorem*}
+	The single reference frame that exists in a massless universe is inertial.
+\end{theorem*}
+
+\begin{proof}
+	This is because there's no mass in a massless universe to exert any gravitational force that would bias the perceptions of the frame.
+\end{proof}
+
+Thus, maybe, in a universe that \textit{does} contain mass, we can imagine that there is an inertial reference frame out there underlying everything, obscured in parts of the universe where mass is dense, and partially uncovered in parts of the universe where mass is sparse. In this view, the distant stars are a proxy by which we can glean that underlying inertial frame. They exist, so we can see the frame, but they are far away, so they don't perturb it.
+
+\subsubsection*{Absolute space}
+
+If there were an underlying inertial reference frame in the way we've described, it would be identifiable from every other reference frame, since another reference frame could find the underlying one by observing a part of the universe that has little mass. (Remember, a reference frame does not have to move its origin closer to an object to observe it!)
+
+In other words, the existence of this underlying inertial reference frame would be \textit{absolute}, not reliant on any other frame. We'll formalize this assumption in a new axiom:
+
+\begin{axiom}
+	(Space is absolute).
+	
+	There exists a special inertial reference frame that can be identified from within every other inertial reference frame.
+\end{axiom}
+
+Curiously enough, if space is absolute then it necessarily follows that time is absolute. (Though the converse, that ``if time is absolute then space must be absolute'', is not true).
+
+\begin{theorem}
+	(Space is absolute $\implies$ time is absolute).
+	
+	If there exists a special inertial reference frame that can be identified from within every other reference frame, then there also exists a frame-independent time parameter.
+\end{theorem}
+
+\begin{proof}
+	Suppose there exists a special inertial reference frame $S$ that can be identified from within every other reference frame. We can define a time function $d \mapsto t(d)$ to be the time $S$ perceives a particle traveling with constant speed $v$ to travel a distance of $d$. The function $d \mapsto t(d)$ is increasing and agreed upon by all frames; thus, it is a frame-independent time parameter.
+\end{proof}
+
+Interestingly, Newton was a firm believer, religiously so, that both space and time were absolute. His contemporary and rival Leibniz thought the opposite.
+
+%\subsubsection*{Hmm...}
+%
+%Q: ``But how does a particle of zero mass induce a reference frame? That's a bit confusing. How can something which is in some sense not really there provide anything to reference?''
+%
+%A: ``What about light? It's massless and is somehow special enough to induce a reference frame.''
+%
+%Q: ``But light has energy, which is basically the same as mass.''
+
+\subsection*{Dynamics in inertial frames}
+
+The recent discussion is pretty philosophical. If there's anything to take away from it, it's that the ground frame is only approximately inertial, but that we can be pretty sure there is some inertial frame out there, somewhere. Thus, the current theory we've developed, which is expressed in terms of the noninertial ground frame, needs to be updated so that it is now expressed in terms of inertial frames.
+
+Here is that theory. As before, we start with the law of conservation of momentum. 
+
+\begin{defn}
+	(Law of conservation of momentum and inertial frame).
+	
+	A frame is said to be \textit{inertial} if and only if it perceives the law of conservation of momentum to hold:
+	
+	\fullindent
+	{
+		From the perspective of the frame, for every isolated system consisting of particles with masses $m_1, ..., m_n$ and velocities $\vv_1, ..., \vv_n$, the sum $\sum_{i = 1}^n m_i \vv_i$ is constant with respect to time.
+	}
+\end{defn}
+
+\begin{axiom}
+	(Existence of a inertial frame). An inertial frame exists.
+\end{axiom}
+
+In the old version of our theory, the ground frame was theoretically sanctified, and the law of conservation of momentum that holds in the ground frame was empirically discovered. Now, the law of conservation of momentum is what's theoretically sanctified, and the frames that abide by it are what are empirically discovered. Here's one of those empirical discoveries.
+
+\begin{theorem}
+	The ground frame is approximately inertial.
+\end{theorem}
+
+From here, we can essentially just copy what we developed before.
+
+\begin{theorem}
+	(Force in a noninertial frame).
+	
+	Let $I$ be an inertial frame. Suppose $F$ is a frame with nonzero acceleration $[\aa_F]_I$ relative to $I$, and is thus noninertial. From the perspective of $F$, if a particle is affected by a total force $\FF_{\text{tot}}$, then the particle will have acceleration $\aa$ given by
+	
+	\begin{align*}
+		\FF_{\text{tot}} + \FF_{\text{fict}} = m[\aa]_I,
+	\end{align*}
+	
+	where $\FF_{\text{fict}}$ is essentially what was given in Theorem [...] (just with ``inertial frame'' used in the place of ``ground frame'').
+	
+	Notice, the term $-m[\aa_F]_I$ is the ``inherent baseline level of change in the quantity of motion of \textit{every} system'' $F$ observes. It is referred to as a \textit{fictitious force} for this reason.
+\end{theorem}
+
+\begin{theorem}
+	(Characterization of inertial frames). A frame is inertial if and only if it travels with constant velocity relative to all other inertial frames.
+\end{theorem}
+
+We can continue replacing ``from the perspective of the ground frame'' with ``from the perspective of an inertial frame'' to reestablish the remaining concepts. In all, we obtain versions of the following that hold in inertial reference frames:
+
+\begin{itemize}
+	\item The law of conservation of momentum axiom
+	\item The definition of force
+	\item The force pair axiom and reaction force theorem
+\end{itemize}
+
+The fact that all of these concepts are applicable in inertial frames is called the \textit{principle of relativity}. You will hear physicists say ``the laws of physics are independent of inertial reference frame'' to express this fact.
+
+\section*{Newton's laws}
+
+We're done with giving the properly reorganized presentation of Newton's laws. At last, we can compare the reorganization of Newton's laws we've constructed to Newton's original laws. Here's a summary of our reorganization:
+
+\begin{enumerate}
+	\item (Absolute space axiom). Space is absolute. There exists a special inertial reference frame that can be identified from within every other reference frame.
+	
+	\item (Absolute time definition). Time is absolute. There exists a frame-independent time parameter.
+	
+	\item (Conservation of momentum axiom and inertial frame definition). There exist frames of reference in which the total momentum of isolated systems is conserved, called \textit{inertial} frames.
+	
+	\item (Inertial frame theorem). Since momentum depends on velocity, the conservation of momentum in isolated systems is violated by frames that have changing velocity relative to an inertial frame. Thus all inertial frames travel with constant velocity relative to each other.
+	
+	\item (Force definition). Assume the perspective of some inertial frame. The total \textit{force} $\FF_{\text{tot}}$ the frame observes to be exerted on the particle is defined to be the instantaneous time-rate of change of the particle's quantity of motion, $\FF_{\text{tot}} := \frac{d\pp}{dt} = \frac{d}{dt}(m\vv)$. In short, force is that which changes the quantity of motion. Since the mass $m$ of a particle is constant, this simplifies to $\FF_{\text{tot}} = m\aa$, where $\aa$ is the acceleration of the particle.
+	
+	\item (Force pair axiom). In every inertial frame, forces come in pairs.
+	
+	\item (Reaction force theorem). In every inertial frame, reaction forces are equal in magnitude and opposite in direction.
+\end{enumerate}
+
+And here's the English translation of relevant excerpts of Newton's original theory from the \textit{Principa}, which was originally written in Latin. I've added explanatory commentary in italics relating the originals to our reorganization:
+
+\begin{enumerate}	
+	\item (Newton's second definition). The quantity of motion is a measure of the same arising from the velocity and quantity of
+	matter jointly.
+	
+	\textit{Here, Newton defines the quantity of motion, which is $\pp := m\vv$ in modern notation. Newton doesn't justify though,} why \textit{this particular definition of the quantity of motion is the correct one. This lack of justification for privileging $\pp := m\vv$ ripples through the laws Newton will soon state, causing unnecessary confusion.}
+
+	\item (Newton's fourth definition). The impressed force is the action exercised on the body, to changing the state either of rest or of motion uniform in direction.
+	
+	\textit{Here, Newton defines the (total) force on a particle to be the influence that changes the particle's quantity of motion. This is a vague definition; it does not define force in terms of previously formalized notions.}
+	
+	\item (Axiom from a scholium). Absolute time, true and mathematical, flows equably in itself and by its nature without a relation to anything external, and by another name is called duration. Relative, apparent, and common time is some sensible external measure of duration you please (whether with accurate or with unequal intervals) which commonly is used in place of true time; as in the hour, day, month, year.
+	
+	\textit{Here, Newton states the axiom of absolute time.}
+	
+	\textit{He also remarks that us humans make use of various time parameters that all ultimately derive from that universal parameter, and deems these time parameters ``relative''. If Newton were to use modern terms, he would define a relative time parameter to be one that is a strictly increasing function of the universal time parameter.}
+	
+	\item (Axiom from a scholium). Absolute space, by its own nature without relation to anything external, always remains similar and immovable: relative [space] is some mobile measure or dimension of this [absolute] space, which is defined by its position to bodies according to our senses, and by ordinary people is taken for an unmoving space: as in the of a space either underground, in the air, or in the heavens, defined by its situation relative to the earth. Absolute and relative spaces are likewise in kind and magnitude; but they do not always endure in the same position. For if the earth may move, for example, the space of our air, because relative to and with respect to the earth it always remains the same, now there will be one part of absolute space into which the air moves now another part of this; and thus always it will be moving absolutely. 
+	
+	\textit{Here, Newton states the axiom of absolute space.}
+	
+	\textit{Newton also defines a notion of ``relative space'', which, in modern terminology, is a ``reference frame''. He asserts that the content making up the space in a reference frame is the same across all frames (``likewise in kind''), and that all reference frames have infinite extent and observe all phenomena in the universe (``likewise in magnitude''), even though reference frames don't ``always endure in the same position'' relative to absolute space. He reminds us that many frames which we may think of as being ``unmovable'', like that of a frame in the deep dark ``underground'', or a frame in the ``air'', or a frame in ``the heavens'', are actually all examples of relative space (reference frames), since they are stationary relative to the Earth as it moves through space.}
+	
+	\item (Newton's first law). Every body perseveres in its state of rest, or of uniform motion in a [straight] line, unless it is compelled to change that state by forces impressed thereon.
+	
+	\textit{Since Newton has already stated that time and space are both absolute, any further statement about reality, like the one in this first law, is implicitly a characterization about absolute time and space. The first law can therefore be restated in modern terms as: ``The special reference frame of absolute space perceives every isolated particle to travel with constant velocity unless it is acted upon by a force.''}
+	
+	\textit{This should now sound a little more familiar, as we know from our presentation that a frame observes isolated particles to travel with constant velocity if and only if it is inertial. Recalling this, we see that Newton is asserting that absolute space is inertial, but using a different characterization of inertiality than we did to do so. (Our definition of inertiality involved the law of conservation of momentum. Since Newton hasn't stated that law yet, he is forced to use a characterization that doesn't involve it.)}
+	
+	\textit{Notice how relegating the law of conservation of momentum to later makes things unnecessarily confusing. If we knew that total momentum is conserved in isolated systems, then we would know why to expect an inertiality axiom like this first law in the first place. (Since momentum is dependent on velocity, the law of conservation of momentum can be biased if a frame isn't ``restful'' enough, and has a velocity that changes with time.) We would also know } why \textit{velocity, and not some other time-derivative of position, is singled out in Newton's inertiality condition. (Particles that change their velocity for no discernible reason are a sign that one is in a frame that perceives the law of conservation of momentum to be violated, i.e., that one is in a frame whose very motion is biasing the quantities of motion it perceives.)}
+	
+	\item (Newton's second law). The alteration of [the quantity of motion] is ever proportional to the motive force impressed; and is made in the direction of the [straight] line in which that force is impressed.
+	
+	\textit{Earlier, Newton defined the quantity of motion $\pp := m\vv$ of a particle, and vaguely defined ``force'' $\FF$ to be the ``action exercised'' on the particle in question. Here, he gives an explicit formula for force, and states that $\FF = \frac{d\pp}{dt}$. Overall, the effect is that Newton has defined $\FF := \frac{d\pp}{dt}$.}
+	
+	\textit{Unfortunately, the definition $\FF := \frac{d\pp}{dt}$ is not very meaningful at this point. It depends on $\pp := m\vv$, and we don't know why this $\pp$ is considered the ``quantity of motion''. Why don't we have $\pp := m\xx$ and $\FF = \frac{d}{dt}(m\xx)$, or $\pp := m\frac{d^n\xx}{dt^n}$ for some other $n$, and $\FF = \frac{d^n}{dt^n}(m\xx)$?}
+	
+	\item (Newton's third law). To every action there is always opposed an equal reaction; or the mutual actions of two bodies upon each other are always equal, and directed to contrary parts.
+	
+	\textit{This is just our reaction force theorem. Though, do recall that we didn't need to take our reaction force theorem as axiom, and instead derived it from a more primitive ``force pair axiom''.}
+		
+	\textit{More importantly, notice that none of Newton's laws covers the most fundamental thing- the law of conservation of momentum. Instead, Newton derived the law of conservation of momentum as a consequence of the third law. (We showed that, assuming the ``force pair axiom'', it is equivalent to the third law.)}
+	
+	\item (Newton's third corollary). The quantity of motion which is deduced by taking the sum of the motions of the contributing factors in the same direction and the difference of the contributing factors in
+	the opposite direction, may not change from the action of bodies among themselves.
+	
+	\textit{Newton proves this corollary, which is the law of conservation of momentum, by using his law about force pairs, the third law. The law of conservation not only follows from the third law; in our presentation we showed that the third law follows from the law of conservation of momentum! By stating the law of conservation of momentum first, and by using it as our fundamental starting point, we were able to avoid the confusions that Newton introduced into his laws, like the question ``Why is} velocity \textit{of particular importance in the first law?'', and ``In the second law, force is defined as the time-derivative of the quantity of motion. Why does the quantity of motion depend on} velocity \textit{in particular?}''
+\end{enumerate}
+
+\subsection*{A popular misinterpretation of the first law}
+
+When we are considering a particle of constant mass $m$, Newton's second law, $\FF_{\text{tot}} = \frac{d\pp}{dt} = \frac{d}{dt}(m\vv)$, becomes the famous equation $\FF_{\text{tot}} = m\aa$. The first and second laws can are then commonly restated like this:
+
+\begin{enumerate}
+	\item Bodies in motion remain in motion and bodies at rest remain at rest, unless acted on by an external force.
+	\item The acceleration of a body is given by $\FF_{\text{tot}} = m\aa$, where $\FF_{\text{tot}}$ is the total force exerted on the body.
+\end{enumerate}
+
+It is a common mistake to think that the first law can be further restated as the implication ``If the total force on a particle is zero, then the acceleration of a particle is zero.'' (If this were the case, then the first law would just be a special case of the second!)
+
+If you translate carefully, you will realize that the first law is \textit{actually} the following implication:
+
+\begin{center}
+	If the acceleration of a particle is nonzero, then the total force on the particle is nonzero.
+\end{center}
+
+This is not a special case of the second law. It is actually the logical converse of the implication commonly thought to be the first law!
+
+To see this, we write the first law as
+
+\begin{align*}
+	\aa \neq \mathbf{0} \implies \FF_{\text{tot}} \neq \mathbf{0}.
+\end{align*}
+
+By the logical contrapositive, this is equivalent to
+
+\begin{align*}
+	\FF_{\text{tot}} = \mathbf{0} \implies \aa = \mathbf{0},
+\end{align*}
+
+which is the converse of the implication commonly thought to be equivalent to the first law, $\aa = \mathbf{0} \implies \FF_{\text{tot}} = \mathbf{0}$.
+
+\newpage
+
+\subsection*{Extremely popular presentation of Newton's theory}
+
+\begin{itemize}
+	\item (Newton's second law, popularized). The total force $\FF_{\text{tot}}$ on a particle of mass $m$ and acceleration $\aa$ is $\FF := m\aa$.
+	
+	\textit{This popularized version the same as the second law given by Newton, and it's certainly not an improvement. Newton's }
+	
+	\item (Newton's first law, popularized). Unless acted on by a force, particles in motion remain in motion and particles at rest remain at rest.
+	
+	
+	\item (Newton's third law, popularized). To every action there is an equal and opposite reaction.
+	
+	\textit{This is a pretty faithful paraphrase of Newton's original third law.}
+\end{itemize}
+
+\newpage
+
+\section*{Energy}
+
+Consider a particle in motion. Let $\FF(\xx) = \begin{pmatrix} F_x(\xx) \\ F_y(\xx) \\ F_z(\xx) \end{pmatrix}$ be the force exerted on the particle at position $\xx$.
+
+Define the \textit{work} done on the particle as it traverses a path $C$ to be
+
+\begin{align*}
+    W_{\FF, C} := \int_C \FF(\xx) \cdot \frac{d \xx(t)}{d t} dt.
+\end{align*}
+
+Note that if $-C$ is the reverse parametization of $C$, then
+
+\begin{align*}
+    W_{\FF, -C} = -W_{\FF, C}
+\end{align*}
+
+This is because if $\xx_1(t)$ parametizes $C$ for $t \in [t_0, t_f]$ then $\xx_2(t) = \xx_1(t_0 + t_f - t)$ parametizes $-C$ and has $\frac{d\xx_2(t)}{dt} = - \frac{d\xx_1(t)}{dt}$.
+
+Returning to the definition of work, we have
+
+\begin{align*}
+    W_{\FF, C} &= \int_C \left( F_x(\xx(t)) \frac{dx(t)}{dt} + F_y(\xx(t)) \frac{dy(t)}{d t} + F_z(\xx(t)) \frac{d z(t)}{dt} \right) dt \\
+    &= \int_C F_x(\xx(t)) \frac{d x(t)}{d t} d t + \int_C F_y(\xx(t)) \frac{d y(t)}{d t} d t + \int_C F_z(\xx(t)) \frac{d z(t)}{d t} d t \\
+    &= \int_C F_x(\xx) d x + \int_C F_y(\xx) d y + \int_C F_z(\xx) dz \\
+    &= \int_C \FF(\xx) \cdot d \xx.
+\end{align*}
+
+Therefore 
+
+\begin{align*}
+    \boxed
+    {
+        W_{\FF, C} = \int_C \FF(\xx) \cdot d \xx.
+    }
+\end{align*}
+
+\subsection*{Kinetic energy}
+
+Now consider the \textit{total work} done on a particle as it travels along an arbitrary path $C$. By ``total work'', we mean the work done on the particle by the total force $\FF_{\text{tot}} = m \aa$.
+
+\begin{align*}
+    W_{\FF_{\text{tot}}, C} &= \int_C \FF_{\text{tot}}(\xx) \cdot \frac{d \xx}{d t} d t \\
+    &= \int_C m \aa \cdot \vv d t = \int_C m \frac{d \vv}{d t} \cdot \vv d t.
+\end{align*}
+
+Note that $\frac{d(||\vv||^2)}{dt} = \frac{d(\vv \cdot \vv)}{dt} = 2 \frac{d\vv}{dt} \cdot \vv$, so this becomes
+
+\begin{align*}
+    W_{\FF_{\text{tot}}, C} = \frac{1}{2} m \int_C \frac{d(||\vv||^2)}{dt} dt = \frac{1}{2} m (||\vv(t_f)||^2 - ||\vv(t_0)||^2).
+\end{align*}
+
+So, if we now impose that the path $C$ is such that $\vv(t_0) = \mathbf{0}$, then we get $W_{\FF_{\text{tot}}, C} = \frac{1}{2}m||\vv_f||^2$. Note, the particular choice of the path $C$ does not matter!
+
+Thus, we can define the \textit{kinetic energy} $K$ of the particle to be the total work that must be done on the particle to accelerate the particle from a speed of zero to its current speed, i.e.
+
+\begin{align*}
+    K &:= W_{\FF_{\text{tot}}, C} \text{, where $C$ is such that $\vv(0) = \mathbf{0}$} \\
+       &= \frac{1}{2}m||\vv||^2.
+\end{align*}
+
+\begin{align*}
+    \boxed
+    {
+        K = \frac{1}{2}m||\vv||^2
+    }
+\end{align*}
+
+Then, by the previous derivation, we obtain the \textit{work-energy theorem}: the total work done on a particle traveling on an arbitrary path $C$ is equal to the change in its kinetic energy from the start to end of $C$. This is because, earlier, we had that $W_{\FF_{\text{tot}}, C} = \frac{1}{2} m (||\vv(t_f)||^2 - ||\vv(t_0)||^2)$. Given our new definition of $K$, this implies
+
+\begin{align*}
+    \boxed
+    {
+        W_{\FF_{\text{tot}}, C} = \Delta K.
+    }
+\end{align*}
+
+\subsection*{Potential energy}
+
+Now, we define the \textit{change in potential energy} $\Delta U_{\FF}$ \textit{of a particle due to} $\FF$ \textit{after traversing a curve $C$}. 
+
+\begin{align*}
+    \Delta U_{\FF, C} := W_{\FF, -C} = -W_{\FF, C}.
+\end{align*}
+
+Here's an intuitive way to think of potential energy. Choose $C$ to be some path that aligns with the force field $\FF$. (If you're thinking about gravitational potential energy, $C$ would start ``at infinity'' and end at the Earth. Traveling along $C$ would amount to falling towards the Earth). As the particle travels along $C$, its kinetic energy increases because $\FF$ acts in the same direction as the particle's movement; $\FF$ ``stores'' kinetic energy in the particle. If the particle were to travel backwards along $C$ and go back to where it came from (i.e., travel along $-C$), then the force $\FF$ would act on the particle in the opposite direction, and would ``extract'' stored work from the particle. After the particle has arrived back at the starting point of $C$ (the end point of $-C$), it now has the \textit{potential} to regain all of the energy that was ``extracted'' by the force: all the particle would have to do to regain this as kinetic energy is just travel along the path $C$. Thus, we can think of $\Delta U_{\FF, C}$ as the amount of kinetic energy the particle would stand to gain if it traveled along $-C$.
+
+The definition of $\Delta U_{\FF, C}$ immediately implies that the potential energy due to $\FF_{\text{tot}}$ satisfies
+
+\begin{align*}
+    \Delta U_{\FF_{\text{tot}}, C} = -\Delta K.
+\end{align*}
+
+In other words,
+
+\begin{align*}
+    \boxed
+    {
+        \Delta U_{\FF_{\text{tot}}, C} + \Delta K = 0.
+    }
+\end{align*}
+
+\subsection*{Conservative forces}
+
+Let $\xx_0$ and $\xx_f$ be two points in space. We wish to consider the notion of ``\textit{the} potential energy difference between $\xx_0$ and $\xx_f$''. 
+
+Unfortunately, there are many paths $C$ between $\xx_0$ and $\xx_f$ that can be used to compute the change in potential energy $\Delta U_{\FF, C}$, and thus many different numbers $\Delta U_{\FF, C}$ that could be considered to be ``\textit{a} potential energy difference between $\xx_0$ and $\xx_f$''. So we are in general not able to associate a \textit{single} potential energy difference with two points.
+
+Of course, we \textit{can} do what we wish when the force $\FF$ is \textit{path-independent}, i.e., where the change in potential energy $\Delta U_{\FF, C}$ on a path between $\xx_0$ and $\xx_f$ is independent of the path $C$. Thus, for a path-independent force $\FF$, we define \textit{the potential energy $U(\xx_0, \xx_f)$ between $\xx_0$ and $\xx_f$} to be
+
+\begin{align*}
+    U_{\FF}(\xx_0, \xx_f) := \Delta U_{\FF, C}, \text{ where $C$ is any path that ends on $\xx$}.
+\end{align*}
+
+\subsubsection*{Equivalent conditions for path-independence}
+
+The following conditions are equivalent:
+
+\begin{itemize}
+    \item $\FF$ is path-independent ($\Delta U_{\FF, C}$ is independent of $C$ $\iff$ $\int_C \FF \cdot d\xx$ is independent of $C$)
+    \item $\FF$ is conservative ($\Delta U_{\FF, C} = 0$ when $C$ is a closed path $\iff$ $\int_C \FF \cdot d\xx = 0$ when $C$ is a closed path)
+    \item $\FF$ has a potential function (there exists $\xx_0$ and $U_{\FF}$ such that $\FF(\xx) = - \nabla U_{\FF}(\xx_0, \xx)$ $\iff$ there exists $f$ such that $\FF = \nabla f$)
+\end{itemize}
+
+\begin{comment}
+\textbf{Proof that path-independence $\iff$ potential function}
+
+In the situation in which work done by $\FF$ is path-independent (i.e. $\Delta U_{\FF, C}$ is independent of $C$), then $\FF(\xx) = -\nabla (\Delta U(\xx))$. To see this, note that, for any $C$ ending on the point $\xx$, we have
+
+\begin{align*}
+    -\Delta U_{\FF}(\xx) = W_{\FF, C} = \int_{C} \FF(\xx) \cdot d \xx = \int_C F_x(\xx) d x + \int_C F_y(\xx) d y + \int_C F_z(\xx) dz.
+\end{align*}
+
+We can choose to be $C$ whatever we want, and the integral will still be the same. Thus, after choosing $C$ to run parallel to the $x$-axis from $x = x_0$ to $x = x$, parallel to the $y$-axis from $y = y_0$ to $y = y$, and parallel to the $z$-axis from $z = z_0$ to $z$ (please forgive the lack of dummy variables), we get
+
+\begin{align*}
+    -\Delta U_{\FF}(\xx) = \int_{x_0}^x F_x(\xx) d x + \int_{y_0}^y F_y(\xx) d y + \int_{z_0}^z F_z(\xx) dz.
+\end{align*}
+
+At this point it's clear that $-\nabla (\Delta U_{\FF}(\xx)) = \nabla (-\Delta U_{\FF}(\xx)) = \FF(\xx)$.
+
+(This discussion proves that when line integrals $\int_C \FF \cdot d \xx$ are path-independent, $\FF$ has a potential function: we explicitly constructed the potential function here. You can also show the other direction: if there is a ``potential function'' $\phi$ such that $\FF = \nabla \phi$, then line integrals $\int_C \FF \cdot dd \xx$ are path-independent. So, it turns out that ``line integrals involving $\FF$ are path-independent'' $\iff$ ``$\FF$ has a potential function''.)
+\end{comment}
+
+\subsubsection*{Gravitational potential energy}
+
+[TO-DO: derive]
+
+\begin{align*}
+	U_g(r) = U_0 - G\frac{m_1 m_2}{r}
+\end{align*}
+
+Now, the only question is, what is a reasonable choice for the value of $U_0$? While we can choose anything we want, we'd like to choose something that makes our lives easier, at least in some sort of way.
+
+Already, we can see that, no matter what $U_0$ is, a particle starting infinitely far away form the Earth should intuitively lose an infinite amount of potential energy as it travels to the Earth. Perhaps there exists a choice of $U_0$ that makes this fact obvious?
+
+At first, one might think that the best choice of $U_0$ is the one that forces $U_g(\infty) = \infty$, as then we also have $U_g(0) = 0$, making the calculation $U_g(0) - U_g(\infty) = 0 - \infty = -\infty$, which shows that the particle loses $\infty$ potential energy as it travels to the center of the Earth, quite intuitive. That would be great if it were possible... it's just not, though. No such choice of $U_0$ exists. For all choices of $U_0$, we have $U_g(\infty) = U_0 - G \frac{m_1 m_2}{\infty} = U_0$, not $U_g(\infty) = \infty$ as we would like.
+
+The next best thing is to simplify things by getting rid of the constant $U_0$, and choose a reference value that forces $U_0$. Well, if we want $U_0 = 0$, then we need $U(\infty) = 0 - 1/\infty = 0 – 0 = 0$. Thus, we impose $U(\infty) = 0$, and get
+
+\begin{align*}
+	U_g(r) = -G \frac{m_1 m_2}{r}
+\end{align*}
+
+You can see that in this convention, gravitational potential energy is always negative. This is likely confusing: shouldn't the amount of energy a particle would stand to gain by being sped along by gravity as it travels to the center of the Earth be positive?
+
+The solution to the confusion is remembering that \textit{individual} potential energy values are meaningless; it is only \textit{differences} between them that are informative. When thinking about gravitational potential energy, I find it most helpful to keep its plot. The difference between successive function values is always positive, since $r \mapsto -(G m_1 m_2)/r$ is an increasing function:
+
+[Plot with a vertical line in-between output values and label next to this vertical line saying $U(r_2) - U(r_1) > 0$]
+
+\newpage
+
+\section*{Rotational dynamics}
+
+\subsection*{With assuming conservation of momentum as an axiom}
+
+The theory for rotational dynamics is analogous to the theory for translational dynamics. Just as we accept conservation of momentum as the fundamental axiom of translational dynamics, we can accept a similar axiom for rotational dynamics:
+
+\begin{axiom}
+    (Conservation law for rotational dynamics).
+
+    From the perspective of an inertial frame, the following condition holds in every isolated system:
+
+    \begin{align*}
+        \text{For every point $\xx_0$, the sum }  \sum_i (\xx_i - \xx_0) \times \pp_i \text{ is conserved}
+    \end{align*}
+\end{axiom}
+
+Just as we defined momentum $\pp$ to be the conserved quantity of translational dynamics, we define \textit{angular momentum} $\LL$ to be the conserved quantity of rotational dynamics.
+
+\begin{defn}
+    (Angular momentum).
+
+    Consider any reference frame, and suppose a particle has momentum $\pp$ and position $\xx$ from the perspective of that frame. Then the \textit{angular momentum $\LL_{\xx_0}$ (from the perspective of that frame) about a point $\xx_0$} is $\LL_{\xx_0} := (\xx - \xx_0) \times \pp$.
+\end{defn}
+
+Therefore the above axiom is equivalent to
+
+\begin{axiom}
+    (Conservation of total angular momentum).
+
+    From the perspective of an inertial frame, the total angular momentum about each point is conserved in an isolated system.
+\end{axiom}
+
+Of course, there is a huge difference in complexity between the conservation of momentum and conservation of angular momentum axioms. It seems somewhat plausible to experimentally stumble upon the first one; doing the same for the second seems hard to imagine. This is actually what happened historically! Newton derived the first as a theorem\footnote{Rather than using momentum conservation to prove the third law, as we do, Newton used the third law to prove momentum conservation.} in his \textit{Principa}, and developed a good understanding of rotational dynamics, but didn't have the proper tools- vectors- to formulate the second. It was approximately 200 years later when angular momentum was formalized, and this was after Euler, who also didn't have vectors, made contributions on rotational mass.
+
+Nevertheless, accepting the second above axiom probably gives the best understanding of rotational dynamics. Just as force was defined to be the time derivative of momentum, \textit{torque} $\ttau$ is defined to be the time derivative of angular momentum. We can then quickly conclude that if we can derive an expression for $I_{\xx_0}$ such that $\LL_{\xx_0} = I_{\xx_0} \oomega$ for circular motion of a particle about the point $\xx_0$, then this $I_{\xx_0}$ must be the correct notion of \textit{rotational mass about $\xx_0$}. For such a particle we have $||\LL_{\xx_0}|| = ||\xx - \xx_0|| \spc ||\pp|| = ||\xx - \xx_0|| m ||\vv|| = m ||\xx - \xx_0||^2 ||\oomega||$. Thus the rotational mass of a particle of mass $m$ about a point $\xx_0$ is $m ||\xx - \xx_0||^2$.
+
+\subsection*{Without assuming conservation of momentum as an axiom}
+
+It's still worthwhile to find a pathway through rotational dynamics without having the privelege of first knowing about angular momentum, since this is what happened historically.
+
+Some good intuition we all have for rotational dynamics is the \textit{law of the lever}- the fact that it's easier to rotate an object about an axis the further you push from the axis. It's easier to open a door if you push on its edge than if you push closer to the hinge, and it's easier to snap a branch if you bend it more widely than narrowly.
+
+I felt that any good explanation of rotational dynamics would be a formalization of the law of the lever. So, I tried to formalize it in several ways.
+
+\begin{enumerate}
+    \item The most obvious and common way to formalize the law of the lever is to postulate that the magnitude of the torque produced by a force of magnitude $F$ acting at distance $r$ from the axis of rotation should be an increasing function of both $F$ and $r$. So far, this makes sense. Then, it is claimed that not only should torque be an increasing function of $F$ and $r$, but it should be proportional to both $F$ and $r$. This is a very specific claim that I can find no good justification for other than ``do experiments''. That sort of justification should be reserved for only the most fundamental of concepts. And this law of the lever thing does not feel like it is \textit{that} fundamental.
+    
+    \item I had the idea that we could derive the law of the lever in pure kinematical terms, just by thinking about angular acceleration. The claim to prove I came up with is: ``angular acceleration is an increasing function of the distance $r$ from the axis of rotation''.
+
+    Angular acceleration of what, though? The vagueness of this claim led me astray. But, not realizing this, I first thought about the angular acceleration of a \textit{particle} in circular motion, which we know to be $\alpha = a_{\text{tan}}/r$. This result isn't at all what we want, since $\alpha$ is a decreasing function of $r$ here.
+
+    Of course, the ``what'' I should have been considering was a \textit{rod} of length $R$ rotating about its end, not a particle, that is caused to rotate by a force $F$ applied a distance $r$ away from its end. Somehow, we have to account for the fact that particles in the rod interact with each other in such a way to maintain the integrity of the rod. Looking ahead to concepts we haven't yet derived, we should obtain $\alpha = \tau/I = (rF)/(mR^2) = (rma_{\text{tan}})/(mR^2) = (ra_{\text{tan}})/(R^2)$, which \textit{is} an increasing function of $r$. 
+    
+    With the rod, one special case that obscured things for me is that if $r = R$, we have $\alpha = a_{\text{tan}}/r$. This seems reminiscent of the particle situation; since $r \mapsto a_{\text{tan}}/r$ is a decreasing function, this seems to conflict with the fact that $\alpha$ is an increasing function of $r$. There really is no conflict, though, because the converse is also true: if $\alpha = a_{\text{tan}}/r$, then it necessarily follows that $r = R$. In other words, when $\alpha = a_{\text{tan}}/r$, then $\alpha$ isn't a function of $r$ that can be considered to be increasing or decreasing; it's just a number. To see this even more clearly, make the notation more explicit, and define $\alpha(r) := (rF)(mR^2) = (ra_{\text{tan}})/(R^2)$. Then the case $r = R$ is stated as $\alpha(R) = a_{\text{tan}}/R$, which makes it clear that when $\alpha = a_{\text{tan}}/r$, we must have $r = R$.
+
+    \item With the previous scenario, I had the sense that, of the two concepts used to look ahead to the correct answer, rotational mass was more at the heart of the situation, since it's a manifestation of how particles in a rigidbody interact with each other in such a way that mass further from the axis of rotation ``matters'' more.
+
+    (Of course, if we can define either torque or rotational mass, we automatically get the other for free, either as $I = ||\sum_i \ttau_i||/||\aalpha||$ or $\sum_i \ttau_i = I \aalpha$.)
+
+    So, I tried to figure out a good first-principles derivation of rotational mass. The ideal derivation would be a microscopic analysis of the particles in the rod pushing and pulling on one another as the rod is rotated, subject to the constraint that the rod maintains its integrity, which is equivalent to the condition that the particles experience the same angular velocity. I'm don't have enough time to figure this out, right now, unfortunately.
+
+    \item At this point, I had to resort to an argument I'm familiar with but that I still find unsatisfying, since it uses energy, which doesn't feel that fundamental to me (since energy is work, and work is defined in terms of more fundamental things like force and position). The argument is simple:
+    \begin{itemize}
+        \item Notice that kinetic energy in a \textit{rigidbody} attributable to rotation is $T_{\text{rot}} = \sum_i \frac{1}{2} m_i v_i^2 = \sum_i \frac{1}{2} m_i (r_i \omega)^2 = \frac{1}{2} (\sum_i m_i r_i^2) \omega^2$. We define $I := (\sum_i m_i r_i^2)$ because this $I$ plays the role of mass: $T_{\text{rot}} = \frac{1}{2}I \omega^2$.
+    \end{itemize}
+
+    \item And then I discovered a derivation of torque that feels more fundamental than the previous one for rotational mass. This argument relies on d'Alembert's principle with constraints applied to static equilibrium. (Go ahead to the section on analytical mechanics read about d'Alembert's principle if you're interested- that's the only prerequesite from that section\footnote{Unfortunately, it wouldn't make sense to put Newtonian rotational dynamics after non-Newtonian (but still classical) analytical mechanics, even though a small part of analytical mechanics is a prerequisite.}.)
+
+    When applied to static equilibrium, d'Alembert's principle shows that the sum of the hypothetical increments of work done by hypothetical displacements (where the hypothetical displacements still respect the constraints of the system) and by \textit{applied} forces (not constraint forces) must be zero.
+    
+    Consider a horizontal balance beam that's pivoted at its center. Suppose that vertical forces $F_1$ and $F_2$ are applied at distances $r_1$ and $r_2$ from the center of the beam on opposite sides, and that the beam is in equilibrium. The valid hypothetical valid increments of work for this system are the ones whose displacements are perpendicular to the beam. Since the valid hypothetical displacements are in exactly the same direction as the applied forces, then the total hypothetical work done by valid hypothetical displacements is $F_1 r_1 + F_2 r_2 = 0$.
+
+    We see torque naturally appearing here. So, this is good motivation for defining torque!
+
+    \item Now that I know about the angular momentum approach, it seems to me that the best overall approach would be to derive that angular momentum is conserved in isolated systems from the assumption that translational momentum is conserved in isolated systems.
+
+    I've looked into this a little, and found this \textit{can} be done if we assume the strong form of Newton's third law, which is the usual third law plus the assumption that reaction forces are central forces. This is because assuming the strong form of Newton's third law is equivalent to assuming not only that physics is location invariant but also direction invariant.
+    
+    I imagine this derivation will probably still require knowing about either torque or rotational mass, though, so the above is still relevant. Really, I just need to take some time to figure out the kind of ideal derivation I mentioned above in (3).
+\end{enumerate}
+
+% \subsection*{Angular velocity}
+
+% \newcommand{\oomega}{\boldsymbol{\omega}}
+
+% In spiral motion, which is when $\rr(t) = r(t) \hat{\rr}(\theta(t))$, where $\hat{\rr}(t) = \begin{pmatrix} \cos(\theta(t)) \\ \sin(\theta(t)) \end{pmatrix} $ we have $\vv(t) = \frac{d\rr(t)}{dt} = \frac{dr(t)}{dt} \hat{\rr}(\theta(t)) + r(t) \frac{d \theta(t)}{dt} \hat{\boldsymbol{\theta}}(\theta(t))$. Physicists suppress $\theta(t)$ and $t$ and state this as ``$\vv = \dot{r} \hat{\rr} + r \dot{\theta} \hat{\boldsymbol{\theta}}$''. 
+
+% We define $\omega(t) := \frac{d \theta(t)}{dt}$, and see $\vv(t) = v_{||}(t) \hat{\rr}(\theta(t)) + v_\perp(t) \hat{\boldsymbol{\theta}}(\theta(t))$, where
+
+% \begin{align*}
+%     v_{||}(t) = \frac{dr(t)}{dt} \\
+%     v_\perp(t) = r(t) \omega(t).
+% \end{align*}
+
+% The important result here is
+
+% \begin{align*}
+%     \omega(t) = \frac{v_\perp(t)}{r(t)}.
+% \end{align*}
+
+% In the special case when $r$ and $\theta$ are constant, then $v_\perp$ is a constant, and so $\omega$ is the constant $\omega = \frac{v_\perp}{r}$.
+
+% When $\rr$ is a general curve, we define $\oomega := \frac{v_\perp(t)}{r(t)} \widehat{\rr(t) \times \vv(t)} = \frac{1}{r(t)^2} r(t) v_\perp(t) \widehat{\rr(t) \times \vv(t)} = \frac{1}{r(t)^2} \rr(t) \times \vv(t)$. Thus
+
+% \begin{align*}
+%     \oomega(t) = \frac{\rr(t) \times \vv(t)}{r(t)^2}.
+% \end{align*}
+
+% \newpage
+
+\newpage
+
+\section*{Analytical mechanics}
+
+\subsection*{Preface}
+
+Thus far, our study of classical mechanics has been restricted to \textit{Newtonian mechanics}, i.e., making use of Newton's second law. We now turn to the more modern branch of classical mechanics, which is extremely prevalent even in modern non-classical theories, called \textit{analytical mechanics}. In analytical mechanics, one aims to encapsulate the laws of Nature in scalar equations that are equivalent to the vector equation that is Newton's second law.
+
+The typical introduction to analytical mechanics starts off quite inspired and grandiose. One is told that the motion of a system is the one that follows a sort of path of least resistance, the one that minimizes a certain \textit{action}. This sounds magnificent!
+
+But when someone explains to you what the action actually is,
+
+\begin{align*}
+    \text{action} := \int_{t_0}^{t_f} L \spc dt, \text{ where $L = T - U$},
+\end{align*}
+
+everything seems a lot less intuitive. Why does Nature seek to minimize this very particular quantity (the integral of the difference between kinetic and potential energy over time)? 
+
+This statement- that Nature minimizes the action- is \textit{intuitive sounding}, and a good \textit{conclusion} to arrive at from more basic principles, but it shouldn't be treated as a starting point. In this section on analytical mechanics I derive the least action principle (which should really be called the stationary action principle\footnote{Since the motion of a system corresponds to a \textit{stationary} point of the action functional, not necessarily a minimum.}) in what I think is the best first-principles approach:
+
+\begin{itemize}
+    \item We derive d'Alembert's principle, a scalar equivalent to the vector equation that is Newton's second law.
+    \item We change the coordinates used in d'Alembert's principle to \textit{generalized coordinates} to obtain the \textit{Euler-Lagrange} equations.
+    \item Since the Euler-Lagrange equations are differential equations, one would suspect that there are corresponding integral equation. We can in fact derive  an equivalent \textit{single} integral equation, which turns out to be the action principle mentioned above.
+\end{itemize}
+
+\subsection*{d'Alembert's principle}
+
+Recall from Definition \ref{N2_defn_part_system} that one form of Newton's second law is the statement
+
+\begin{align*}
+    \FF_{\text{tot}} := \sum_i \FF_{\text{tot}, i} = \sum_i m \aa_i,
+\end{align*}
+
+which describes the total force $\FF_{\text{tot}}$ on a system in terms of the total forces $\FF_{\text{tot}, i}$ on the isolated particles in the system.
+
+This form of Newton's second law is a vector equation. If we consider hypothetical, or \textit{virtual}, displacements that each particle may take, then we can actually find another form of the second law that can be expressed as a scalar equation. This scalar form of Newton's second law is called the \textit{d'Alembert principle}, and was discovered by Jean le Rond d'Alembert in 1743.
+
+\begin{defn}
+    (Virtual displacement).
+
+    A \textit{virtual displacement} is a hypothetical displacement $\Delta \rr$ that a particle may make.
+\end{defn}
+
+\begin{deriv}
+    (d'Alembert's principle).
+
+    Newton's second law is equivalent to the system of scalar equations
+
+    \begin{align*}
+        \FF_{\text{tot}, 1} &= m\aa_1 \\
+        &\vdots \\
+        \FF_{\text{tot}, n} &= m\aa_n.
+    \end{align*}
+
+    We can take the dot product of each side of every equation with a virtual displacement $\Delta \rr_i$ to obtain a system of scalar equations:
+
+    \begin{align*}
+        \FF_{\text{tot}, 1} \cdot \Delta \rr_1 &= m\aa_1 \cdot \Delta \rr_1 \\
+        &\vdots \\
+        \FF_{\text{tot}, n} \cdot \Delta \rr_n &= m\aa_n \cdot \Delta \rr_n.
+    \end{align*}
+
+    By adding together all of the equations, we obtain a scalar equation
+
+    \begin{align*}
+        \sum_i \FF_{\text{tot},i} \cdot \Delta \rr_i = \sum_i m\aa_i \cdot \Delta \rr_i \text{ for all virtual $\Delta \rr_1, ..., \Delta \rr_n$}.
+    \end{align*}
+
+    This scalar equation not only follows from the above system; that system follows from this scalar! This is because the above scalar equation is equivalent to
+
+    \begin{align*}
+        \sum_i (\FF_{\text{tot},i} - m\aa_i) \cdot \Delta \rr_i = 0 \text{ for all virtual $\Delta \rr_1, ..., \Delta \rr_n$}.
+    \end{align*}
+
+    Since we can choose the virtual displacements so that all terms in this above sum are nonnegative, then it follows that every term in the above sum must be zero\footnote{Suppose for contradiction that one or more terms were positive. Then the sum would be greater than or equal to that positive number, and not equal to zero as we know it has to be.}.
+\end{deriv}
+
+Therefore, we have the following theorem.
+
+\begin{theorem}
+    (d'Alembert's principle).
+
+    Newton's second law, a vector equation, is equivalent to the following scalar equation:
+
+    \begin{align*}
+        \sum_i \FF_{\text{tot},i} \cdot \Delta \rr_i = \sum_i m\aa_i \cdot \Delta \rr_i \text{ for all virtual $\Delta \rr_1, ..., \Delta \rr_n$}.
+    \end{align*}
+\end{theorem}
+
+\subsubsection*{d'Alembert's principle with constraints}
+
+If we want to consider forces that constrain motion, like the normal force that keeps a particle falling down a slide on the slide? To do so, we'll define the idea of a \textit{valid virtual displacement}, which is a virtual displacement that obeys the constraints.
+
+\begin{defn}
+    (Valid virtual displacement).
+
+    A virtual displacement $\Delta \rr$ of a particle is \textit{valid (with respect to constraint forces $\FF^{(c)}_1, ..., \FF^{(c)}_n$)} if and only if it doesn't interfere with the constraints, i.e., if and only if none of the constraints do work on it, if and only if  $\Delta \rr \cdot \FF^{(c)}_i = 0$ for all $i$.
+\end{defn}
+
+\begin{deriv}
+    (d'Alembert's principle with constraints).
+
+    If we take d'Alembert's principle, separate each $\FF_{\text{tot}, i}$ into a total constraint force $\FF^{(c)}_i$ and a total non-constraint (or total ``applied'') force $\FF^{(a)}_i$, and also restrict the virtual displacements to be valid ones, then we obtain
+
+    \begin{align*}
+        &\sum_i (\FF^{(a)}_i + \FF^{(c)}_i) \cdot \Delta \rr_i = \sum_i \FF^{(a)}_i \cdot \Delta \rr_i + \sum_i \FF^{(c)}_i \cdot \Delta \rr_i = \sum_i m \aa_i \cdot \Delta \rr_i \text{ for all valid virtual $\Delta \rr_1, ..., \Delta \rr_n$}.
+    \end{align*}
+    
+    Since $\FF^{(c)}_i \cdot \Delta \rr_i = 0$ for valid $\Delta \rr_i$, the second sum vanishes, and we have
+    
+    \begin{align*}
+        \sum_i \FF^{(a)}_i \cdot \Delta \rr_i = \sum_i m \aa_i \cdot \Delta \rr_i \text{ for all valid virtual $\Delta \rr_1, ..., \Delta \rr_n$}.
+    \end{align*}
+
+    This is \textit{d'Alembert's principle with constraints}.
+\end{deriv}
+
+\subsection*{The Euler-Lagrange equations}
+
+d'Alembert's principle is, somewhat straightforwardly, equivalent to Newton's second law. We now take d'Alembert's principle and derive from it another equivalent condition, which is much less obviously equivalent to Newton's second law. This new equivalent condition will be a system of differential equations, which are called the \textit{Euler-Lagrange equations}.
+
+The idea is to start with d'Alembert's principle and then change coordinates to generalized coordinates $q_1, ..., q_k$:
+
+\begin{align*}
+    &\sum_i (\FF_{\text{tot},i} - m\aa_i) \cdot \Delta \rr_i = 0 \text{ for all virtual $\Delta \rr_1, ..., \Delta \rr_n$}. \\
+    &\sum_i (\FF_{\text{tot},i} - m\aa_i) \cdot \sum_j \frac{\pd \rr_i}{\pd q_j} \Delta q_j = 0 \text{ for all virtual $\Delta \rr_1, ..., \Delta \rr_n$ and $q_1, ..., q_k$}
+\end{align*}
+
+I found out that \textit{Classical dynamics: A Contemporary Approach} by Jorge V. Jos\'e and Eugene J. Saletan has the rest of this proof.
+
+\newpage
+
+\section*{Discovering special relativity}
+
+These two facts remain true:
+
+\begin{axiom}
+	(Principle of relativity).
+	
+	The laws of physics, whatever they are, are independent of reference frame.
+\end{axiom}
+
+\begin{theorem}
+	The speed at which interactions propagate is absolute.
+\end{theorem}
+
+\begin{proof}
+	This is a bit subjective, but anyways: physical laws would look too different between reference frames if the propagation speed depended on the frame.
+\end{proof}
+
+Otherwise, core results of classical mechanics have shown to be false. Historically, the first violation of classical mechanics that prompted serious rethinking was that of the classical transformation between inertial frames. It was found in the Michelson-Morley experiment of 1887 that the speed, within a frame, at which electromagnetic waves propagate does \textit{not} depend on the velocity of the reference frame relative to the source of the waves. This was a bit like discovering that if you throw a ball (analogous to an electromagnetic wave) off of a moving train (analogous to the Earth moving through whatever medium transmits light waves), the speed of the ball doesn't change, and is the same when you throw it with the train's motion as it is when you throw it against.
+
+As the next two theorems show, the violation of the classical transformation between inertial frames implies that time must be relative (not absolute), and that the propagation speed, which is kept absolute by the principle of relativity, must be finite.
+
+\begin{theorem}
+	Classical transformation between frames is violated $\implies$ time is relative.
+\end{theorem}
+
+\begin{proof}
+	Earlier, the contrapositive ``time is absolute $\implies$ classical transformation between inertial frames holds'' was implicitly shown when we proved the classical transformation of frames by making use of the assumption of absolute time.
+\end{proof}
+
+\begin{theorem}
+	(Time is relative $\iff$ the propagation speed is finite).
+	
+	Equivalently, time is absolute $\iff$ the propagation speed is infinite.
+\end{theorem}
+
+\begin{proof}
+	We show that time is absolute $\iff$ the propagation speed is infinite.
+	
+	(Time is absolute $\implies$ propagation speed is infinite are instantaneous). If the notion of time is independent of inertial frame, i.e., if the times $t_I$ and $t_J$ that inertial frames $F$ and $G$ perceive to elapse are equal, $t_I = t_J$, for all inertial frames $I$ and $G$, then position and its derivatives transform in the way of classical mechanics. In particular, if frame $F$ travels with relative velocity $v_F$ parallel to an inertial frame $G$, then a velocity $v$ in frame $F$ transforms to $G$ as $v \mapsto v + v_F$.
+	
+	By the principle of relativity, the velocity $c$ at which interactions propagate is frame-independent, so $c = c + v_F$ for all $F$. This necessitates $c = \infty$, i.e., that interactions be instantaneous.
+	
+	(Propagation speed is infinite $\impliedby$ time is absolute). Consider an inertial frame $I$ in which\footnote{As long as an inertial frame exists and an isolated particle exists, such a frame is guaranteed to exist.} an isolated particle $p$ has constant \textit{nonzero} velocity $v_I$. Let $t_I$ denote the time that $F$ perceives to pass. We can define $\text{dist}(t_I) := v_I t_I$ to be the distance $I$ perceives $p$ to travel after $I$ perceives a time of $t_I$ to elapse.
+	
+	If interactions are instantaneous, then any other inertial frame $J$ will agree with $I$ on the time it takes $\text{dist}$ to achieve a certain value; letting $t_I$ and $t_J$ be the times each frame perceives to elapse, we have $d(t_I) = d(t_J)$. Since $\text{dist}$ is an invertible function, this implies $t_I = t_J$, showing that all inertial frames $J$ experience the same time as $I$. In other words, time is independent of inertial frame.
+\end{proof}
+
+At this point we are presented with two facts:
+
+\begin{enumerate}
+	\item The speed of electromagnetic waves is frame-independent
+	\item The speed of propagation is frame-independent
+\end{enumerate}
+
+The second fact is explained by the principle of relativity. But the first, thus far, has no explanation. The best possible reason for it seems to be that these two coinciding facts are not actually a coincidence; the resolution is to assume the following reasonable axiom.
+
+\begin{axiom}
+	Electromagnetic waves travel at the propagation speed.
+\end{axiom}
+
+At this point we have explained the core assumptions of special relativity:
+
+\begin{itemize}
+	\item the principle of relativity
+	\item the propagation speed is absolute and finite
+	\item electromagnetic waves attain the propagation speed
+\end{itemize}
+
+But there is one last nail in the coffin for classical mechanics we should mention.
+
+\begin{theorem}
+	(Time is relative $\implies$ conservation of momentum is violated).
+\end{theorem}
+
+\end{document}

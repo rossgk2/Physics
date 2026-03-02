@@ -1,0 +1,88 @@
+\documentclass{article}
+\usepackage{RNotation}
+
+\title{Special relativity}
+\author{Ross Grogan}
+\date{}
+
+\begin{document}
+	
+\maketitle
+
+The core assumption of special relativity is:
+
+\begin{align*}
+	(*) \quad \text{The speed of light is equal to the propagation speed, which is finite and independent of reference frame.}
+\end{align*}
+
+After we have established (*), it remains to discover (1) the time dialation formula, (2) the length contraction formula, and (3) that the spacetime interval $(\Delta s)^2 := (\Delta t)^2 - d^2$ is frame-invariant.
+
+\subsection*{Most popular modern approach}
+
+\begin{enumerate}
+	\item Define the spacetime interval $\Delta s$ to be such that $(\Delta s)^2 = (\Delta t)^2 - d^2$
+	\item Use (*) to prove the spacetime interval is invariant
+	\item Prove that transformations between frames must be linear 
+	\item Define Lorentz transformations to be the linear transformations between frames that preserve the spacetime interval
+	\item Obtain time dilation and length contraction as a consequence of the Lorentz transformation
+	\item Introduce notions of coordinate time and proper time
+\end{enumerate}
+
+\subsection*{Approach in Thomas Moore's \textit{Unit R} book}
+
+\begin{enumerate}
+	\item Introduce notions of coordinate time, proper time, and the spacetime interval $\Delta s$. Define the spacetime interval between two events to be the coordinate time interval experienced by a clock that travels between them; this immediately implies that spacetime interval is frame-invariant.
+	\item Use (*) to derive that $(\Delta s)^2 = (\Delta t)^2 - d^2$ when $\Delta t \geq d$
+	\item Prove that if ``insideness/outsideness'' is frame-independent, then length contraction cannot occur in the direction perpendicular to motion
+	\item Draw $t'$ and $x'$ axes by reasoning about spacetime intervals taken on these axes (using the formula of (2)), and derive the one-dimensional Lorentz transformation from this description of the $t'$ and $x'$ axes
+	\item Use the one-dimensional Lorentz transformation to prove the spacetime interval is preserved even when $t \ngeq d$
+\end{enumerate} 
+
+\subsection*{Approach in Ohanian's \textit{Classical Electrodynamics}}
+
+\begin{enumerate}
+	\item Define the spacetime interval $\Delta s$ to be such that $(\Delta s)^2 = (\Delta t)^2 - d^2$
+	\item Use (*) to prove the spacetime interval is invariant
+	\item Use (*) to derive the one-dimensional Lorentz transformation, but where the factor $\gamma$ is unknown
+	\item Use the invariance of the spacetime interval to obtain the formula for $\gamma$
+\end{enumerate}
+
+\newpage
+
+\subsection*{My approach}
+
+I really like how Moore motivates considering the spacetime interval, but I find Ohanian's derivation of the one-dimensional Lorentz transformation much cleaner than Moore's. I also have my own preferences: I feel that time dialation and length contraction first are the most obvious consequences of (*); the idea of the spacetime interval (much less its invariance!) is less obvious. So, my logical structure is:
+
+\begin{enumerate}
+	\item (Original). Use (*) to derive time dialation and length contraction formulas. This motivates the idea of considering the notion of coordinate time (before knowing about time dialation, it seems reasonable to assume absolute time!).
+	\item (Moore). Prove that if ``insideness/outsideness'' is frame-independent, then length contraction cannot occur in the direction perpendicular to the motion.
+	\item (Moore). Introduce notions of coordinate time, proper time, and spacetime interval (define the spacetime interval $\Delta s$ between two events to be the coordinate time interval experienced by a clock that travels between them; this immediately implies that spacetime interval is frame-invariant)
+	\item (Moore). Derive that $(\Delta s)^2 = (\Delta t)^2 - d^2$ when $\Delta t \geq d$
+	\item (Ohanian). Use (*) to derive the one-dimensional Lorentz transformation, but where the factor $\gamma$ is unkown
+	\item (Original). Appeal to the time dialation and length contraction formulas to obtain the formula for $\gamma$
+	\item (Moore). Use the one-dimensional Lorentz transformation to prove the formula for the spacetime interval is invariant even when $t \ngeq d$
+\end{enumerate}
+
+\subsection*{Equivalence between modern approach and others}
+
+To show all of these non-modern approaches are equivalent to the modern one, we would need to prove that the set of spacetime-interval-preserving linear transformations is equal to the set of transformations obtained by rotating the one-dimensional Lorentz transformation. Here is info on this: \url{https://physics.stackexchange.com/a/564536}).
+
+\section*{Electromagnetism from special relativity}
+
+The equations that describe electromagnetic waves, Maxwell’s equations, were first derived empirically. (Which is astounding.) This leaves a bit of a gap, as physicists desire a theoretical explanation for all things. Thankfully, it is actually possible to derive the Maxwell equations from special relativity. When one does this, they must make sure to not predicate special relativity in the historical way, with observations made on electromagnetic waves. One should not use this justification:
+
+\begin{center}
+	Finite absolute propagation speed $\implies$ results of special relativity
+\end{center}
+
+Requiring knowledge about electromagnetism in order to derive special relativity and then using that to derive electromagnetism is quite circular! Instead, we can use this justification:
+
+\begin{center}
+	Relative time $\implies$ finite absolute propagation speed $\implies$ results of special relativity
+\end{center}
+
+That is, one can make use of the implication ``relative time $\implies$ results of special relativity'', and appeal to an experiment like the Rossi-Hall experiment that shows that time is relative.
+
+A sidenote. We know the implication ``relative time $\implies$ results of special relativity'' is true, but we haven't seen a direct proof of it, relying instead on the transitivity of $\implies$. \url{https://physics.umd.edu/~yakovenk/teaching/Lorentz.pdf} gives an enlightening proof of the direct implication.
+
+\end{document}
