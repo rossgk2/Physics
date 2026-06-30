@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage{RNotation}
 
-\title{Classical physics}
+\title{Classical mechanics}
 \author{Ross Grogan}
 \date{}
 
@@ -117,7 +117,7 @@ To this awful excuse of an answer, I have two things to say.
 I worked out what I thought was the correct understanding, an antidote to this infuriating mindset. For a long time, my view was:
 
 \begin{quote}
-   We define ``force'' to be $m \aa$, somewhat arbitrarily, and then give another similarly-themed name, ``momentum'', to the quantity $m \vv$. Our choice to refer to $m \aa$ as ``force'' and to refer to $m \vv$ as ``momentum'' is similar to the situation in probability with the words ``probability'', ``likelihood'', and ``odds''. That is, we use similar sounding words that concepts that are of course algebraically related, but not fundamentally conceptually related.
+   We define ``force'' to be $m \aa$, somewhat arbitrarily, and then give another similarly-themed name, ``momentum'', to the quantity $m \vv$. Our choice to refer to $m \aa$ as ``force'' and to refer to $m \vv$ as ``momentum'' is similar to the situation in probability with the words ``probability'', ``likelihood'', and ``odds''. That is, we use similarly-themed words for similarly-themed concepts, and it does not really matter which word we assign to which concept. While it is more convenient to say ``force'' than ``mass times acceleration'', and more convenient to say ``momentum'' than ``mass times velocity'', swapping the definitions of ``force'' and ``momentum'' wouldn't affect understanding. The relationship between the two concepts, regardless of what they are named, would remain the same- and \textit{that} is the most important thing to grasp.
 \end{quote}
 
 This led me to think that the conservation of momentum in an isolated system is a just a matter of parsing definitions, like this:
@@ -158,6 +158,30 @@ It seems to me that this interpretation (that the connection between ``force'' a
 \begin{align*}
     \text{The \textit{total force} $\FF_{\text{tot}}$ is the function such that } \FF_{\text{tot}}(\xx(t), \vv(t), t) = m \frac{d^2\xx}{dt^2}\Big|_t \text{ for all $t$}.
 \end{align*}
+
+% Some examples:
+%
+%\textbf{Tong}
+%\begin{itemize}
+%	\item Gives the definition $F(x, x’) = p’$ extremely tersely, not mentioning that the definition is what it is because momentum is conserved. (He later relies on the same definition parsing argument I did to prove conservation of momentum.)
+%	\item The perspective of force as being the formalization of the determinancy axiom is emphasized.  
+%	\item Doesn’t motivate $L = T - U$
+%\end{itemize}
+%
+%\textbf{Taylor}
+%\begin{itemize}
+%	\item Extremely typical and lazy intuition in terms of “pushes” is given for$ F = ma$. No justification provided for why a “push” corresponds to a change in velocity and not a change in position. And even makes the horrible mistake of claiming that in classical mechanics $F = ma$ is “completely equivalent” to $F = dp/dt$.
+%	\item Falls prey to my old mistake of proving conservation of momentum via definition parsing.
+%	\item Gives interesting discussion on Fermat’s principle to motivate the principle of stationary action. But doesn’t motivate $L = T - U$.
+%\end{itemize}
+%
+%\textbf{Arnold}
+%\begin{itemize}
+%	\item Emphasizes the perspective that force is the result of the determinancy axiom.
+%	\item Makes use of the axiom that the motion of a system is determined from the initial positions and velocities of particles in the system.
+%	\item Doesn’t motivate $L = T - U$.
+%	\item Shows that E-L for constant mass is equivalent to d’Alembert’s principle, but only after much discussion on the action principle and E-L.
+%\end{itemize}
 
 One thing that always bothered me about this view is that it doesn't explain why zero acceleration appears so fundamentally in the characterization of inertial reference frames. If one accepts wholeheartedly that force \textit{must} directly involve acceleration, then sure, the explanation is easy. But if one doesn't, as is done in this view, there is a contradictory tension between something claimed to be just a convention (force) and something fundamental (inertial reference frames).
 
@@ -272,7 +296,7 @@ With this new ``momentum'' terminology, the fundamental conservation law can be 
 
 \subsection*{Forces}
 
-The law of conservation of momentum truly is the Law of Nature: it determines the motion of particles. Below, we see how it straightforwardly determines the motion of isolated particles.
+The law of conservation of momentum truly is the Law of Nature: it determines the motion of particles. Below, we see how it straightforwardly determines the motion of particles that are isolated.
 
 \begin{theorem}
 	\label{thm_isolated_particle_constant_velocity}
@@ -467,7 +491,7 @@ So far, we've qualified all our statements about physical reality with the speci
 
 The reason we've postponed a more thorough investigation of relativity until now is because there is a difficulty regarding frames that requires knowing what the quantity of motion is, and what the law of conservation of momentum is, to understand. We can proceed because we know those things now.
 
-Well, as far as the law of conservation of momentum is concerned, the existence of different reference frames introduces a bit of a complication. The law of conservation of momentum says the total quantity of motion in an isolated system remains constant over time... as long as we view it from the ground frame. Since the quantity of motion is a function of velocity, though, any frame that has a changing velocity relative to the ground frame will perceive an inherent baseline level of change in the quantity of motion of \textit{every} system it observes- even isolated ones\footnote{An inherent baseline of change in the quantity of motion is called a \textit{fictitious} influence.}. Such frames will observe isolated particles not acted on by any external ``influence'' to have their quantity of motion changed- i.e. to accelerate- for no discernible reason. In other words, there are some frames that perceive the law of conservation of momentum to be violated.
+Here is the difficulty. The law of conservation of momentum says the total quantity of motion in an isolated system remains constant over time... as long as we view it from the ground frame. Since the quantity of motion is a function of velocity, though, any frame that has a changing velocity relative to the ground frame will perceive an inherent baseline level of change in the quantity of motion of \textit{every} system it observes- even isolated ones\footnote{An inherent baseline of change in the quantity of motion is called a \textit{fictitious} influence.}. Such frames will observe isolated particles not acted on by any external ``influence'' to have their quantity of motion changed- i.e. to accelerate- for no discernible reason. In other words, there are some frames that perceive the law of conservation of momentum to be violated.
 
 The best way to understand the perspectives of such erratically moving frames is to compare them to perspectives of impartial frames, whose perceptions are \textit{not} biased by their own motion, and are thus ``restful'', or ``inert'', in some sense. We quickly give a name to these unbiased, ``inert'' frames.
 
@@ -605,15 +629,15 @@ But how does a particle of zero mass induce a reference frame? That's a bit conf
 
 It therefore seems to me that the following axiom is assumed.
 
-\begin{axiom*}
+\begin{axiom}
 	In a massless universe there is exactly one reference frame.
-\end{axiom*}
+\end{axiom}
 
 And it seems to me that this axiom quickly gives the following theorem.
 
-\begin{theorem*}
+\begin{theorem}
 	The single reference frame that exists in a massless universe is inertial.
-\end{theorem*}
+\end{theorem}
 
 \begin{proof}
 	This is because there's no mass in a massless universe to exert any gravitational force that would bias the perceptions of the frame.
@@ -717,19 +741,21 @@ The fact that all of these concepts are applicable in inertial frames is called 
 We're done with giving the properly reorganized presentation of Newton's laws. At last, we can compare the reorganization of Newton's laws we've constructed to Newton's original laws. Here's a summary of our reorganization:
 
 \begin{enumerate}
-	\item (Absolute space axiom). Space is absolute. There exists a special inertial reference frame that can be identified from within every other reference frame.
+	\item \textbf{(Axiom: absolute space)}. Space is absolute. There exists a special inertial reference frame that can be identified from within every other reference frame.
 	
-	\item (Absolute time definition). Time is absolute. There exists a frame-independent time parameter.
+	\item \textbf{(Theorem: absolute time).} Because space is absolute, there exists a frame-independent time parameter.
 	
-	\item (Conservation of momentum axiom and inertial frame definition). There exist frames of reference in which the total momentum of isolated systems is conserved, called \textit{inertial} frames.
+	\item \textbf{(Definition: conservation of momentum axiom, inertial frame).} Frames of reference in which the total momentum of isolated systems is conserved are called \textit{inertial} frames.
 	
-	\item (Inertial frame theorem). Since momentum depends on velocity, the conservation of momentum in isolated systems is violated by frames that have changing velocity relative to an inertial frame. Thus all inertial frames travel with constant velocity relative to each other.
+	\item \textbf{(Axiom: existence of an inertial frame).} An inertial frame exists.
 	
-	\item (Force definition). Assume the perspective of some inertial frame. The total \textit{force} $\FF_{\text{tot}}$ the frame observes to be exerted on the particle is defined to be the instantaneous time-rate of change of the particle's quantity of motion, $\FF_{\text{tot}} := \frac{d\pp}{dt} = \frac{d}{dt}(m\vv)$. In short, force is that which changes the quantity of motion. Since the mass $m$ of a particle is constant, this simplifies to $\FF_{\text{tot}} = m\aa$, where $\aa$ is the acceleration of the particle.
+	\item \textbf{(Theorem: characterization of inertial frames).} Since momentum depends on velocity, the conservation of momentum in isolated systems is violated by frames that have changing velocity relative to an inertial frame. Thus all inertial frames travel with constant velocity relative to each other.
 	
-	\item (Force pair axiom). In every inertial frame, forces come in pairs.
+	\item \textbf{(Definition: force).} Assume the perspective of some inertial frame. The total \textit{force} $\FF_{\text{tot}}$ the frame observes to be exerted on the particle is defined to be the instantaneous time-rate of change of the particle's quantity of motion, $\FF_{\text{tot}} := \frac{d\pp}{dt} = \frac{d}{dt}(m\vv)$. In short, force is that which changes the quantity of motion. Since the mass $m$ of a particle is constant, this simplifies to $\FF_{\text{tot}} = m\aa$, where $\aa$ is the acceleration of the particle.
 	
-	\item (Reaction force theorem). In every inertial frame, reaction forces are equal in magnitude and opposite in direction.
+	\item \textbf{(Axiom: force pairs).} In every inertial frame, forces come in pairs.
+	
+	\item \textbf{(Theorem: reaction forces).} In every inertial frame, reaction forces are equal in magnitude and opposite in direction.
 \end{enumerate}
 
 And here's the English translation of relevant excerpts of Newton's original theory from the \textit{Principa}, which was originally written in Latin. I've added explanatory commentary in italics relating the originals to our reorganization:
@@ -738,7 +764,7 @@ And here's the English translation of relevant excerpts of Newton's original the
 	\item (Newton's second definition). The quantity of motion is a measure of the same arising from the velocity and quantity of
 	matter jointly.
 	
-	\textit{Here, Newton defines the quantity of motion, which is $\pp := m\vv$ in modern notation. Newton doesn't justify though,} why \textit{this particular definition of the quantity of motion is the correct one. This lack of justification for privileging $\pp := m\vv$ ripples through the laws Newton will soon state, causing unnecessary confusion.}
+	\textit{Here, Newton defines the quantity of motion, which is $\pp := m\vv$ in modern notation. Newton doesn't justify, though,} why \textit{this particular definition of the quantity of motion is the correct one. This lack of justification for privileging $\pp := m\vv$ ripples through the laws Newton will soon state, causing unnecessary confusion.}
 
 	\item (Newton's fourth definition). The impressed force is the action exercised on the body, to changing the state either of rest or of motion uniform in direction.
 	
@@ -768,7 +794,7 @@ And here's the English translation of relevant excerpts of Newton's original the
 	
 	\textit{Earlier, Newton defined the quantity of motion $\pp := m\vv$ of a particle, and vaguely defined ``force'' $\FF$ to be the ``action exercised'' on the particle in question. Here, he gives an explicit formula for force, and states that $\FF = \frac{d\pp}{dt}$. Overall, the effect is that Newton has defined $\FF := \frac{d\pp}{dt}$.}
 	
-	\textit{Unfortunately, the definition $\FF := \frac{d\pp}{dt}$ is not very meaningful at this point. It depends on $\pp := m\vv$, and we don't know why this $\pp$ is considered the ``quantity of motion''. Why don't we have $\pp := m\xx$ and $\FF = \frac{d}{dt}(m\xx)$, or $\pp := m\frac{d^n\xx}{dt^n}$ for some other $n$, and $\FF = \frac{d^n}{dt^n}(m\xx)$?}
+	\textit{Unfortunately, the definition $\FF := \frac{d\pp}{dt}$ is not very meaningful at this point. It depends on $\pp := m\vv$, and we don't know why this $\pp$ is considered the ``quantity of motion''. Why don't we have $\pp := m\xx$ and $\FF = \frac{d}{dt}(m\xx)$, or $\pp := m\frac{d^n\xx}{dt^n}$ for some other $n$, and $\FF = \frac{d}{dt}\Big(m\frac{d^n\xx}{dt^n}\Big)$?}
 	
 	\item (Newton's third law). To every action there is always opposed an equal reaction; or the mutual actions of two bodies upon each other are always equal, and directed to contrary parts.
 	
