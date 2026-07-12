@@ -9,44 +9,341 @@
 	
 \maketitle
 
-\section*{The double-slit experiment}
+I find the typical explanations for the foundational assumptions of quantum mechanics to be lacking. Not many books take time to fully develop postulates, or axioms, from observations; not many books interleave observation, axiom, and derivation in the way I think should be the standard for physics. It’s all too common for the postulate to come first, with its justification being a retroactive compare-and-contrast with classical theory. 
 
-Huygens and Fresnel discovered that if we perform a double slit experiment with water waves, a single wave emitted by a source will be split into two copies of itself by the barrier between the slits, so that each slit becomes an emitter. We can repeat this experiment with light, and see interference patterns perfectly predicted by the classical model.
+Feynman’s lecture notes on quantum mechanics come pretty close to what I hope for. Though, they don't derive everything, as I would hope for. They especially don't explain why wavefunctions are complex-valued. These notes are intended to fill that gap. The idea is that one reads this instead of Chapters 1 - 3 of Feynman, and then continues on with Feynman after this.
 
+\section*{Classical prerequisites}
+
+\subsection*{History}
+
+\textbf{The history of the question ``what is light''?}
 \begin{itemize}
-	\item (Strange new observation). Except, by turning the intensity of the source down, we observe that light is detected on the screen as discrete particles- nothing like a wave hitting a breakwater. And if we have a single-photon source, we can further observe that exactly one photon is detected at a time. (If we don’t have a single photon source, we can still deduce that one photon is detected at a time by placing a photon detector at each slit, and seeing that the two slits never both record a photon.)
+	\item Late 1600s - early 1800s - Newton argues that light consists of light particles, while Huygens argues that light is a pulse\footnote{Though Huygens used the word ``wave'', his waves were not understood as decomposing into waves of single frequencies. Huygens in fact had no concept of wave interference.} Until Young's double-slit experiment, Newton's theory won out due to his stature, and for how it better explained the fact that shadows had sharp edges. Though, Huygens notably proposed \textit{Huygens's principle}, which states that every point on a wavefront can be treated as a new source emitting its own spherical wavelets, and that the wavefront at a later time is the envelope of all these wavelets.
+	\item Early 1800s - Young performs his double-slit experiment, demonstrating that light exhibits wavelike interference. This upends Newton's theory.
+	\item Early 1800s - Drawing on Huygens, Fresnel comes up with the theory for predicting the wave behavior of light in general settings that are more complicated than just a double-slit.
+	\item Mid 1800s - Foucalt uses a rotating mirror to measure the speed of light.
+	\item Mid 1800s - Maxwell organizes together a set of equations for electromagnetism, adding a correction term of his own. He realizes (qualitatively) that accelerating charges must radiate sinusoidal electromagnetic waves, and that all electromagnetic waves travel at a speed very close to the speed for light that Foucalt measured. Maxwell proposes that light must be an electromagnetic wave.
+	\item \textit{Monochromatic} light can now be defined to be a light wave that has a single wavelength. Only certain colors of light- the ``ROY-G-BIV'' colors of the rainbow- are monochromatic.
+	\item Late 1800s - Hertz experimentally verifies Maxwell's radiation prediction.
+	\item Late 1800s - Larmor derives the precise formula for the radiation of an accelerating charge.
 \end{itemize}
 
-So, we have:
+\textbf{The history of the spectrum, the atomic fingerprint}
+\begin{itemize}
+	\item Late 1600s - Newton splits white light into a continuous spectrum with a prism.
+	\item Early 1800s - In the paper presenting his double-slit experiment, Young provides a means to calculate the wavelength of the fringes produced.
+	\item Early 1800s - Fraunhofer observes the solar spectrum with a prism, and sees many black lines. He later uses a mechanical ruling engine to build the first high-quality diffraction gratings, and uses calculations inspired by Young to repeat his experiment more quantitatively.
+	\item Mid 1800s - Kirchhoff and Bunsen establish that when heated in a flame and viewed through a prism, each element emits a characteristic spectrum. They start cataloging spectra for each element, and find that the black lines in the solar spectrum correspond to emission lines of certain elements.
+	\item Late 1800s - Diffraction gratings are popularized and spectra are further cataloged.
+	\item Late 1800s - The Balmer formula for the hydrogen spectrum and the Rydberg formula for alkali metal spectra are discovered.
+\end{itemize}
+
+\subsubsection*{Questions}
+
+\begin{itemize}
+	\item How do we know that matter is made of atoms? Wait, what even is an atom? Oh yeah, it's an indivisible piece of an element.
+	\item What even is an element? Well, a \textit{compound} is a substance with distinctive chemical properties consistent across all of its instances. (How does one even define ``chemical property'' before knowing about electrons? Is ``chemical property'' just vaguely ``alchemical property''?) An \textit{element} was one of the substances that makes up a compound with its own chemical properties and that cannot be separated, by the typical means of early chemistry, into other substances. (What were the ``typical means of early chemistry''? Heating?) And an atom is a piece of an element that cannot be divided into smaller parts without sacrificing some of the element's chemical properties.
+	\item J.J. Thomson noticed that the ratios of masses of elements found in compounds are (1) the same across all instances of a compound and (2) involve small integers. He thought (2) was most easily explained by there existing indivisible pieces of elements. Although I don't really buy this- it could have easily been the case that elements are infinitely divisible, and that some other principle or influence forced the ratios of small integers.
+	\item Assuming that we do know that atoms exist, how do we know that their constituents have electrical charge, and are influenced by that force that affects amber rubbed with fur, electricity?
+	\item What was the evidence for the plum pudding model of the atom, which depicted the atom as a positively charged sphere with small negatively charged particles (electrons) scattered uniformly throughout? In particular, how did we know that the negative charge wasn't continuously distributed, but instead in discrete particles?
+\end{itemize}
+
+\begin{itemize}
+	\item The periodicity of elements was known before electrons were, right?
+\end{itemize}
+
+\subsection*{Waves}
+
+\begin{defn}
+	(Frozen spatial wave).
+	
+	A \textit{transverse frozen spatial wave} is a function that describes the perpendicular displacement of every position on a straight line. Think of a snapshot in time of a wave traveling at sea. A \textit{longitudinal frozen spatial wave} is a function that describes the parallel displacement of every position on a straight line. Think of a snapshot in time of a pulse traveling through a slinky.
+	
+	Whether a frozen spatial wave is transverse or longitudinal, it has the form $(x, t) \mapsto A\cos\Big(\frac{2\pi}{\lambda} x + \phi\Big)$ for some $A, \lambda \geq 0$ and $\phi \in \R$.
+\end{defn}
+
+Probably the most familiar type of wave is the transverse traveling wave. Although, longitudinal traveling waves also exist.
+
+\begin{defn}
+	(Traveling wave). A \textit{traveling wave} is a frozen spatial wave that is translated over time, and is thus a function of the form $(x, t) \mapsto A \cos\Big(\frac{2\pi}{\lambda}x - \frac{2\pi}{T} t + \phi\Big)$, where
+	
+	\begin{itemize}
+		\item $\lambda \geq 0$ is the spatial period (the \textit{wavelength})
+		\item $T \geq 0$ is the temporal period (the \textit{period}), and $\nu := \frac{1}{T}$ is the temporal frequency (the \textit{frequency})
+		\item $\phi \in \R$ is the phase shift (the \textit{phase})
+	\end{itemize}
+	
+	Often, we use $k := \frac{2\pi}{\lambda}$, unilluminatingly called the \textit{wavenumber}, and $\omega := \frac{2\pi}{T} = 2\pi \nu$ for brevity.
+\end{defn}
+
+\begin{defn}
+	(Speed of a traveling wave). The \textit{speed} $v$ of a traveling wave is defined to be the time-rate at which it advances through a wavelength, $v := \frac{\lambda}{T} = \lambda \nu$.
+\end{defn}
+
+In contrast to traveling waves, there is also the slightly less familiar standing wave. The best example of these is probably a vibrating string.
+
+\begin{defn}
+	(Standing wave). A \textit{standing wave} is a frozen spatial wave whose amplitude oscillates over time, and is thus a function of the form $(x, t) \mapsto A \sin(\omega t) \cos(kx + \phi)$. 
+\end{defn}
+
+\begin{theorem}
+	Every standing wave can be expressed as a sum of traveling waves.
+\end{theorem}
+
+But not all sums of traveling waves are standing waves. As you would expect, though, we still consider such sums to be waves. This in fact leads us to the general definition of a wave:
+
+\begin{defn}
+	(Wave). A \textit{wave} is sum of standing waves and traveling waves.
+\end{defn}
+
+Consider a wave that is the sum of $n$ traveling waves emitted from $n$ different sources. We can write that wave as
+
+\begin{align*}
+	(x, t) \mapsto \sum_{i = 1}^n A_i \cos(k_i x - 2\pi \nu_i t + \phi_i).
+\end{align*}
+
+Notice that there is in general no single temporal frequency associated with this wave, but instead the multiple temporal frequencies $\nu_1, ..., \nu_n$. 
+
+\begin{defn}
+	(Frequency content of a wave).
+	
+	We say that a wave \textit{has the frequency} $\nu_i$ if $\nu_i$ appears as a temporal frequency, like in the above, in one of the sum terms for the wave. 
+\end{defn}
+
+\subsection*{Young's double-slit experiment}
+
+If we perform a double-slit experiment with water waves, a single wave emitted by a source will be split into two copies of itself by the barrier between the slits, so that each slit becomes an emitter. When Young repeated this experiment with light of a pure color, he saw identical interference patterns, which suggests light is a wave.
+
+\begin{theorem}
+	(Grating equation).
+	
+	In a double-slit experiment in which monochromatic light of wavelength $\lambda$ is shone through slits separated by a distance $d$, maximum constructive interference occurs at the fringes whose diffraction angle $\theta$ satisfies $d \sin(\theta) = m \lambda$, where $m \in \Z$.
+\end{theorem}
+
+\begin{theorem}
+	(Wavelength from displacement). 
+	
+	The displacement of a fringe in the interference pattern produced from a diffraction grating determines its wavelength.
+\end{theorem}
+
+\begin{proof}
+	Let $y$ and $\theta$ be the displacement and diffraction angle of a given fringe, and let $L$ be the distance from the grating to the screen. Then $\tan(\theta) = y/L$. Solving for $\theta$ and substituting into the grating equation, we obtain $d\sin(\arctan(y/L)) = m \lambda$, which is equivalent to $d\frac{y}{\sqrt{y^2 + L^2}} = m\lambda$.
+\end{proof}
+
+\subsection*{Dipole moments}
+
+[TO-DO]
+
+\section*{The full double-slit experiment}
+
+There are some additional strange observations we can make in the double-slit experiment:
+
+\begin{enumerate}
+	\item By turning the intensity of the source down, we observe that light is detected on the screen as discrete particles- nothing like a wave hitting a breakwater.
+	\item And if we have a single-photon source\footnote{If we don’t have a single photon source, we can still deduce that one photon is detected at a time by placing a photon detector at each slit, and seeing that the two slits never both record a photon.}, we can further observe that exactly one photon is detected at a time.
+	\item Even with a low intensity source, the classical interference pattern still builds up over time.
+\end{enumerate}
+
+We propose the following axioms to explain the observations:
 
 \begin{axiom}
-	(Wave interference). Light functionally travels like a wave that comes out of the emitter as one wave and is split by the “breakwater” into two identical waves that interfere with each other and sum to form an aggregate wave.
+	(Wave interference).
+	
+	Light functionally travels like a wave that comes out of the emitter as one wave and is split by the “breakwater” into two identical waves that interfere with each other and sum to form an aggregate wave.
 \end{axiom}
 
 \begin{axiom}
-	(Discreteness). The aggregate wave arrives as exactly one of the particles that would have constituted it.
+	(Discreteness).
+	
+	The aggregate wave arrives as exactly one of the particles that would have constituted it.
 \end{axiom}
 
-And, since we observe the same interference pattern as in the classical case:
-
 \begin{axiom}
-	(Axiom: structured randomness). The location of that particle is randomly chosen, such that the distribution of the probabilities of the possible locations is proportional to the intensity of the aggregate wave.
+	(Axiom: structured randomness).
+	
+	The location of that particle is randomly chosen, such that the distribution of the probabilities of the possible locations is proportional to the intensity of the aggregate wave.
+	
 \end{axiom}
 
-One more observation yields some more unexpected behavior. If we place photon detectors at each slit, the interference patter disappears, and we only see brightness. To account for this, we propose another axiom:
+\begin{defn}
+	(Wavefunction).
+	
+	The aggregate wave is usually called the \textit{wavefunction}.
+\end{defn}
+
+Since the intensity $I$ of a classical electromagnetic wave is $I = A^2$, where $A$ is the amplitude, this is equivalent to saying that the distribution of the possible locations is proportional to square of the amplitude of the wavefunction.
+
+One more observation yields some more unexpected behavior. If we place photon detectors at each slit, the interference pattern disappears, and we only see brightness. To account for this, we propose another axiom:
 
 \begin{axiom}
-	(Indistinguishable alternatives). Only reemitted waves corresponding to indistinguishable alternative paths are included in the aggregate wave.
+	(Indistinguishable alternatives).
+	
+	Only reemitted waves corresponding to indistinguishable alternative paths are included in the wavefunction.
 \end{axiom}
 
 Let me briefly explain how the observation follows from this axiom. [TO-DO]. While there are potentially other axioms that could explain this most recent observation, this one seems relatively natural.
 
-\section*{Pedagogy}
+%\subsection*{Pedagogy of the full double-slit experiment}
+%
+%\begin{itemize}
+%	\item I know that somehow, one is supposed to be able to conclude wave-particle duality; that one can think of light as a particle with wave characteristics just as much as one can think of it as a wave with particle characteristics. But, all we can be sure of from this experiment is that a particle is detected on the screen. How can we be sure that it was a particle when it was emitted, and when it traveled? We have no way of detecting that. I suspect more experiments are necessary for uncovering the full wave-particle duality.
+%	\item At least for this experiment it seems that thinking of light as a wave seems to explain things better than thinking of it as a particle does. It's instinctive to imagine particles taking definite paths through space, and therefore easy to think that photons have merely paths that vary wildly as initial conditions change, but are nevertheless known by the universe. It's even easy to hold onto this idea of definitness while still permitting the strange new possibility for photons to experience interference. Before one fires one photon at a time, the situation could be "interference, but no randomness"- maybe photons interfere with each other rather than with themselves. And even when one does fire one photon at a time, it's very difficult to come up with explanations for what happened to the photon in-between the firing and the landing on the screen. In fact, how can we even be sure if the light was a photon when it was fired?
+%\end{itemize}
+
+\section*{From light to mass}
+
+When a double-slit experiment is performed on electrons instead of light, we observe the same things as we did for light. This gives us what de Broglie concluded in 1924:
+
+\begin{axiom}
+	(The strangeness affects particles with mass too).
+	
+	The axioms from the previous page apply to not only to light, but also to particles with mass.
+\end{axiom}
+
+\section*{Atomic energies}
+
+The quantitative description of spectra empirically discovered by Rydberg in the late 1800s showed that many spectral frequencies are differences of numbers.
+
+\begin{axiom}
+	(Rydberg formula).
+	
+	Consider the spectrum of an element $a$ from the first column of the periodic table. Each spectral line is of the form\footnote{$S_a = cRZ_a^2$, where $c$ is the speed of light, $R$ is the Rydberg constant, and $Z_a$ is the atomic number.}
+	
+	\begin{align*}
+		\nu = S_a \Big(\frac{1}{m^2} - \frac{1}{n^2}\Big), \text{ where $S_a \geq 0$ and $n, m$ are positive integers}.
+	\end{align*}
+\end{axiom}
+
+In 1908, Ritz took this further and empirically found that for \textit{every} element, there is a small set of numbers whose pairwise differences yield \textit{all} of that element's spectral frequencies.
+
+\begin{axiom}
+	(Ritz terms).
+	
+	For the spectrum of every element $a$, there exists a relatively small set of numbers $T_a$ (historically called \textit{terms}) such that:
+	
+	\begin{enumerate}
+		\item The frequency of every spectral line is of the form $T_2 - T_1$, where $T_1, T_2 \in T_a$.
+		\item Spectral lines of the form $T_1 + T_2$, $T_1, T_2 \in T_a$, are coincidental.
+	\end{enumerate}
+\end{axiom}
+
+%\begin{theorem}
+%	(Ritz combination principle). If $\nu = T_2 - T_1$, $T_1, T_2 \in T_a$, is the frequency of an observed spectral line and $\mu = T_3 - T_2$, $T_2, T_3 \in T_a$, is the frequency of an adjacent observed spectral line, then $\nu + \mu = T_3 - T_1$ is the frequency of an observed spectral line.
+%\end{theorem}
+
+At this point in time, we knew that electrons are the part of the atom that emit light during spectrum collection\footnote{A spectrum was obtained by heating the desired element and then viewing with a prism or diffraction grating. The heating causes the atoms of the element to radiate, i.e. emit light. Since electron are have negligible mass relative to the nucleus, they are the parts of the atom that meaningfully accelerate during this process, and thus the parts of the atom that radiate during this process.}. So, we knew that observed spectral frequencies were somehow associated with the emission of light from electrons.
+
+A natural idea is to interpret Rydberg's terms from $T_a$, which have units as frequency, as \textit{literally} being frequencies. Thus, they too must somehow associated with the emission of light from electrons.
+
+In 1905, Einstein made this association precise.
+
+\begin{axiom}
+	(Energy depends on frequency).
+	
+	There exists a constant $h \geq 0$ such that when a light particle or a particle with mass, described by a monochromatic wavefunction of frequency $\nu$, hits the screen of the double-slit experiment with energy $E = h\nu$.
+\end{axiom}
+
+The situation thus became as follows:
 
 \begin{itemize}
-	\item I know that somehow, one is supposed to be able to conclude wave-particle duality; that one can think of light as a particle with wave characteristics just as much as one can think of it as a wave with particle characteristics. But, all we can be sure of from this experiment is that a particle is detected on the screen. How can we be sure that it was a particle when it was emitted, and when it traveled? We have no way of detecting that. I suspect more experiments are necessary for uncovering the full wave-particle duality.
-	\item At least for this experiment it seems that thinking of light as a wave seems to explain things better than thinking of it as a particle does. It's instinctive to imagine particles taking definite paths through space, and therefore easy to think that photons have merely paths that vary wildly as initial conditions change, but are nevertheless known by the universe. It's even easy to hold onto this idea of definitness while still permitting the strange new possibility for photons to experience interference. Before one fires one photon at a time, the situation could be "interference, but no randomness"- maybe photons interfere with each other rather than with themselves. And even when one does fire one photon at a time, it's very difficult to come up with explanations for what happened to the photon in-between the firing and the landing on the screen. In fact, how can we even be sure if the light was a photon when it was fired?
+	\item We observe energies associated with the radiation of light by electrons. 
+	\item These observed energies are differences of unobserved energies that are also associated with electrons.
 \end{itemize}
+
+\textit{Note: the electron is the focus here, not the light emitted by it. I'm not sure why we can just ignore the quantum behavior of light here... but that is what Bohr did. And actually, Bohr was even able to make this leap without knowing that matter experiences the effects of the double-slit experiment!}
+
+Bohr hypothesized that each unobserved energy is a possible energy value that an electron can attain, and that, by conservation of energy, each observed energy must be a change in some electron's energy.
+
+\begin{axiom}
+	(Electron energies).
+	
+	The set of energy values that an electron bound to an atom $a$ can attain is $\{ ht \mid t \in T_a\}$, where $T_a$ is the set of Ritz terms for the spectrum of $a$.
+\end{axiom}
+
+Notably, this meant that the energy of an electron was a member of a finite set. Energy became \textit{quantized}.
+
+Bohr's assumption makes a lot of sense at first glance, but when think more about Ritz's term structure, it very quickly becomes weird. Since observed frequencies are differences of unobserved frequencies, we can shift the unobserved frequencies around without changing the observed ones. This doesn't really make sense! One would think that an unobserved frequency of $0$, which intuitively corresponds to zero oscillation, should in no way be allowed to be relabeled as a frequency of $S$, which corresponds to nonzero oscillation. But apparently not. Apparently, whether an unobserved thing is oscillating or not is a a matter of perspective.
+
+Indeed, we discover that the unobserved frequencies are in fact the frequencies of the electron's wavefunction, which cannot be observed...
+
+\begin{theorem}
+	Since we observe frequencies that are differences of unobserved frequencies, the wavefunction of the electron must contain each of those frequencies individually.
+\end{theorem}
+
+\begin{proof}
+	The frequencies we observe are the frequencies appearing in dipole moment, $\dd(t) = e \int_{-\infty}^\infty x rho(x, t) dx$. By the Born rule we have $\rho(x, t) = A(x, t)^2$. And since $A$ is a wavefunction, a sum of traveling waves, we have
+	
+	\begin{align*}
+		A(x, t) = \sum_{k = 1}^n A_k(x) \cos\Big(2\pi \nu_k t + \phi_k(x)\Big),
+	\end{align*}
+	
+	for some positive integer $n$. Therefore $\rho = A^2$ is of the form
+	
+	\begin{align*}
+		\rho(x,t) = \rho_0(x) + \sum_{k = 1}^m \rho_k(x) \cos\Big(2\pi \nu_k t + \widetilde{\phi}_k(x)\Big),
+	\end{align*}
+	
+	for some positive integer $m$. Now we pass from observation, to $\dd(t)$, to $\rho(x, t)$, to $A(x, t)$. We observe the frequency $T_2 - T_1$. Therefore $\dd(t)$ has $T_2 - T_1$ as a frequency. Now, since integrating a sinusoid against space cannot introduce new temporal frequencies, we can see that if a frequency does not appear not in $\rho(x, t)$, it will not appear in $\dd(t)$. Thus $\rho(x, t)$ has $T_2 - T_1$ as a frequency.
+	
+	Looking at the above expression for $A(x, t)$, we can see that if both of $T_1$ and $T_2$ do not appear individually as frequencies in $A(x, t)$, then the cross term necessary to produce a frequency of $T_2 - T_1$ will not appear as a frequency in $\rho(x, t) = A(x, t)^2$. So $A(x, t)$ has $T_1$ and $T_2$ as frequencies.
+\end{proof}
+
+\begin{theorem}
+	If the wavefunction of an electron in an atom of element $a$ has $T_1$ and $T_2$ as frequencies, then we should observe both $T_2 - T_1$ and $T_2 + T_1$ as frequencies in the spectrum of $a$.
+\end{theorem}
+
+\begin{proof}
+	Assume the electron wavefunction has both of $T_1$ and $T_2$ as frequencies. Then, using the expression for $A(x, t)$ from the previous proof, we see that the electron wavefunction must be given by
+	
+	\begin{align*}
+		A(x, t) = A_1(x) \cos\Big(2\pi T_1 t + \phi_1(x)\Big) +
+		A_2(x) \cos\Big(2\pi T_2 t + \phi_2(x)\Big) +		
+		\sum_{k = 1}^r A_k(x) \cos\Big(2\pi \nu_k t + \phi_k(x)\Big),
+	\end{align*}
+	
+	for some positive integer $r$.
+	
+	Now, in general, if $(x, t) \mapsto A_i(x, t)$ is a set of traveling waves, then any frequencies present in a squared sum of some of the waves $\Big( \sum_{i = 1}^p A_i(x, t) \Big)^2$ will also be present in a squared sum of more of the waves $\Big( \sum_{i = 1}^q A_i(x, t) \Big)^2$, $q > p$. It therefore suffices to assume that the third term in the above is zero, and that
+	
+	\begin{align*}
+		A(x, t) = \underbrace{A_1(x) \cos\Big(2\pi T_1 t + \phi_1(x)\Big)}_{A_1(x, t)} +
+		\underbrace{A_2(x) \cos\Big(2\pi T_2 t + \phi_2(x)\Big)}_{A_2(x, t)}.
+	\end{align*}
+	
+	Now we pass from this $A(x, t)$, to $\rho(x, t)$, to $\dd(t)$, to observation. First, we compute $\rho(x, t)$ by using Born's rule and the identities $\cos^2(\theta) = \frac{1}{2}(1 + \cos(2\theta))$, $2\cos(\alpha)\cos(\beta) = \cos(\alpha - \beta)+\cos(\alpha + \beta)$. We have
+	
+	\begin{align*}
+		\rho(x, t) &= A(x, t)^2 \\
+		&= \underbrace{\frac{1}{2}\Big(A_1(x)^2 + A_2(x)^2\Big) + \frac{1}{2}A_1(x)^2 \cos\big(2\pi \cdot 2T_1 t + 2\delta_1\big) + \frac{1}{2}A_2(x)^2 \cos\big(2\pi \cdot 2T_2 t + 2\delta_2\big)}_{A_1(x, t)^2 + A_2(x, t)^2} \\
+		&+ \underbrace{A_1(x) A_2(x) \cos\big(2\pi(T_1 - T_2)t + \delta_1 - \delta_2\big) + A_1(x) A_2(x) \cos\big(2\pi(T_1 + T_2)t + \delta_1 + \delta_2\big)}_{2 A_1(x, t) A_2(x, t)}.
+	\end{align*}
+	
+	(Notice, five frequencies are present. The first line of the above has $0$, $2T_1$, and $2T_2$, and the second line of the above has $T_1 - T_2$ and $T_1 + T_2$.)
+	
+	Now, from this probability distribution, we compute the dipole moment:
+	
+	\begin{align*}
+		\dd(t) &= e \int_{-\infty}^\infty x \rho(x) dx \\
+		&= e \int_{-\infty}^\infty x (A_1(x, t)^2 + A_2(x, t)^2) dx + e \int_{-\infty}^\infty x (2A_1(x, t)A_2(x, t)) dx.
+	\end{align*}
+	
+	The first integrand is an odd function; thus, the first integral is zero by symmetry, and the frequencies associated with its integrand ($0$, $2T_1$, $2T_2$) do not appear. The second line integrand has the frequencies $T_1 - T_2$ and $T_1 + T_2$. Since the integration of a non-odd sinusoid against space preserves temporal frequencies\footnote{The integration of an odd sinusoid against space is zero.}, the dipole moment should have the frequencies $T_1 - T_2$ and $T_1 + T_2$.
+	
+	Thus, we should observe spectral lines of frequencies $T_1 - T_2$ and $T_1 + T_2$.
+\end{proof}
+
+Except, we know from the Ritz axiom that we only observe the spectral lines whose frequencies are differences.
+
+\textit{This only shows the problem with real-valued wavefunctions... and doesn't explain why complex-valued wavefunctions work. But anyhow, at this point, if you use the simplest and most obvious complex-valued wavefunction that contains $T_1$ and $T_2$ as frequencies, it works!}
+
+\section*{TO-DO}
+
+\begin{itemize}
+	\item Uncertainty principle
+	\item $\pp = h\kk$
+\end{itemize}
+
 
 
 \end{document}
