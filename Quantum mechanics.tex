@@ -131,6 +131,10 @@ If we perform a double-slit experiment with water waves, a single wave emitted b
 	Let $y$ and $\theta$ be the displacement and diffraction angle of a given fringe, and let $L$ be the distance from the grating to the screen. Then $\tan(\theta) = y/L$. Solving for $\theta$ and substituting into the grating equation, we obtain $d\sin(\arctan(y/L)) = m \lambda$, which is equivalent to $d\frac{y}{\sqrt{y^2 + L^2}} = m\lambda$.
 \end{proof}
 
+\subsection*{Fourier series and wave packets}
+
+See ``Fourier series and wave packets.tex'' and ``Fourier series and wave packets.pdf''.
+
 \subsection*{Dipole moments}
 
 [TO-DO]
@@ -276,7 +280,7 @@ Indeed, we discover that the unobserved frequencies are in fact the frequencies 
 \end{theorem}
 
 \begin{proof}
-	The frequencies we observe are the frequencies appearing in dipole moment, $\dd(t) = e \int_{-\infty}^\infty x rho(x, t) dx$. By the Born rule we have $\rho(x, t) = A(x, t)^2$. And since $A$ is a wavefunction, a sum of traveling waves, we have
+	The frequencies we observe are the frequencies appearing in dipole moment, $d(t) = e \int_{-\infty}^\infty x rho(x, t) dx$. By the Born rule we have $\rho(x, t) = A(x, t)^2$. And since $A$ is a wavefunction, a sum of traveling waves, we have
 	
 	\begin{align*}
 		A(x, t) = \sum_{k = 1}^n A_k(x) \cos\Big(2\pi \nu_k t + \phi_k(x)\Big),
@@ -288,7 +292,7 @@ Indeed, we discover that the unobserved frequencies are in fact the frequencies 
 		\rho(x,t) = \rho_0(x) + \sum_{k = 1}^m \rho_k(x) \cos\Big(2\pi \nu_k t + \widetilde{\phi}_k(x)\Big),
 	\end{align*}
 	
-	for some positive integer $m$. Now we pass from observation, to $\dd(t)$, to $\rho(x, t)$, to $A(x, t)$. We observe the frequency $T_2 - T_1$. Therefore $\dd(t)$ has $T_2 - T_1$ as a frequency. Now, since integrating a sinusoid against space cannot introduce new temporal frequencies, we can see that if a frequency does not appear not in $\rho(x, t)$, it will not appear in $\dd(t)$. Thus $\rho(x, t)$ has $T_2 - T_1$ as a frequency.
+	for some positive integer $m$. Now we pass from observation, to $d(t)$, to $\rho(x, t)$, to $A(x, t)$. We observe the frequency $T_2 - T_1$. Therefore $d(t)$ has $T_2 - T_1$ as a frequency. Now, since integrating a sinusoid against space cannot introduce new temporal frequencies, we can see that if a frequency does not appear not in $\rho(x, t)$, it will not appear in $d(t)$. Thus $\rho(x, t)$ has $T_2 - T_1$ as a frequency.
 	
 	Looking at the above expression for $A(x, t)$, we can see that if both of $T_1$ and $T_2$ do not appear individually as frequencies in $A(x, t)$, then the cross term necessary to produce a frequency of $T_2 - T_1$ will not appear as a frequency in $\rho(x, t) = A(x, t)^2$. So $A(x, t)$ has $T_1$ and $T_2$ as frequencies.
 \end{proof}
@@ -315,7 +319,7 @@ Indeed, we discover that the unobserved frequencies are in fact the frequencies 
 		\underbrace{A_2(x) \cos\Big(2\pi T_2 t + \phi_2(x)\Big)}_{A_2(x, t)}.
 	\end{align*}
 	
-	Now we pass from this $A(x, t)$, to $\rho(x, t)$, to $\dd(t)$, to observation. First, we compute $\rho(x, t)$ by using Born's rule and the identities $\cos^2(\theta) = \frac{1}{2}(1 + \cos(2\theta))$, $2\cos(\alpha)\cos(\beta) = \cos(\alpha - \beta)+\cos(\alpha + \beta)$. We have
+	Now we pass from this $A(x, t)$, to $\rho(x, t)$, to $d(t)$, to observation. First, we compute $\rho(x, t)$ by using Born's rule and the identities $\cos^2(\theta) = \frac{1}{2}(1 + \cos(2\theta))$, $2\cos(\alpha)\cos(\beta) = \cos(\alpha - \beta)+\cos(\alpha + \beta)$. We have
 	
 	\begin{align*}
 		\rho(x, t) &= A(x, t)^2 \\
@@ -328,7 +332,7 @@ Indeed, we discover that the unobserved frequencies are in fact the frequencies 
 	Now, from this probability distribution, we compute the dipole moment:
 	
 	\begin{align*}
-		\dd(t) &= e \int_{-\infty}^\infty x \rho(x) dx \\
+		d(t) &= e \int_{-\infty}^\infty x \rho(x) dx \\
 		&= e \int_{-\infty}^\infty x (A_1(x, t)^2 + A_2(x, t)^2) dx + e \int_{-\infty}^\infty x (2A_1(x, t)A_2(x, t)) dx.
 	\end{align*}
 	
@@ -344,8 +348,8 @@ Except, we know from the Ritz axiom that we only observe the spectral lines whos
 \section*{TO-DO}
 
 \begin{itemize}
-	\item Uncertainty principle
 	\item $\pp = h\kk$
+	\item (Heisenberg uncertainty principle). We know from Fourier analysis that $\Delta x \Delta k \geq \frac{1}{2}$. It follows from the previous item that $\Delta x \Delta p \geq \frac{1}{2}$.
 \end{itemize}
 
 

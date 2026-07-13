@@ -1,0 +1,191 @@
+\documentclass{article}
+\usepackage{RNotation}
+
+\title{Fourier series and wave packets}
+\author{Ross Grogan}
+\date{}
+
+\begin{document}
+	
+\maketitle
+
+\section*{Derivation of the Fourier series formula}
+
+We can define an inner product on functions periodic on $[-L, L]$ by 
+
+\begin{align*}
+	\langle f, g \rangle = \int_{-L}^{L} fg.
+\end{align*}
+
+Consider the following families of sinusoids of various frequencies:
+
+\begin{align*}
+	c_n(x) := \cos\Big(\frac{n\pi x}{L}\Big), n \in \Z_{\geq 0}
+	\quad \text{and} \quad
+	s_m(x) := \sin\Big(\frac{m\pi x}{L}\Big), m \in \Z_{\geq 0}
+\end{align*}
+
+By performing the necessary integrals, we can check that the $s_n$'s and $c_m$'s are orthogonal (i.e., that ${\{c_n \mid n \in \Z_{\geq 0}\} \cup \{s_m \mid m \in \Z_{\geq 0}\}}$ is an orthogonal set) and satisfy
+
+\begin{align*}
+	\langle c_n, c_n \rangle = 
+	\begin{cases}
+		L & n \neq 0 \\
+		2L & n = 0
+	\end{cases}
+	\quad \text{and} \quad
+	\langle s_m, s_m \rangle =
+	\begin{cases}
+		L & m \neq 0 \\
+		0 & m = 0
+	\end{cases}.
+\end{align*}
+
+%\begin{align*}
+%	||s_n||^2 = \langle s_n, s_n \rangle &= \int_{-L}^L \sin^2\Big(\frac{n\pi x}{L}\Big) dx \\
+%	&= \frac{1}{2} \int_{-L}^L \Big(1 - \cos\Big( \frac{2\pi nx}{L}\Big)\Big) dx \\
+%	&= \frac{1}{2}\Big(x - \frac{L}{2\pi n}\sin\Big( \frac{2\pi nx}{L}\Big)\Big)\Big|_{-L}^L \\
+%	&= \frac{1}{2}\Big( (L - 0) - (-L - 0) \Big) \\
+%	&= \frac{1}{2}(2L) \\
+%	&= L.
+%\end{align*}
+
+If we define $\hat{c}_n := c_n/||c_n||$ and $\hat{s}_m := s_m/||s_m||$, then the $\hat{c}_n$'s and $\hat{s}_m$'s form an orthonormal set. And if we assume this set also spans the vector space of periodic functions on $[-L, L]$, then an arbitrary periodic function $f$ on $[-L, L]$ can be expressed as
+
+\begin{align*}
+	f(x) &= \sum_{n = 0}^{\infty} \langle f, \hat{c}_n \rangle \hat{c}_n + \langle f, \hat{s}_n \rangle \hat{s}_n,
+\end{align*}
+
+which, since $||\cdot|| = \sqrt{\langle \cdot, \cdot \rangle}$, is equivalent to
+
+\begin{align*}
+	f(x) &= \sum_{n = 0}^{\infty} \frac{\langle f, c_n \rangle}{\langle c_n, c_n \rangle}c_n + \frac{\langle f, s_n \rangle}{\langle s_n, s_n \rangle}s_n \\
+	&= \Big(\frac{\langle f, c_0 \rangle}{2L} + 0\Big) + \sum_{n = 1}^{\infty} \frac{\langle f, c_n \rangle}{L}c_n + \frac{\langle f, s_n \rangle}{L} s_n.
+\end{align*}
+
+Thus, assuming the $c_n$'s and $s_m$'s form a basis for the vector space of periodic functions on $[-L, L]$, an arbitrary periodic function $f$ on $[-L, L]$ can be expressed as
+
+\begin{align*}
+	f &= \frac{1}{2} a_0 + \sum_{n = 1}^\infty a_n c_n + b_n s_n, \text{ where $a_n = \frac{1}{L} \langle f, c_n \rangle$ and $b_n = \frac{1}{L} \langle f, s_n \rangle$}.
+\end{align*}
+
+\newpage
+
+\section*{Fourier series with complex exponentials}
+
+In the previous section, we learned that if we assume sinusoidal functions of different frequencies form a basis for the vector space of periodic functions on $[-L, L]$, then we can express one of those periodic functions $f$ as
+
+\begin{align*}
+	f(x) &= \frac{1}{2} a_0 + \sum_{n = 1}^\infty a_n \cos\Big(\frac{n\pi x}{L}\Big) + b_n \sin\Big(\frac{n\pi x}{L}\Big), \\
+	&\text{ where $a_n = \frac{1}{L} \langle f, c_n \rangle$ and $b_n = \frac{1}{L} \langle f, s_n \rangle$}.
+\end{align*}
+
+What happens when we reexpress the sinusoids by using the consequences of Euler's formula?:
+
+\begin{align*}
+	\cos(\theta) = \frac{\exp(i\theta) + \exp(-i\theta)}{2}, \\
+	\sin(\theta) = \frac{\exp(i\theta) - \exp(-i\theta)}{2i}.
+\end{align*}
+
+Well, letting $\theta_n = n\pi x/L$ for convenience, we have
+
+\begin{align*}
+	a_n \cos\Big(\frac{n\pi x}{L}\Big) + b_n \sin\Big(\frac{n\pi x}{L}\Big) &= 
+	a_n\cos(\theta_n) + b_n\sin(\theta_n) \\
+	&= \frac{1}{2}\Big(a_n\frac{\exp(i\theta_n) + \exp(-i\theta_n)}{2} + b_n\frac{\exp(i\theta_n) - \exp(-i\theta_n)}{2i}\Big) \\
+	&= \frac{1}{2} a_n(\exp(i\theta_n) + \exp(-i\theta_n)) - \frac{1}{2} ib_n(\exp(i\theta_n) - \exp(-i\theta_n)) \\
+	&= \frac{1}{2}(a_n + ib_n)\exp(-i\theta_n) + \frac{1}{2}(a_n - ib_n)\exp(i\theta_n).
+\end{align*}
+
+This leads to $f$ being reexpressed as
+
+\begin{align*}
+	f(x) &= \frac{1}{2} a_0 + \sum_{n = 1}^\infty \frac{1}{2} (a_n + ib_n)\exp(-i\theta_n) + \sum_{n = 1}^\infty \frac{1}{2} (a_n - ib_n)\exp(i\theta_n).
+\end{align*}
+
+The idea now is to associate positive indices with the positive complex frequencies $i\theta_n$ and negative indices with the negative complex frequencies. To do so, define
+
+\begin{align*}
+	z_n :=
+	\begin{cases}
+		\frac{1}{2}(a_n - ib_n) & n \geq 1 \\
+		\frac{1}{2}(a_{|n|} + ib_{|n|}) & n \leq -1
+	\end{cases}.
+\end{align*}
+
+Now, we change the indices in the first sum. Using the fact that $-i\theta_{|n|} = -i\theta_{-n} = i\theta_n$ when $n \leq -1$, we have
+
+\begin{align*}
+	f(x) = \frac{1}{2}a_0 + \sum_{n = -\infty}^{-1} z_n \exp(i\theta_n) + \sum_{n = 1}^\infty z_n \exp(i\theta_n).
+\end{align*}
+
+We can now see a major advantage of the negative indices: the change of indices in the first sum resulted in its argument changing to match that of the second summation.
+
+Now, if we additionally had $\frac{1}{2} a_0 = z_0 \exp(i\theta_0)$, then the above would collapse into one compact formula:
+
+\begin{align*}
+	f(x) = \sum_{n = -\infty}^\infty z_n \exp(i \theta_n).
+\end{align*}
+
+Let's check this. When we use the definitions of $a_n$ and $b_n$ to compute $z_n$ in the case $n \geq 1$, when $z_n = \frac{1}{2}(a_n - ib_n)$, we find
+
+\begin{align*}
+	z_n &= \frac{1}{2}\Big(\frac{1}{L} \langle f, c_n \rangle - i \frac{1}{L} \langle f, s_n \rangle\Big) \\
+	&= \frac{1}{2L} \langle f, c_n - is_n \rangle \\
+	&= \frac{1}{2L} \langle f, \exp(-i\theta_n) \rangle.
+\end{align*}
+
+In the case $n \leq -1$, when $z_n = \frac{1}{2}(a_n + ib_n)$, we actually obtain the same thing as a result of using negative indices:
+
+\begin{align*}
+	z_n &= \frac{1}{2}\Big(\frac{1}{L} \langle f, c_{|n|} \rangle + i \frac{1}{L} \langle f, s_{|n|} \rangle\Big) \\
+	&= \frac{1}{2L} \langle f, c_{|n|} + is_{|n|} \rangle \\
+	&= \frac{1}{2L} \langle f, \exp(i\theta_{|n|}) \rangle \\
+	&= \frac{1}{2L} \langle f, \exp(-i\theta_n) \rangle.
+\end{align*}
+
+Thus, we have
+
+\begin{align*}
+	z_n = \frac{1}{2L} \langle f, \exp(-i\theta_n) \rangle = \frac{1}{2L} \Big\langle f, \exp\Big(-i\frac{n\pi x}{L}\Big) \Big\rangle.
+\end{align*}
+
+As we hoped, we do have $z_0 \exp(i\theta_0) = \frac{1}{2} a_0$:
+
+\begin{align*}
+	z_0 \exp(i\theta_0) = z_0 \exp(0) = z_0 = \frac{1}{2L} \langle f, \exp(0) \rangle = \frac{1}{2L} \langle f, 1 \rangle 
+	= \frac{1}{2L} \langle f, \cos\Big(\frac{0\pi x}{2L}\Big)) \rangle = \frac{1}{2L} \langle f, c_0 \rangle = \frac{1}{2} a_0.
+\end{align*}
+
+So we have the nice formula
+
+\begin{align*}
+	f(x) &= \sum_{n = -\infty}^\infty z_n \exp\Big(i \frac{n \pi x}{L}\Big), \text{ where} \\
+	z_n &= \frac{1}{2L} \Big\langle f, \exp\Big(-i\frac{n\pi x}{L}\Big) \Big\rangle.
+\end{align*}
+
+\newpage
+
+\section*{The Fourier transform}
+
+Apply Fourier series to non-periodic functions by letting the period $L$ go to $0$
+
+\section*{Wave packets}
+
+\begin{theorem}
+	Consider a position wavefunction $\psi: \R \rightarrow \C$, and let $\phi = \mathcal{F}(\psi)$ be its Fourier transform. By Parseval's theorem, $|\phi|^2$ is also a probability density.
+	
+	If we let $\langle x \rangle$ and $(\Delta x)^2$ denote the mean and variance of the probability density $|\psi|^2$, and let $\langle k \rangle$ and $(\Delta k)^2$ denote the mean and variance of the probability density $|\phi|^2$, then, assuming the appropriate integrals are defined, we have
+	
+	\begin{align*}
+		\Delta x \Delta k \geq \frac{1}{2},
+	\end{align*}
+	
+	with equality if and only if $\psi$ is an unchirped Gaussian with mean $\langle x \rangle$.
+\end{theorem}
+
+\begin{proof}
+	[TO-DO]
+\end{proof}
+
+\end{document}

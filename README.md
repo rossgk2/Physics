@@ -20,7 +20,7 @@ Well, something cannot come from nothing. And there is clearly something. So I m
 
 ## Modern physics
 
-Also in the early 1900s, humans had been investigating electromagnetism and finding extreme situations in which Newton's assumption did not hold. The assumption- that a certain quantity of motion is conserved- broke down for extremely fast things and extremely small things.
+In the early 1900s, humans had been investigating electromagnetism and matter on the atomic level, and finding extreme situations in which Newton's assumption did not hold. The assumption- that a certain quantity of motion is conserved- broke down for extremely fast things and extremely small things.
 
 In 1905, to explain **extremely fast things**, [Albert Einstein](https://en.wikipedia.org/wiki/Albert_Einstein) replaced Newton's assumption with a new one[^3], leading to [a new theory](https://en.wikisource.org/wiki/On_the_Electrodynamics_of_Moving_Bodies_(1920_edition)) that elegantly encapsulates Newton's old theory when we return to the familiar scenario of lower speeds. Einstein's theory informs us that reality is not so intuitive as we thought: time actually passes more slowly for moving observers than it does for stationary ones, and from the perspective of a quickly moving observer, lengths of stationary objects become actually, physically contracted along the direction of motion to a significant extent. Thus, time and space depend on one's perspective. Since time and space must be considered *relative* to the point of view, the theory is called *special relativity*. 
 
