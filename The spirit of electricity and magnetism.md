@@ -1,3 +1,5 @@
+# The spirit of electricity and magnetism
+
 Classical mechanics can be understood by making extremely elementary observations about the world and then interpreting the world in what feels like a very spiritual way. “There is a currency of motion. *Force* is that which changes it.”
 
 Though I didn’t realize that that this sort of spiritual theme was what I felt presentations of electricity and magnetism lacked, I was always looking for it.
